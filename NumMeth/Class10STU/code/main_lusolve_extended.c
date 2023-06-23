@@ -15,12 +15,12 @@ int main(void)
     double err;          /* モデルの誤差*/
     int m;               /*　調べるモデル数　*/
     /* データファイル　*/
-    char *data = "example2.txt";
+    // char *data = "example2.txt";
     // char *data="nh_covid-italy.txt";
     // char *data="nh_bb_age_weigth.txt";
     // char *data="nh_bb_age_length.txt";
     // char *data="nh_fish.txt";
-    // char *data="nh_wine.txt";
+    char *data="nh_wine.txt";
 
     char *path =
         "C:/Program_code/NumMeth/Class10STU";
