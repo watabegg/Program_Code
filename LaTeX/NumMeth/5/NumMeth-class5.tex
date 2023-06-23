@@ -1,0 +1,109 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{数値計算 Class-5 演習}
+\author{21T2166D 渡辺大樹}
+\date{2023月5月10日}
+\maketitle
+
+\section{演習内容}
+Class-5ではClass-2で演習したニュートン法を非線形の連立方程式の解決のために拡張し、実際に連立非線形方程式の解を見つけていく。
+
+非線形の連立方程式を解くためには前回演習したLU分解による連立方程式の解法を用いたいのでライブラリとして
+ソースコード\ref{v3}を読み込んでいく。
+\lstinputlisting[caption={my\_library\_v3.h}, label=v3]{C:/Program_code/c/NumMeth5/my_library_v3.h}
+
+ソースコード\ref{v3}にはベクトルのノルムを求めるためのvector\_norm1()やLU分解で連立一次方程式を解くlu\_solve()が実装されている。
+
+$A\textbf{x}=\textbf{b}$について解くとき、lu\_solve()では前回実装したludecomp()関数で行列$A$をLU分解したのち、
+$L\textbf{y}=\textbf{b}$と$U\textbf{x}=\textbf{y}$についてそれぞれを前進代入、後進代入で解いている。
+
+では以降では実際に非線形連立方程式を解く段階を説明していく。
+
+アルゴリズムは以下ソースコード\ref{non}に実装されている。
+\lstinputlisting[caption={nonlinear\_system.c}, label=non]{C:/Program_code/c/NumMeth5/nonlinear_system.c}
+
+\newpage
+このソースコード\ref{non}の中で実装されている拡張されたニュートン法についてコードを交えながら説明する。
+
+まず、以下の一意解を持つn元連立非線形方程式
+\begin{displaymath}
+    \begin{array}{lll}
+        f_1(x_1,x_2,\cdots,x_n) &=& 0 \\
+        f_2(x_1,x_2,\cdots,x_n) &=& 0 \\
+        & \vdots & \\
+        f_n(x_1,x_2,\cdots,x_n) &=& 0 
+    \end{array}
+\end{displaymath}
+を考える。
+
+\begin{displaymath}
+    \begin{array}{lll}
+        x &=& (x_1,x_2,\cdots,x_n) \\
+        \textbf{f}(x) &=& [f_1(x), f_2(x), \cdots, f_n(x)]^t
+    \end{array}
+\end{displaymath}
+とすると、
+\begin{displaymath}
+    \textbf{f}(x) = 0
+\end{displaymath}
+を求めればよい。
+
+この式は非線形ではあるが一意の解を持つ連立方程式であるから、線形の連立方程式で用いたニュートン法を非線形に拡張し用いる。
+
+線形一次の連立方程式では
+\begin{equation*}
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\end{equation*}
+の数列が解に収束するまで繰り返していた。これは解を$\alpha$とすると$x=\alpha$についてのテイラー展開
+を元に導出した式である。
+
+これを非線形でもこの考え方を応用し、解$\alpha$の近くの点$x=x_{\alpha}$での$f_k(x)$のテイラー展開をすると
+\begin{displaymath}
+    f_k(\alpha) \approx f_k(x_\alpha) + \sum_{i=1}^{n}\frac{\partial f_k}{\partial x_i}(x_\alpha)(\alpha - {x_\alpha}_i)
+\end{displaymath}
+の式が得られる。この式がゼロになる点を解けばよい。
+
+ここでこれを$\textbf{f}(x)$にまで拡張させると上記の式は
+% \begin{equation*}
+%     \begin{array}{l}
+%         \left[
+%             f_1(x_\alpha) \\ f_2(x_\alpha) \\ \vdots \\ f_n(x_\alpha)
+%         \right]
+%     \end{array}
+% \end{equation*}
+
+
+\end{document}

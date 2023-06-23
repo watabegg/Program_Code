@@ -1,0 +1,70 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{インテリジェントシステム レポート課題2}
+\author{21T2166D 渡辺大樹}
+\date{2023/06/14}
+\maketitle
+\subsubsection*{1. ミニマックス戦略}
+ミニマックス戦略を用いた探索でのノードの値は
+\begin{center}
+\begin{description}
+    \item[A:] 4
+    \item[B:] 4
+    \item[C:] 3
+    \item[D:] 9
+    \item[E:] 15t
+    \item[G:] 3
+    \item[H:] 12
+    \item[J:] 2
+    \item[M:] 2
+    \item[P:] 11 
+\end{description}
+\end{center}
+となる。
+
+\subsubsection*{2. アルファ$\cdot$ベータ枝刈り}
+アルファ$\cdot$ベータ枝刈りを用いたときに省略できるのは"J-R","H-P","M-T","M-U"の辺となる。
+
+\subsubsection*{3. ノードの条件}
+ノード値の条件はKが4以下、Qが9以下、Sが3以下となる。その他のノードR,T,U,W,Xは探索が省略されるので任意のノード値でよい。
+
+
+\end{document}

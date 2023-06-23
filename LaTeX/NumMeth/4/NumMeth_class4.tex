@@ -1,0 +1,305 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{数値計算 Class-4 演習}
+\author{21T2166D 渡辺大樹}
+\date{2023年5月5日}
+\maketitle
+
+\section{演習内容}
+Class-4の演習では連立一次方程式の係数行列を下三角行列と上三角行列の積に分解し、連立一次方程式を解く、LU分解というアルゴリズムをCで実装し、実際に行列をLU分解していく。
+
+LU分解は前回Class-3で用いたmy\_library.hを改変したソースコード\ref{lulib}と\ref{ludecomp}で実装されている。
+\lstinputlisting[caption=my\_library\_v2.h, label=lulib]{C:/Program_code/c/NumMeth4/my_library_v2.h}
+\newpage
+\lstinputlisting[caption=ludecomp.c, label=ludecomp]{C:/Program_code/c/NumMeth4/ludecomp.c}
+
+以上のコードで行われていること、特にソースコード\ref{ludecomp}に実装されているLU分解について解説していく。
+
+LU分解とは前述したとおり行列を下三角行列と上三角行列の積で表すことで、Class-3で行ったガウス法と同様この手法でも連立一次方程式を解くことが可能である。
+
+解説をわかりやすくするため、例として前回同様以下の連立方程式を用いる。
+\begin{equation}
+    \left \{ \,
+    \begin{aligned}
+        2x + 3y - z &= 1 \\
+        x + y + 2z &= 0 \\
+        3x - y + z &= 2
+    \end{aligned}
+    \right .
+\end{equation}
+
+(1)の連立方程式は行列とベクトルの積を用いて以下のように表すことができる。
+\\
+\begin{equation}
+    \begin{bmatrix}
+        2 & 3 & -1 \\
+        1 & 1 & 2 \\
+        3 & -1 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        x \\ y \\ z
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 \\ 0 \\ 2
+    \end{bmatrix}
+\end{equation}
+\\
+
+この(2)の式を用いて、ソースコード\ref{lulib}のアルゴリズムを説明する。
+
+まずこの(2)式から、係数行列を$A$、左辺の列ベクトルを$\textbf{b}$として
+\begin{equation}
+    A_0 = 
+    \begin{bmatrix}
+        A & \textbf{b}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        2 & 3 & -1 & 1\\
+        1 & 1 & 2 & 0\\
+        3 & -1 & 1 & 2
+    \end{bmatrix}
+\end{equation}
+\\
+とおく。
+
+$A_0$について$A_0$の$(1,1)$成分を軸としてその下を掃き出した行列を$A_1$とすると
+\begin{equation}
+    A_1 = 
+    \begin{bmatrix}
+        1 & \displaystyle \frac{3}{2} & 
+        \displaystyle -\frac{1}{2} & \displaystyle \frac{1}{2} \\ \\
+        0 & \displaystyle -\frac{1}{2} & 
+        \displaystyle \frac{5}{2} & \displaystyle -\frac{1}{2} \\ \\
+        0 & \displaystyle -\frac{11}{2} & 
+        \displaystyle \frac{5}{2} & \displaystyle \frac{1}{2}
+    \end{bmatrix}
+\end{equation}
+\\
+となる。
+
+このとき三次の単位行列の第一列を$A_0$の第一列と入れ替えた行列$B_1$を用いると$A_0$と$A_1$には
+\begin{equation}
+    A_0 = B_1 A_1
+    =
+    \begin{bmatrix}
+        2 & 0 & 0\\
+        1 & 1 & 0\\
+        3 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & \displaystyle \frac{3}{2} & 
+        \displaystyle -\frac{1}{2} & \displaystyle \frac{1}{2} \\ \\
+        0 & \displaystyle -\frac{1}{2} & 
+        \displaystyle \frac{5}{2} & \displaystyle -\frac{1}{2} \\ \\
+        0 & \displaystyle -\frac{11}{2} & 
+        \displaystyle \frac{5}{2} & \displaystyle \frac{1}{2}
+    \end{bmatrix}
+\end{equation}
+\\
+が成り立つ。
+
+次に$A_1$の$(2,2)$成分を軸としてその下を掃き出した行列を$A_2$とし、
+三次の単位行列の第二列を$A_1$の第二列の対角成分以下と入れ替えた行列$B_2$を用いると$A_1$と$A_2$には
+\begin{equation}
+    A_1 = B_2 A_2
+    =
+    \begin{bmatrix}
+        1 & 0 & 0 \\ 
+        0 & \displaystyle -\frac{1}{2} & 0 \\ 
+        0 & \displaystyle -\frac{11}{2} & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & \displaystyle \frac{3}{2} & 
+        \displaystyle -\frac{1}{2} & \displaystyle \frac{1}{2} \\ \\
+        0 & 1 & -5 & 1 \\ \\
+        0 & 0 & -25 & 6
+    \end{bmatrix}
+\end{equation}
+\\
+が成り立つ。
+
+同様のこと(上記(6)で行っていることを第三列として読み替えて)を第三列でも行えば$A_2$は$B_3,A_3$を用いて
+\begin{equation}
+    A_2 = B_3 A_3
+    =
+    \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & -25
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & \displaystyle \frac{3}{2} & 
+        \displaystyle -\frac{1}{2} & \displaystyle \frac{1}{2} \\ \\
+        0 & 1 & -5 & 1 \\ \\
+        0 & 0 & 1 & \displaystyle -\frac{6}{25}
+    \end{bmatrix}
+\end{equation}
+\\
+と表せる。
+
+ここで行列$A_3$の第三列目までの上三角行列を$U$,第四列を$\textbf{b}'$とおくと$A_3=\left[\,U \;\; \textbf{b}'\,\right]$と表せる。
+式(5)(6)(7)より
+\begin{equation}
+    A_0 = B_1 B_2 B_3\left[\,U \;\; \textbf{b}'\,\right]
+\end{equation} 
+となる。ここで$L=B_1B_2B_3$とおくと
+\begin{equation}
+    L = B_1 B_2 B_3 
+    = 
+    \begin{bmatrix}
+        2 & 0 & 0 \\
+        1 & \displaystyle -\frac{1}{2} & 0 \\
+        3 & \displaystyle -\frac{11}{2} & -25
+    \end{bmatrix}
+\end{equation} 
+となる。このことから
+\begin{equation}
+    A_0 = L\left[\,U \;\; \textbf{b}'\,\right] \\
+    = \left[\,LU \;\; L\textbf{b}'\,\right]
+\end{equation} 
+と式変形でき、$A_0 = \left[\,A \;\; \textbf{b}\,\right]$であったため両辺の行列の対応を考えることで
+\begin{equation}
+    A = LU, \qquad \textbf{b} = L\textbf{b}'
+\end{equation} 
+が得られる。これがLU分解の主な動きである。今は三次の連立方程式について説明したがこれは任意のn次の行列、ないしは連立方程式に用いることができる。
+
+このLU分解は、これを行うことで$Ax=\textbf{b}$となっていた連立方程式を$Ux=\textbf{b}'$と解くことができる。
+
+実際に上記の連立方程式を$Ux=\textbf{b}'$で解いてみる。この連立方程式を$Ux=\textbf{b}'$で表すと
+\begin{equation}
+    \begin{bmatrix}
+        1 & \displaystyle \frac{3}{2} & \displaystyle -\frac{1}{2}  \\ \\
+        0 & 1 & -5 \\ \\ 
+        0 & 0 & 1 
+    \end{bmatrix}
+    \begin{bmatrix}
+        x \\ y \\ z
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \displaystyle \frac{1}{2} \\ \\ 1 \\ \\ \displaystyle -\frac{6}{25}
+    \end{bmatrix}
+\end{equation}
+\\
+となる。この式は逆進代入を使うことで簡単に解くことができる。第三行目から$z$は$z=-\tfrac{6}{25}$と解けて、
+この解を第二行目に代入して$y=-\tfrac{1}{5}$、以上$y,z$を第一行目に代入して$x=\tfrac{17}{25}$と解ける。
+
+このように$Ax=\textbf{b}$となっていた連立方程式をLU分解を用いて$Ux=\textbf{b}'$と解くことで簡単に解を求めることができる。
+
+\section{演習とその結果}
+演習として教科書に載っている2.10の(1)(2)を解く。
+\subsection{問2.10}
+問2.10の(1)(2)は以下の行列をLU分解し、行列式の値を求める問題である。\\
+
+\textbf{(1)}
+\begin{equation}
+    \begin{bmatrix}
+        2 & 6 & 8 \\ 
+        -1 & 1 & -12 \\ 
+        3 & 10 & 5
+    \end{bmatrix}
+\end{equation}
+
+\textbf{(2)}
+\begin{equation}
+    \begin{bmatrix}
+        2 & 4 & 0 \\ 
+        -3 & -2 & 12 \\ 
+        1 & -3 & -14
+    \end{bmatrix}
+\end{equation}
+\\
+
+行列式の値を求めるため、ソースコード\ref{ludecomp}を以下ソースコード\ref{luA}のように書き加えた。加筆点には＋をつけている。
+
+\begin{lstlisting}[caption=ludecomp\_A.c, label=luA]
+    #include <stdio.h>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        int i, j, n, k;
+        + double A = 1.0;
+        static double p, q, a[N][N], l[N][N], u[N][N];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            for (j = i; j <= n; j++){
+                u[i][j] = a[i][j];
+            }
+            + A *= l[i][i];
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        print_matrix(u, n);
+        + printf("A:%10.6lf" , A);
+        return 0;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\end{lstlisting}
+
+このコードではLU分解でできたLの行列の対角成分の積が行列式の値となることを用いて計算している。
+このソースコードを動かすことで以下の結果が得られた。
+
+(1)\\
+L: \\
+   2.000000   0.000000   0.000000\\
+  -1.000000   4.000000   0.000000\\
+   3.000000   1.000000  -5.000000\\
+\\
+U:\\
+   1.000000   3.000000   4.000000\\
+   0.000000   1.000000  -2.000000\\
+   0.000000   0.000000   1.000000\\
+A:-40.000000\\
+
+(2)\\
+L: \\
+   2.000000   0.000000   0.000000\\
+  -3.000000   4.000000   0.000000\\
+   1.000000  -5.000000   1.000000\\
+\\
+U:\\
+   1.000000   2.000000   0.000000\\
+   0.000000   1.000000   3.000000\\
+   0.000000   0.000000   1.000000\\
+A:8.000000\\
+
+この結果は教科書通りの答えとなっている。
+
+\section{考察}
+以上の演習からガウスの掃き出し法とは異なる、連立一次方程式の解き方を理解できた。
+LU分解法は実際に連立方程式を線形計画法などで利用することを考えると、
+任意の係数行列のLU分解を求めた後に左辺の列ベクトルを自由に決められるためガウスの掃き出し法よりも高速に問題を解くことができるため、その点ではガウスの掃き出し法よりも優れていると考える。
+
+また実際にこれらのソースコードにいくつかの関数を加えて
+連立一次方程式を解こうとしたがあまりうまくいかなかった。Cの勉強をして原因を探ってみたい。
+
+\end{document}

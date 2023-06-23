@@ -1,0 +1,127 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts,mathtools}
+\usepackage{bm}
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{listings,jlisting,color}
+% ソースコード
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{数値計算 Class-2 演習}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+\section{演習内容}
+Class-2の演習ではコンピューターで任意の方程式を解くためのアルゴリズム、二分法とニュートン法をC言語で実装し、実際にいくつかの複雑な方程式について解いていった。
+
+また以下で用いている閉区間や初項は用いる関数をあらかじめPythonでグラフ化しそこから判断している。
+    \subsection{二分法}
+    二分法は、解がある閉区間$[a,b]$($a,b$は異符号)にある時、その区間の中間値$c=\frac{a+b}{2}$を求め、$a$ないし$b$と異符号かどうかを評価し異符号となった方の値の間にできた閉区間でさらに同じ操作を繰り返すことで解を求めるアルゴリズムである。
+    このアルゴリズムは中間値の定理を利用している。
+    
+    以下ソースコード\ref{bisection}がC言語で二分法を実装し、演習で利用したコードである。
+    \lstinputlisting[caption=bisection.c, label=bisection]{../c/bisection.c}
+
+    なおこのコードについては、eALPS上で示されたものから少し変更しており、すべての方程式の結果を一度に表示することを可能にしている。
+
+    \subsection{ニュートン法}
+    ニュートン法は、関数$f(x)$の$x=x_0$についてのテイラー展開の一次までの項、すなわち関数の一次近似
+    \begin{align*}
+    y=f'(x)(x-x_0)+f(x_0)
+    \end{align*}
+    を利用したアルゴリズムである。
+    この方程式をを$y=0$とし$x$について解くと
+    \begin{align*}
+    x = x_0-\frac{f(x_0)}{f'(x)}
+    \end{align*}
+    となる。この式は
+    \begin{align*}
+    x_{n+1} = x_n-\frac{f(x_n)}{f'(x_n)}
+    \end{align*}
+    と漸化式として近似できる。
+    
+    こうすることで関数$f(x)$とその一階微分となる$f'(x)$、$x_0$を指定することで$x_n$が解に収束していく。精度は$|x_{n+1}-x_n| < \epsilon$となる$\epsilon$をコード上で指定してやれば任意に決めることができる。
+    
+    以下ソースコード\ref{newton}がC言語でニュートン法を実装し、演習で利用したコードである。
+    \lstinputlisting[caption=newton.c, label=newton]{../c/newton2.c}
+
+    なおこのコードについても、eALPS上で示されたものから少し変更しており、すべての方程式の結果を一度に表示することを可能にしている。
+
+    \section{演習結果}
+    以下に演習結果を示す
+    \subsection{二分法}
+    二分法のコードを実行した結果、以下\ref{bisecresult}のように出力された。
+    \begin{lstlisting}[caption=bisection\_result, label=bisecresult]
+function_1 it = 101
+a~b閉区間の解はx=0.337667 , f(x) = 5.44812e-017
+function_1 it = 101
+a~b閉区間の解はx=1.307486 , f(x) = -6.32307e-016
+function_2 it = 54
+a~b閉区間の解はx=0.739085 , f(x) = 3.33067e-016
+function_3 it = 101
+a~b閉区間の解はx=0.567143 , f(x) = 3.27537e-016
+    \end{lstlisting}
+
+    以上の結果はPythonでの事前のグラフシミュレートと相違なく、かなりよい精度の数値が出せていると思う。
+
+    \subsection{ニュートン法}
+    続いて、ニュートン法のコードを実行した結果、以下\ref{newtonresult}のように出力された。
+    \begin{lstlisting}[caption=newton\_result, label=newtonresult]
+Try 1 Solution 2.0000000
+~
+Try 7 Solution 1.3074861
+1_function Final Solution 1.307486
+
+Try 1 Solution -0.2857143
+~
+Try 5 Solution 0.3376668
+1_function Final Solution 0.337667
+
+Try 1 Solution 8.7162170
+~
+Try 8 Solution 0.7390851
+2_function Final Solution 0.739085
+
+Try 1 Solution 0.5621873
+~
+Try 4 Solution 0.5671433
+3_function Final Solution 0.567143
+
+Try 1 Solution 0.1666667
+~
+Try 5 Solution 1.1659056
+4_function Final Solution 1.165906
+    \end{lstlisting}
+
+    出力の一部は省略しているがこちらもかなり良い精度の数値が計算できている。また二分法では100回計算した方程式もあったがこちらでは最大でも10回未満の計算量で済んでいる。
+
+    \section{考察}
+    上記の結果から、二分法とニュートン法、その両方が$10^{-5}$以上の精度を出して方程式を解くことができる簡易なアルゴリズムであることが理解できた。
+    
+    またニュートン法は漸化式の性質上$O(\sqrt{n})$のオーダーで結果が収束しさらに結果の精度も高いため、二分法より複雑なアルゴリズムでも有用だと感じた。
+
+\end{document}

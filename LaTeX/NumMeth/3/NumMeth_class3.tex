@@ -1,0 +1,196 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{数値計算 Class-3 演習}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+\section{演習内容}
+Class-3の演習ではガウスの消去法、または掃き出し法とも呼ばれるアルゴリズムをCで実装し、任意のn元一次連立方程式を解いた。
+
+ガウスの消去法は以下ソースコード\ref{gauss}と\ref{gausslib}で実装されている。
+\lstinputlisting[caption=gauss.c, label=gauss]{c:/Program_code/c/NumMeth3/gauss.c}
+\newpage
+\lstinputlisting[caption={my\_library.h}, label=gausslib]{c:/Program_code/c/NumMeth3/my_library.h}
+
+以上のコードで行われていること、特にソースコード\ref{gausslib}に実装されている関数の動作について、例を用いて解説していく。
+
+まず、用いる例として以下の三元連立方程式を用いる。
+\begin{equation}
+    \left \{ \,
+    \begin{aligned}
+        2x + 3y - z &= 1 \\
+        x + y + 2z &= 0 \\
+        3x - y + z &= 2
+    \end{aligned}
+    \right .
+\end{equation}
+
+(1)の連立方程式は行列とベクトルの積を用いて以下のように表すことができる。
+\\
+\begin{equation}
+    \begin{pmatrix}
+        2 & 3 & -1 \\
+        1 & 1 & 2 \\
+        3 & -1 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        x \\ y \\ z
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 \\ 0 \\ 2
+    \end{pmatrix}
+\end{equation}
+\\
+
+この(2)の式を用いて、ソースコード\ref{gausslib}のアルゴリズムを説明する。
+
+まずこの(2)式を(3)式のように変換し、この行列を$\textbf{a}$と表す。
+\begin{equation}
+    \textbf{a} = 
+    \left (
+    \begin{array}{ccc|c}
+        2 & 3 & -1 & 1\\
+        1 & 1 & 2 & 0\\
+        3 & -1 & 1 & 2
+    \end{array}
+    \right )
+\end{equation}
+\\
+
+ソースコード\ref{gauss}に$\textbf{a}$と$n=3$を入力するとまず、ソースコード\ref{gausslib}のgaussian\_elimination()が呼び出され、irekae()関数に$\textbf{a}$と$n$,そして$i=1$が入力される。
+
+irekae()関数ではi行のそれぞれの値について最大値を見つけ、最大値のある$m$行と$i$行の要素を全て入れ替える。この操作は最小値について行っても以下の動作に影響がない。
+
+実際に$\textbf{a}$について$i=1$でirekae()関数を動作させると、1行目と3行目が入れ替わり、以下(4)の式になる。(ソースコード\ref{gausslib}9-21)
+
+\begin{equation}
+    \textbf{a} = 
+    \left (
+    \begin{array}{ccc|c}
+        3 & -1 & 1 & 2\\
+        1 & 1 & 2 & 0\\
+        2 & 3 & -1 & 1
+    \end{array}
+    \right )
+\end{equation}
+\\
+
+続いて、1列目に関して$\textbf{a}(1,1)$の対角成分以下を掃き出す作業を行う。まず$(1,1)$成分を大きさ1にするため1行目の全要素を$(1,1)$成分で割る。(ソースコード\ref{gausslib}38-40)
+
+この作業の後、1行目以降の行,$k$に対して$(k,1)$成分が0となるよう、1行目の全要素に$(k,1)$を掛け算した後、$k$行目から引く。
+これをforで$k=n$まで繰り返すと以下(5)の式が得られる。(ソースコード\ref{gausslib}41-46)
+
+\begin{equation}
+    \textbf{a} = 
+    \left (
+    \begin{array}{ccc|c}
+        1 & \displaystyle -\frac{1}{3} & \displaystyle \frac{1}{3} & \displaystyle \frac{2}{3} \\ \\
+        0 & \displaystyle -\frac{4}{3} & \displaystyle \frac{5}{3} & \displaystyle -\frac{2}{3} \\ \\
+        0 & \displaystyle \frac{11}{3} & \displaystyle -\frac{5}{3} & \displaystyle -\frac{1}{3}
+    \end{array}
+    \right )
+\end{equation}
+\\
+
+この操作を$i=2,i=3$と繰り返すことで、以下(6)のような対角成分が1である上三角行列が得られる。
+
+\begin{equation}
+    \textbf{a} = 
+    \left (
+    \begin{array}{ccc|c}
+        1 & \displaystyle -\frac{1}{3} & \displaystyle \frac{1}{3} & \displaystyle \frac{2}{3} \\ \\
+        0 & 1 & -\displaystyle \frac{5}{11} & \displaystyle -\frac{1}{11} \\ \\
+        0 & 0 & 1 & \displaystyle -\frac{6}{25}
+    \end{array}
+    \right )
+\end{equation}
+\\
+
+こうすることで例えば$z$の解は$z=-\tfrac{6}{25}$と分かるようになる。
+ここから$x$と$y$も同様に求めていきたいがここでまた新たな関数としてinverse\_substitution()関数を用いる。
+
+例えば今$z$の解は$z=-\tfrac{6}{25}$と分かっているのでこのzの値を式(6)の(2,3)成分と掛け合わせた積を(2,4)成分から引くことで
+$y$の値を$y = -\tfrac{1}{11} - \tfrac{5}{11}\times\tfrac{6}{25}$すなわち$y=-\tfrac{1}{5}$と求めることができる。
+
+$x$でも同様の計算を行えば$x=\tfrac{17}{25}$と計算できる。これは逆進代入と呼ばれる計算で実際にinverse\_substitution()関数として実装されている。
+
+\section{演習とその結果}
+演習として教科書に載っていた以下二問を解いた。
+\begin{equation}
+    \left \{ \,
+    \begin{aligned}
+        2&x& - 4&y& + 6&z &= 1 \\
+        - &x& + 7&y& - 8&z &= 0 \\
+        &x& + &y& - 2&z &= 3
+    \end{aligned}
+    \right .
+\end{equation}
+\\
+\begin{equation}
+    \left \{ \,
+    \begin{aligned}
+        2&x& +8&y& +2&z& -3&w&=& 2 \\
+        4&x& +6&y& -2&z& -&w&=& 1 \\
+        2&x& -4&y& -2&z& -&w&=& 3 \\
+        &x&  -5&y& +2&z& +&w&=& -2
+    \end{aligned}
+    \right .
+\end{equation}
+\\
+
+結果として以下の出力が得られた。
+\begin{equation}
+    \begin{aligned}
+        x( 1 ) &=& 1.8000000000000007000000000000000000000000000000000000000000000 \\
+        x( 2 ) &=& -1.0000000000000000000000000000000000000000000000000000000000000 \\
+        x( 3 ) &=& -1.1000000000000001000000000000000000000000000000000000000000000
+    \end{aligned}
+\end{equation}
+\\
+\begin{equation}
+    \begin{aligned}
+        x( 1 ) = -0.1666666666666667400000000000000000000000000000000000000000000 \\
+        x( 2 ) = -0.1666666666666667400000000000000000000000000000000000000000000 \\
+        x( 3 ) = -0.5416666666666667400000000000000000000000000000000000000000000 \\
+        x( 4 ) = -1.5833333333333335000000000000000000000000000000000000000000000
+    \end{aligned}
+\end{equation}
+
+この値は少数点以下14桁までは教科書記載の模範解答と一致しており、計算ができていることが示されている。
+
+
+\end{document}

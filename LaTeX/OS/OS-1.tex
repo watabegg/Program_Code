@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{オペレーティングシステム 第1回レポート課題}
+\author{21T2166D 渡辺大樹}
+\date{2023/05/23}
+\maketitle
+
+\section*{演習資料2}
+\subsection*{問4 - lsコマンドのオプション}
+lsコマンドのオプションの中で、自身が使いたいと思うものを以下にまとめる。
+\begin{description}
+    \item[-l] \mbox{}\\
+    -lオプションはディレクトリのファイル一覧を長いフォーマットで出力するオプションで、そのファイルのサイズや更新日時を確認することができる。
+    -gや-o,-kなどのオプションが併用でき、これらを用いるとGUIのエクスプローラーのようにファイルの詳細情報を確認できる。
+    \item[-a,-A] \mbox{}\\
+    -aオプションは表示対象にドットファイルを追加できるコマンドで、Windowsでも設定ファイルとかでたまに見るドットファイルは表示する機会があるのではと思う。
+    -Aオプションは-aで表示されていた'.'と'..'を非表示にしつつドットファイルをみることができるオプションで、これも利用頻度が高そうに思われる。
+    \item[] \mbox{}\\
+    
+    \item[] \mbox{}\\
+    
+    \item[] \mbox{}\\
+    
+\end{description}
+
+
+
+
+\end{document}
