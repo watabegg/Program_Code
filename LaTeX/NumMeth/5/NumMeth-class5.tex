@@ -92,18 +92,55 @@ $L\textbf{y}=\textbf{b}$と$U\textbf{x}=\textbf{y}$についてそれぞれを�
 
 これを非線形でもこの考え方を応用し、解$\alpha$の近くの点$x=x_{\alpha}$での$f_k(x)$のテイラー展開をすると
 \begin{displaymath}
-    f_k(\alpha) \approx f_k(x_\alpha) + \sum_{i=1}^{n}\frac{\partial f_k}{\partial x_i}(x_\alpha)(\alpha - {x_\alpha}_i)
+    f_k(\alpha) \approx f_k(x_\alpha) + \sum_{i=1}^{n}\frac{\partial f_k}{\partial x_i}(x_\alpha)(\alpha_i - {x_\alpha}_i)
 \end{displaymath}
 の式が得られる。この式がゼロになる点を解けばよい。
 
 ここでこれを$\textbf{f}(x)$にまで拡張させると上記の式は
-% \begin{equation*}
-%     \begin{array}{l}
-%         \left[
-%             f_1(x_\alpha) \\ f_2(x_\alpha) \\ \vdots \\ f_n(x_\alpha)
-%         \right]
-%     \end{array}
-% \end{equation*}
+\begin{equation*}
+    \begin{bmatrix}
+        f_1(x_\alpha) \\ f_2(x_\alpha) \\ \vdots \\ f_n(x_\alpha)
+    \end{bmatrix}
+    + 
+    \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1}(x_\alpha) && \frac{\partial f_1}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_1}{\partial x_n}(x_\alpha) \\
+        \frac{\partial f_2}{\partial x_1}(x_\alpha) && \frac{\partial f_2}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_2}{\partial x_n}(x_\alpha) \\
+        \vdots && \vdots && \ddots && \vdots \\
+        \frac{\partial f_n}{\partial x_1}(x_\alpha) && \frac{\partial f_n}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_n}{\partial x_n}(x_\alpha) 
+    \end{bmatrix}
+    \begin{bmatrix}
+        \alpha_1 - {x_\alpha}_1 \\ \alpha_2 - {x_\alpha}_2 \\ \vdots \\ \alpha_n - {x_\alpha}_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 \\ 0 \\ \vdots \\ 0
+    \end{bmatrix}
+\end{equation*}
+となる。
+
+ここで$\alpha - x_\alpha$の係数行列は$x_\alpha$におけるヤコビアンであり、
+\begin{equation*}
+    J(x_\alpha) = 
+    \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1}(x_\alpha) && \frac{\partial f_1}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_1}{\partial x_n}(x_\alpha) \\
+        \frac{\partial f_2}{\partial x_1}(x_\alpha) && \frac{\partial f_2}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_2}{\partial x_n}(x_\alpha) \\
+        \vdots && \vdots && \ddots && \vdots \\
+        \frac{\partial f_n}{\partial x_1}(x_\alpha) && \frac{\partial f_n}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_n}{\partial x_n}(x_\alpha) 
+    \end{bmatrix}
+\end{equation*}
+で表す。
+
+$\alpha - x_\alpha$を$\Delta x$で表すとこの式は
+\begin{equation*}
+    \textbf{f}(x_\alpha) + J(x_\alpha) \Delta x = 0
+\end{equation*}
+となる。
+
+この式を$\Delta x$について解けば
+\begin{equation*}
+    \Delta x = -[J(x_\alpha)]^{-1} \textbf{f}(x_\alpha)
+\end{equation*}
+となり、
 
 
 \end{document}
