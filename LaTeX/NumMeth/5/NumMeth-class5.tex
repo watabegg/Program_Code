@@ -42,10 +42,9 @@ lineskip=-0.5ex
 Class-5ではClass-2で演習したニュートン法を非線形の連立方程式の解決のために拡張し、実際に連立非線形方程式の解を見つけていく。
 
 非線形の連立方程式を解くためには前回演習したLU分解による連立方程式の解法を用いたいのでライブラリとして
-ソースコード\ref{v3}を読み込んでいく。
-\lstinputlisting[caption={my\_library\_v3.h}, label=v3]{C:/Program_code/c/NumMeth5/my_library_v3.h}
+ソースコードmy\_library\_v3.hを読み込んでいく。
 
-ソースコード\ref{v3}にはベクトルのノルムを求めるためのvector\_norm1()やLU分解で連立一次方程式を解くlu\_solve()が実装されている。
+ソースコードmy\_library\_v3.hにはベクトルのノルムを求めるためのvector\_norm1()やLU分解で連立一次方程式を解くlu\_solve()が実装されている。
 
 $A\textbf{x}=\textbf{b}$について解くとき、lu\_solve()では前回実装したludecomp()関数で行列$A$をLU分解したのち、
 $L\textbf{y}=\textbf{b}$と$U\textbf{x}=\textbf{y}$についてそれぞれを前進代入、後進代入で解いている。
@@ -90,26 +89,26 @@ $L\textbf{y}=\textbf{b}$と$U\textbf{x}=\textbf{y}$についてそれぞれを�
 の数列が解に収束するまで繰り返していた。これは解を$\alpha$とすると$x=\alpha$についてのテイラー展開
 を元に導出した式である。
 
-これを非線形でもこの考え方を応用し、解$\alpha$の近くの点$x=x_{\alpha}$での$f_k(x)$のテイラー展開をすると
+これを非線形でもこの考え方を応用し、解$\alpha$の近くの点$x=x^{(0)}$での$f_k(x)$のテイラー展開をすると
 \begin{displaymath}
-    f_k(\alpha) \approx f_k(x_\alpha) + \sum_{i=1}^{n}\frac{\partial f_k}{\partial x_i}(x_\alpha)(\alpha_i - {x_\alpha}_i)
+    f_k(\alpha) \approx f_k(x^{(0)}) + \sum_{i=1}^{n}\frac{\partial f_k}{\partial x_i}(x^{(0)})(\alpha_i - {x^{(0)}}_i)
 \end{displaymath}
 の式が得られる。この式がゼロになる点を解けばよい。
 
 ここでこれを$\textbf{f}(x)$にまで拡張させると上記の式は
 \begin{equation*}
     \begin{bmatrix}
-        f_1(x_\alpha) \\ f_2(x_\alpha) \\ \vdots \\ f_n(x_\alpha)
+        f_1(x^{(0)}) \\ f_2(x^{(0)}) \\ \vdots \\ f_n(x^{(0)})
     \end{bmatrix}
     + 
     \begin{bmatrix}
-        \frac{\partial f_1}{\partial x_1}(x_\alpha) && \frac{\partial f_1}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_1}{\partial x_n}(x_\alpha) \\
-        \frac{\partial f_2}{\partial x_1}(x_\alpha) && \frac{\partial f_2}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_2}{\partial x_n}(x_\alpha) \\
+        \frac{\partial f_1}{\partial x_1}(x^{(0)}) && \frac{\partial f_1}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_1}{\partial x_n}(x^{(0)}) \\
+        \frac{\partial f_2}{\partial x_1}(x^{(0)}) && \frac{\partial f_2}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_2}{\partial x_n}(x^{(0)}) \\
         \vdots && \vdots && \ddots && \vdots \\
-        \frac{\partial f_n}{\partial x_1}(x_\alpha) && \frac{\partial f_n}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_n}{\partial x_n}(x_\alpha) 
+        \frac{\partial f_n}{\partial x_1}(x^{(0)}) && \frac{\partial f_n}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_n}{\partial x_n}(x^{(0)}) 
     \end{bmatrix}
     \begin{bmatrix}
-        \alpha_1 - {x_\alpha}_1 \\ \alpha_2 - {x_\alpha}_2 \\ \vdots \\ \alpha_n - {x_\alpha}_n
+        \alpha_1 - {x_1}^{(0)} \\ \alpha_2 - {x_2}^{(0)} \\ \vdots \\ \alpha_n - {x_n}^{(0)}
     \end{bmatrix}
     =
     \begin{bmatrix}
@@ -118,29 +117,78 @@ $L\textbf{y}=\textbf{b}$と$U\textbf{x}=\textbf{y}$についてそれぞれを�
 \end{equation*}
 となる。
 
-ここで$\alpha - x_\alpha$の係数行列は$x_\alpha$におけるヤコビアンであり、
+ここで$\alpha - x^{(0)}$の係数行列は$x^{(0)}$におけるヤコビアンであり、
 \begin{equation*}
-    J(x_\alpha) = 
+    J(x^{(0)}) = 
     \begin{bmatrix}
-        \frac{\partial f_1}{\partial x_1}(x_\alpha) && \frac{\partial f_1}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_1}{\partial x_n}(x_\alpha) \\
-        \frac{\partial f_2}{\partial x_1}(x_\alpha) && \frac{\partial f_2}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_2}{\partial x_n}(x_\alpha) \\
+        \frac{\partial f_1}{\partial x_1}(x^{(0)}) && \frac{\partial f_1}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_1}{\partial x_n}(x^{(0)}) \\
+        \frac{\partial f_2}{\partial x_1}(x^{(0)}) && \frac{\partial f_2}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_2}{\partial x_n}(x^{(0)}) \\
         \vdots && \vdots && \ddots && \vdots \\
-        \frac{\partial f_n}{\partial x_1}(x_\alpha) && \frac{\partial f_n}{\partial x_2}(x_\alpha) && \cdots && \frac{\partial f_n}{\partial x_n}(x_\alpha) 
+        \frac{\partial f_n}{\partial x_1}(x^{(0)}) && \frac{\partial f_n}{\partial x_2}(x^{(0)}) && \cdots && \frac{\partial f_n}{\partial x_n}(x^{(0)}) 
     \end{bmatrix}
 \end{equation*}
 で表す。
 
-$\alpha - x_\alpha$を$\Delta x$で表すとこの式は
+$\alpha - x^{(0)}$を$\Delta x$で表すとこの式は
 \begin{equation*}
-    \textbf{f}(x_\alpha) + J(x_\alpha) \Delta x = 0
+    \textbf{f}(x^{(0)}) + J(x^{(0)}) \Delta x = 0
 \end{equation*}
 となる。
 
 この式を$\Delta x$について解けば
 \begin{equation*}
-    \Delta x = -[J(x_\alpha)]^{-1} \textbf{f}(x_\alpha)
+    \Delta x = -[J(x^{(0)})]^{-1} \textbf{f}(x^{(0)})
 \end{equation*}
-となり、
+となる。
+
+この$\Delta x$は回数を重ねるごとに解$\alpha$に近付く数列としてとらえれば
+$k$回目において$\Delta x = x^{k+1} - x^k$となるので式は
+\begin{equation*}
+    x^{k+1} = x^k -[J(x^{(k)})]^{-1} \textbf{f}(x^{(k)})
+\end{equation*}
+となる。
+
+ここで
+\begin{equation*}
+    d = -[J(x^{(k)})]^{-1} \textbf{f}(x^{(k)})
+\end{equation*}
+となるdを、
+\begin{equation*}
+    J(x^{(k)})d = -\textbf{f}(x^{(k)})
+\end{equation*}
+の連立方程式で解いてあげることで
+\begin{equation*}
+    x^{k+1} = x^k + d
+\end{equation*}
+という数列の収束を計算すればよくなる。これが拡張されたニュートン法の式となる。
+
+ここまでの話より、このニュートン法で必要になるのは連立非線形方程式と
+その偏微分から導かれるヤコビアン、また適切な初期値となる。
+プログラム的に言うと反復回数の上限や$d$の閾値などが必要になる。
+
+ソースコード\ref{non}では22-35行目においてあらかじめ設定された非線形方程式から
+右辺ベクトルとヤコビアンを作成し、これらを先ほど述べたlu\_solve()に入れて連立方程式の解をJx[]に入れる。
+この連立方程式の解を足し合わせていくことで解に近付いていく。
+
+ソースコード\ref{non}の43行目ではこの繰り返しを終了する条件として
+Jxがあらかじめ設定した閾値より小さくなるかこの反復回数が設定した上限を超えるかで設定されている。
+
+反復回数が上限を超えてしまうと求解は失敗といえるが、Jxが閾値より小さくなったといえるなら、その時の
+Jxの足し合わせが解となり、それを出力するプログラムとなっている。
+
+\section{演習結果}
+以下にこのプログラムを動かしたときの結果を示す。
+
+まず初期値$(x,y,z)$を$(1.1,1.2,1.3)$としたときは
+初期値x0, y0, z0を入力してください----> x0 y0 z0
+1.1 1.2 1.3
+Call lu\_solve k= 0
+Call lu\_solve k= 1
+Call lu\_solve k= 2
+Call lu\_solve k= 3
+Call lu\_solve k= 4
+Call lu\_solve k= 5
+回数7で，答えはx=0.972127, y=1.302878, z=0.650619です
 
 
 \end{document}
