@@ -1,29 +1,29 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#define EPS pow(10.0, -8.0) /* epsilonã®è¨­å®š*/
-#define KMAX 100            /* æœ€å¤§åå¾©å›æ•°*/
+#define EPS pow(10.0, -8.0) /* epsilon‚Ìİ’è*/
+#define KMAX 100            /* Å‘å”½•œ‰ñ”*/
 #define N 4
 #include "my_library_v3.h"
 #include "nonlinear_system.h"
 int main(void)
 {
     double x, y, z;
-    printf("åˆæœŸå€¤x0, y0, z0ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„----> x0 y0 z0\n");
+    printf("‰Šú’lx0, y0, z0‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢----> x0 y0 z0\n");
     scanf("%lf %lf %lf", &x, &y, &z);
     int i, k = 0;
     double xk[N], d[N], J[N][N];
-    double Jx[N]; /* ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã®è§£ */
+    double Jx[N]; /* ƒ„ƒRƒrs—ñ‚Ì‰ğ */
     xk[1] = x;
     xk[2] = y;
     xk[3] = z;
     do
     {
-        /*å³è¾ºãƒ™ã‚¯ãƒˆãƒ«ã®ä½œæˆ*/
+        /*‰E•ÓƒxƒNƒgƒ‹‚Ìì¬*/
         d[1] = -f(xk[1], xk[2], xk[3]);
         d[2] = -g(xk[1], xk[2], xk[3]);
         d[3] = -h(xk[1], xk[2], xk[3]);
-        /*ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã®ä½œæˆ*/
+        /*ƒ„ƒRƒrs—ñ‚Ìì¬*/
         J[1][1] = f_x(xk[1], xk[2], xk[3]);
         J[1][2] = f_y(xk[1], xk[2], xk[3]);
         J[1][3] = f_z(xk[1], xk[2], xk[3]);
@@ -44,11 +44,11 @@ int main(void)
 
     if (k == KMAX)
     {
-        printf("ç­”ãˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\n");
+        printf("“š‚¦‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n");
     }
     else
     {
-        printf("å›æ•°%dã§ï¼Œç­”ãˆã¯x=%f, y=%f, z=%fã§ã™\n", k + 1, xk[1], xk[2], xk[3]);
+        printf("‰ñ”%d‚ÅC“š‚¦‚Íx=%f, y=%f, z=%f‚Å‚·\n", k + 1, xk[1], xk[2], xk[3]);
     }
 
     return 0;
