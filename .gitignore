@@ -1,1 +1,8 @@
 .vscode
+/.vscode
+*.aux
+*.dvi
+*.fdb_latex_mk
+*.fls
+*.styctex.gz
+*.txt
