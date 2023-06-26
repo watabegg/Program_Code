@@ -1,7 +1,5 @@
-/ 2
-
 /**********************************************************************/
-/* ãƒ©ã‚°ãƒ©ãƒ³ã‚¸ãƒ¥ã®è£œé–“å¤šé …å¼ laghkn.c */
+/* ƒ‰ƒOƒ‰ƒ“ƒWƒ…‚Ì•âŠÔ‘½€Ž® laghkn.c */
 /**********************************************************************/
 #include <stdio.h>
 #define N 11
@@ -13,12 +11,12 @@
     char z, zz;
     while (1)
     {
-        printf("ãƒ©ã‚°ãƒ©ãƒ³ã‚¸ãƒ¥ã®è£œé–“å¤šé …å¼ \n");
-        printf("è£œé–“ç‚¹ã®å€‹æ•°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„(1 < n < 10) n = ");
+        printf("ƒ‰ƒOƒ‰ƒ“ƒWƒ…‚Ì•âŠÔ‘½€Ž® \n");
+        printf("•âŠÔ“_‚ÌŒÂ”‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢(1 < n < 10) n = ");
         scanf("%d%c", &n, &zz);
         if ((n <= 1) || (10 <= n))
             continue;
-        printf("\n è£œé–“ç‚¹ã®åº§æ¨™ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚ \n");
+        printf("\n •âŠÔ“_‚ÌÀ•W‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B \n");
         for (i = 1; i <= n; i++)
         {
             printf(" x(%d) = ", i);
@@ -27,23 +25,23 @@
             scanf("%lf%c", &y[i], &zz);
             printf("\n");
         }
-        printf("\n æ­£ã—å…¥åŠ›ã—ã¾ã—ãŸã‹ï¼Ÿ (y/n) ");
+        printf("\n ³‚µ“ü—Í‚µ‚Ü‚µ‚½‚©H (y/n) ");
         scanf("%c%c", &z, &zz);
         if (z == 'y')
             break;
     }
-    printf("\n æŒ‡å®šã™ã‚‹ç‚¹æ•°ã¯ ï¼Ÿ np = ");
+    printf("\n Žw’è‚·‚é“_”‚Í H np = ");
     scanf("%d%c", &np, &zz);
     dx = (x[n] - x[1]) / np;
     xx = x[1];
     for (i = 0; i <= np; i++)
     {
         s = 0.0;
-        /*** âˆ‘ Lk(x) ã®è¨ˆç®— ***/
+        /*** ‡” Lk(x) ‚ÌŒvŽZ ***/
         for (k = 1; k <= n; k++)
         {
             seki = 1.0;
-            /*** Lk(x) ã®è¨ˆç®— ***/
+            /*** Lk(x) ‚ÌŒvŽZ ***/
             for (j = 1; j <= n; j++)
             {
                 if (j != k)
