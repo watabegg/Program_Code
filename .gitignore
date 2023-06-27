@@ -2,7 +2,7 @@
 /.vscode
 *.aux
 *.dvi
-*.fdb_latex_mk
+*.fdb_latexmk
 *.fls
 *.styctex.gz
 *.txt
