@@ -1,10 +1,10 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  28 JUN 2023 07:22
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  29 JUN 2023 20:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Program_code/LaTeX/NumMeth/6/NumMeth-class6.tex
-(c:/Program_code/LaTeX/NumMeth/6/NumMeth-class6.tex
+**c:/Program_Code/LaTeX/NumMeth/6/NumMeth-class6.tex
+(c:/Program_Code/LaTeX/NumMeth/6/NumMeth-class6.tex
 pLaTeX2e <2023-02-14>+1 (based on LaTeX2e <2022-11-01> patch level 1)
 L3 programming layer <2023-03-30> (c:/texlive/2023/texmf-dist/tex/platex/jsclasses/jsarticle.cls
 Document Class: jsarticle 2023/02/23 jsclasses (okumura, texjporg)
@@ -472,4 +472,4 @@ Here is how much of TeX's memory you used:
  934 hyphenation exceptions out of 8191
  84i,6n,89p,460b,1761s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/NumMeth-class6.dvi (5 pages, 21060 bytes).
+Output written on out/NumMeth-class6.dvi (5 pages, 21884 bytes).
