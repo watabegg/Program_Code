@@ -1,14 +1,14 @@
 # Fdb version 4
-["dvipdf"] 1683407687 "out/NumMeth_class4.dvi" "out/NumMeth_class4.pdf" "out/NumMeth_class4" 1683407688 0
-  "out/NumMeth_class4.dvi" 1683407687 31944 cf8d7bf0fbdbd4037d4b34c643dc5f1c "latex"
+["dvipdf"] 1688505614 "out/NumMeth_class4.dvi" "out/NumMeth_class4.pdf" "out/NumMeth_class4" 1688505614 0
+  "out/NumMeth_class4.dvi" 1688505613 31944 6a1f18e3f5526b99af3e775f72eab37d "latex"
   (generated)
   "out/NumMeth_class4.pdf"
   (rewritten before read)
-["latex"] 1683407686 "c:/Program_code/LaTeX/NumMeth/4/NumMeth_class4.tex" "out/NumMeth_class4.dvi" "NumMeth_class4" 1683407688 0
-  "NumMeth_class4.tex" 1683407685 10564 b09b3dc99d35416283f8adb6d7cb9bd3 ""
-  "c:/Program_code/LaTeX/NumMeth/4/NumMeth_class4.tex" 1683407685 10564 b09b3dc99d35416283f8adb6d7cb9bd3 ""
-  "c:/Program_code/c/NumMeth4/ludecomp.c" 1683402864 1084 78adb13f9f954be86b4715f0477db51e ""
-  "c:/Program_code/c/NumMeth4/my_library_v2.h" 1683406915 2586 7b697aeaa0896f626854008eea3b349c ""
+["latex"] 1688505613 "c:/Program_code/LaTeX/NumMeth/4/NumMeth_class4.tex" "out/NumMeth_class4.dvi" "NumMeth_class4" 1688505614 0
+  "c:/Program_Code/LaTeX/NumMeth/4/NumMeth_class4.tex" 1688505612 10564 b09b3dc99d35416283f8adb6d7cb9bd3 ""
+  "c:/Program_Code/c/NumMeth4/ludecomp.c" 1683402864 1084 78adb13f9f954be86b4715f0477db51e ""
+  "c:/Program_Code/c/NumMeth4/my_library_v2.h" 1683406915 2586 7b697aeaa0896f626854008eea3b349c ""
+  "c:/Program_code/LaTeX/NumMeth/4/NumMeth_class4.tex" 1688505612 10564 b09b3dc99d35416283f8adb6d7cb9bd3 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1681808390 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm" 1681809934 468 53f854284f6afa6c36aaa2d1090ecc12 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm" 1681809934 468 53f854284f6afa6c36aaa2d1090ecc12 ""
@@ -82,7 +82,7 @@
   "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1681807093 40967 d940221f8762fd5848760382d97d1226 ""
   "c:/texlive/2023/texmf-var/web2c/eptex/platex.fmt" 1681811065 7885082 1633363b53c9d4cafa126eea9d4b3dcc ""
   "c:/texlive/2023/texmf.cnf" 1681810994 713 e69b156964470283e0530f5060668171 ""
-  "out/NumMeth_class4.aux" 1683407687 824 8c59b948fb6407b59723ebe539ae8f4c "latex"
+  "out/NumMeth_class4.aux" 1688505613 824 8c59b948fb6407b59723ebe539ae8f4c "latex"
   (generated)
   "out/NumMeth_class4.aux"
   "out/NumMeth_class4.dvi"
