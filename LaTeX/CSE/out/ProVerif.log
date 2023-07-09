@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  5 JUL 2023 06:32
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  5 JUL 2023 06:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -460,10 +460,10 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 Here is how much of TeX's memory you used:
  14931 strings out of 476685
  297443 string characters out of 5808308
- 2045481 words of memory out of 5000000
+ 2049481 words of memory out of 5000000
  35141 multiletter control sequences out of 15000+600000
  528121 words of font info for 105 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  84i,6n,89p,448b,1763s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/ProVerif.dvi (2 pages, 8824 bytes).
+Output written on out/ProVerif.dvi (2 pages, 8284 bytes).

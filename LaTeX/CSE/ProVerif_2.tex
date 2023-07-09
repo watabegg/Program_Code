@@ -1,0 +1,101 @@
+\documentclass[a4paper,11pt,titlepage,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+\begin{titlepage}
+\noindent
+\vspace{6cm}
+\begin{center}
+\begin{LARGE}
+暗号プロトコル設計演習 \\
+第２週例題
+\end{LARGE}
+\end{center}
+\vspace{6cm}
+\begin{flushright}
+信州大学工学部 \\
+電子情報システム工学科 \\
+\begin{description}
+\setlength{\leftskip}{8.9cm}
+\item[　　実験日:] 2023/07/05
+\item[　実験場所:] W1棟 115教室
+\item[　　実験者:] 21T2166D 渡辺　大樹
+\item[共同実験者:] 21T2167B 渡邉　大翔
+\item[　　　　　 ] 21T2804J 伊藤　星斗
+\end{description}
+\end{flushright}
+\end{titlepage}
+
+\section{演習内容}
+第二週の暗号プロトコル設計演習では前回学習した暗号技術を用いて、課題として課されたプロトコルを設計する。
+
+今回実装した暗号プロトコルはハイブリッド暗号とワンタイムパスワードで、
+それぞれそのプロトコルと実装したコードを示していく。
+
+\section{演習結果}
+\subsection{ハイブリッド暗号}
+以下にハイブリッド暗号を実装したコードを示す。
+\lstinputlisting[caption={hyb.pv}, label=hyb]{c:/bin/proverif2.04/tests/hyb.pv}
+
+ソースコード\ref{hyb}にはいくつかコメントを入力しており、
+その中である程度コードの構造を説明しているが以下で今一度解説していく。
+
+\begin{tikzpicture}
+\tikzset{Terminal/.style={rounded rectangle,  draw,  text centered, text width=2cm, minimum height=1cm}};
+\tikzset{Process/.style={rectangle,  draw,  text centered, text width=5cm, minimum height=1.4cm}};
+\tikzset{ifthen/.style={diamond,  draw,  text centered, aspect=3,text width=2cm, minimum height=1cm}};
+\tikzset{InOut/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium left angle=70, trapezium right angle=110}};
+\tikzset{LoopStart/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium angle=60}};
+\tikzset{LoopStop/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium angle=120}};
+\tikzset{arrow/.style={thick, ->, >=stealth}};
+
+\node[Terminal](a)at (0,0){開始};
+\node[Process](b)at (0,-2){殺意=1};
+\node[ifthen](c)at (0,-4){殺意10};
+\node[Process](d)at (7,-4){殺意+1};
+\node[InOut](e)at (0,-6){殺害};
+
+\draw[arrow](a)--(b);
+\draw[arrow](b)--(c);
+\draw[arrow](c)-- node[anchor=north]{No} (d);
+\draw[arrow](d) to [bend right] (c);
+\draw[arrow](c)-- node[anchor=west]{Yes} (e);
+\end{tikzpicture}
+
+
+\end{document}
