@@ -3,6 +3,7 @@
 
 % 数式
 \usepackage{amsmath,amsfonts}
+\usepackage{amsthm}
 \usepackage{bm}
 
 % 画像
@@ -35,20 +36,103 @@ lineskip=-0.5ex
 }
 \renewcommand{\lstlistingname}{ソースコード}
 
+\renewcommand{\qedsymbol}{証明終了}
+
+
 
 \begin{document}
 
-\title{}
+\title{インテリジェントシステム レポート課題2}
 \author{21T2166D 渡辺大樹}
 \date{\today}
 \maketitle
-\begin{equation}
-    P(X_1,X_2,\cdots,X_n) = P(X_1)\prod_{i=2}^{n-1}P(X_i|X_{i-1},\cdots,X_1)
-\end{equation}
-\begin{equation}
-    P(X_1,X_2,\cdots,X_n) = P(X_n)\prod_{i=1}^{n-1}P(X_i|X_n,\cdots,X_{n-i+1})
-\end{equation}
 
+\section{}
+成立するものは(a),(c),(d),(e)である。
+
+誤っているのは(b),(f)となる。(b)は
+$P(X|Y)=\frac{P(X,Y)}{\sum_{y}^{}P(X|Y=y)}$ではなく、$P(X|Y)=\frac{P(X,Y)}{P(Y)}$のため
+$P(X|Y)=\frac{P(X,Y)}{\sum_{x}^{}P(X=x|Y)}$が正しい。
+
+(f)は
+$P(X_1,X_2,\cdots,X_n) = P(X_n)\prod_{i=1}^{n-1}P(X_i|X_n,\cdots,X_{n-i+1})$
+が与えられている。$n=3$のときを考えてみると与式は$P(X_1,X_2,X_3)=P(X_3)P(X_1|X_3)P(X_2|X_1)$
+となり、ベイズの定理から式変形すると$P(X_1,X_2,X_3)=\frac{P(X_1,X_3)P(X_2,X_1)}{P(X_1)}$
+となる。この式は確率変数Xがそれぞれ独立のときのみ成り立つため、一般に成り立つとは言えない。
+
+\section{}
+(a)\[P(\lnot b)=0.45\]
+
+(b)\[P(c)=0.30\]
+
+(c)
+\begin{align*}
+    P(c|d) &= \frac{P(c,d)}{P(d)}\\
+           &= \frac{0.3}{0.8}\\
+           &= 0.37
+\end{align*}
+
+(d)
+\begin{align*}
+    P(a|d) &= \frac{P(a,d)}{P(d)}
+    \intertext{ここで$P(a,C,d)=P(a)P(C|a)P(d|C)$より、}
+    P(a,d) &= \sum_{C}P(a)P(C|a)P(d|C)\\
+           &= P(a)P(c|a)P(d|c) + P(a)P(\lnot c|a)P(d|\lnot c)\\
+           &= 0.298
+    \intertext{したがって}
+    P(a|d) &= 0.37
+\end{align*}
+
+\section{}
+(c),(d)
+
+\section{}
+ややこしいのでノード集合を$\mathbb{C}$で表す。
+
+(a)\(P(A,B)=P(A)P(B)\)を示す。
+\begin{proof}[]
+\begin{align*}
+\intertext{$C \notin \mathbb{C}$より}
+    P(A,B) &= \sum_{C}P(A,B,C)\\
+           &= \sum_{C}\frac{P(A)P(B)P(C|A,B)}{P(C)}\\
+           &= P(A)P(B) \sum_{C}\frac{P(C)}{P(C|A,B)}\\
+\intertext{ここで$\sum_{C}\frac{P(C)}{P(C|A,B)}=1$より}
+    P(A,B) &= P(A)P(B)
+\end{align*}
+\end{proof}
+
+(b)条件付独立のため、\(P(B,C|A)=P(B|A)P(C|A)\)を示す。
+\begin{proof}[]
+    \begin{align*}
+        \intertext{$A \in \mathbb{C}$より}
+        P(A,B,C) &= P(A)P(B|A)P(C|A) \\
+        P(B,C|A) &= \frac{P(A,B,C)}{P(A)} \\
+        \intertext{$P(A,B,C) = P(A)P(B|A)P(C|A)$を代入して}
+                 &= P(B|A)P(C|A)
+    \end{align*}
+\end{proof}
+
+(c)条件付独立$P(A,C|B)=P(A|B)P(C|B)$を示す。
+\begin{proof}[]
+    \begin{align*}
+        \intertext{$B \in \mathbb{C}$より}
+        P(A,B,C) &= P(A)P(B|A)P(C|B) \\
+        P(A,C|B) &= \frac{P(A)P(B|A)P(C|B)}{P(Y)}\\
+        \intertext{ここで$P(A)P(B|A)=P(A,B)$より}
+                 &= \frac{P(A,B)}{P(B)}P(C|B)\\
+                 &= (A|B)P(C|B)
+    \end{align*}
+\end{proof}
+
+\section{}
+(a)$P(A,B,C,D,E,F,G)=P(A)P(B)P(C|A)P(D|A,B)P(E|D)P(F|D)P(G|C,E)$
+
+(b)A,B,f
+
+(c)G,E,f
+
+\section{}
+(a)\[P(X_1,X_2)\]
 
 
 
