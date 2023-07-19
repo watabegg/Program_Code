@@ -7,6 +7,7 @@
 
 % 画像
 \usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
 
 % 図形
 \usepackage{tikz}
@@ -37,6 +38,8 @@ lineskip=-0.5ex
 
 
 \begin{document}
+\definecolor{shadecolor}{gray}{0.70}
+
 \begin{titlepage}
 \noindent
 \vspace{6cm}
@@ -64,10 +67,9 @@ lineskip=-0.5ex
 \section{演習内容}
 第二週の暗号プロトコル設計演習では前回学習した暗号技術を用いて、課題として課されたプロトコルを設計する。
 
-今回実装した暗号プロトコルはハイブリッド暗号とワンタイムパスワードで、
-それぞれそのプロトコルと実装したコードを示していく。
+今回実装した暗号プロトコルはハイブリッド暗号で、そのプロトコルと実装したコードを示していく。
 
-\section{演習結果}
+\section{暗号プロトコル}
 \subsection{ハイブリッド暗号}
 以下にハイブリッド暗号を実装したコードを示す。
 \lstinputlisting[caption={hyb.pv}, label=hyb]{c:/bin/proverif2.04/tests/hyb.pv}
@@ -75,27 +77,31 @@ lineskip=-0.5ex
 ソースコード\ref{hyb}にはいくつかコメントを入力しており、
 その中である程度コードの構造を説明しているが以下で今一度解説していく。
 
-\begin{tikzpicture}
-\tikzset{Terminal/.style={rounded rectangle,  draw,  text centered, text width=2cm, minimum height=1cm}};
-\tikzset{Process/.style={rectangle,  draw,  text centered, text width=5cm, minimum height=1.4cm}};
-\tikzset{ifthen/.style={diamond,  draw,  text centered, aspect=3,text width=2cm, minimum height=1cm}};
-\tikzset{InOut/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium left angle=70, trapezium right angle=110}};
-\tikzset{LoopStart/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium angle=60}};
-\tikzset{LoopStop/.style={trapezium, draw, text centered, text width=4cm, minimum height=0.6cm, trapezium angle=120}};
-\tikzset{arrow/.style={thick, ->, >=stealth}};
+ハイブリッド暗号では共通鍵暗号方式と公開鍵暗号方式を組み合わせて用いられる暗号方式である。
+共通鍵暗号方式は、共通鍵という鍵を送信者受信者で共有し、送信したい平文を暗号化復号化する暗号方式である。
 
-\node[Terminal](a)at (0,0){開始};
-\node[Process](b)at (0,-2){殺意=1};
-\node[ifthen](c)at (0,-4){殺意10};
-\node[Process](d)at (7,-4){殺意+1};
-\node[InOut](e)at (0,-6){殺害};
+共通鍵はその鍵を共有するのに通信路で送信するため、そのまま送信すると攻撃者に知られてしまう可能性がある。
+そのためここで公開鍵暗号方式を用いる。共通鍵を通信路に送るために、送信者が共通鍵を公開鍵で暗号化し、
+その暗号化された共通鍵を受信者が公開鍵に対応する秘密鍵で復号する。
+ここで復号した共通鍵を用いて送られた暗号文を復号できる。
 
-\draw[arrow](a)--(b);
-\draw[arrow](b)--(c);
-\draw[arrow](c)-- node[anchor=north]{No} (d);
-\draw[arrow](d) to [bend right] (c);
-\draw[arrow](c)-- node[anchor=west]{Yes} (e);
-\end{tikzpicture}
+以上がハイブリッド暗号方式の構造となる。
+
+\section{演習結果}
+以上の設計した暗号プロトコルをProVerifで検証した結果、以下のような出力を得られた。
+\begin{shaded}
+    \noindent
+    Linear part: No equation.\\
+    Convergent part:\\
+    (中略)\\
+    Verification summary:\\
+    Query not attacker(m[]) is true.\\
+    Query not event(RECS) is false.\\
+    Query event(RECS) ==$>$ event(SEND) is true.
+\end{shaded}
+
+この結果より、このプロトコルでは攻撃者から送信したメッセージはばれておらず、
+また送信時のイベント、受信時のイベントも起こっていることが分かる。
 
 
 \end{document}
