@@ -101,7 +101,7 @@ $P(X_1,X_2,\cdots,X_n) = P(X_n)\prod_{i=1}^{n-1}P(X_i|X_n,\cdots,X_{n-i+1})$
 \end{align*}
 \end{proof}
 
-(b)条件付独立のため、\(P(B,C|A)=P(B|A)P(C|A)\)を示す。
+(b)条件付き独立のため、\(P(B,C|A)=P(B|A)P(C|A)\)を示す。
 \begin{proof}[]
     \begin{align*}
         \intertext{$A \in \mathbb{C}$より}
@@ -112,7 +112,7 @@ $P(X_1,X_2,\cdots,X_n) = P(X_n)\prod_{i=1}^{n-1}P(X_i|X_n,\cdots,X_{n-i+1})$
     \end{align*}
 \end{proof}
 
-(c)条件付独立$P(A,C|B)=P(A|B)P(C|B)$を示す。
+(c)条件付き独立$P(A,C|B)=P(A|B)P(C|B)$を示す。
 \begin{proof}[]
     \begin{align*}
         \intertext{$B \in \mathbb{C}$より}
@@ -132,7 +132,22 @@ $P(X_1,X_2,\cdots,X_n) = P(X_n)\prod_{i=1}^{n-1}P(X_i|X_n,\cdots,X_{n-i+1})$
 (c)G,E,f
 
 \section{}
-(a)\[P(X_1,X_2)\]
+(a):\[P(X_1,X_2,\cdots,X_n,Y)=P(Y)\prod_{i=1}^{n}P(X_i|Y)\]
+
+(b):iが適切である。$X_1,X_n$は$X_2,X_3,\cdots,X_{n-1}$に対して$Y$で条件付き独立となり
+周辺化をすることが容易となるからである。
+
+(c):
+\begin{align*}
+    \intertext{(a)で用いた式を$X_2,\cdots,X_{n-1},Y$で周辺化すると}
+    P(X_1,X_n)&=P(X_1|Y)P(X_n|Y)\sum_{Y}P(Y)\prod_{i=2}^{n-1}\sum_{X_i}P(X_i|Y)\\
+    \intertext{となる。}
+    \intertext{ここで$\sum_{Y}P(Y),\sum_{X_i}P(X_i|Y)$がそれぞれ1になるので}
+    P(X_1,X_n)&=P(X_1|Y)P(X_n|Y)\\
+    \intertext{$P(X_1|X_n)=\frac{P(X_1,X_n)}{P(X_n)}$より}
+    P(X_1|X_n=x_n)&=\frac{P(X_1|Y)P(x_n|Y)}{P(x_n)}
+\end{align*}
+
 
 
 
