@@ -47,14 +47,14 @@ lineskip=-0.5ex
 (a)
 
 1回Bellman updateを行った状態価値関数$U_1(s)$の一般式は
-\[U_1(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)[R(s,a,a')+\gamma U_0(s')]\]
+\[U_1(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)[R(s,a,s')+\gamma U_0(s')]\]
 となる。
 
 今回初期値として与えられる$U_0$はすべて0なので
-\[U_1(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)R(s,a,a')\]
+\[U_1(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)R(s,a,s')\]
 と書いてしまって計算する。またこの環境での$s$の取りうる値も$s_1,s_2$のどちらかであるため$U_1(s_0)$は0である。
 
-まず$U_1(s_1)$を計算する。$U_1(s_1)$は状態行動価値関数$Q_1(s_1,a)=\sum_{s'}P(s'|s,a)R(s,a,a')$を用いて
+まず$U_1(s_1)$を計算する。$U_1(s_1)$は状態行動価値関数$Q_1(s_1,a)=\sum_{s'}P(s'|s,a)R(s,a,s')$を用いて
 \[U_1(s_1)=\max_{a\in\{a_1,a_2\}}Q_1(s_1,a)\]
 と表せる。$Q(s,a)$は課題資料中の表から計算することで
 \[Q_1(s_1,a_1)=1,Q_1(s_1,a_2)=2\]
@@ -79,11 +79,11 @@ $s_2$でも同様な計算を行うと
 (b)
 
 (a)からBellman updateをもう一度行うと状態価値関数$U_2(s)$の一般式は
-\[U_2(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)[R(s,a,a')+\gamma U_1(s')]\]
+\[U_2(s)=\max_{a\in\{a_1,a_2\}}\sum_{s'}P(s'|s,a)[R(s,a,s')+\gamma U_1(s')]\]
 となる。また(a)と同様$U_2(s_0)=0$である。
 
 まず$U_2(s_1)$を計算する。状態行動価値関数$Q_2(s,a)$は
-\[Q_2(s,a)=\sum_{s'}P(s'|s,a)[R(s,a,a')+\gamma U_1(s')]\]
+\[Q_2(s,a)=\sum_{s'}P(s'|s,a)[R(s,a,s')+\gamma U_1(s')]\]
 となる。課題資料中の表、また(a)の回答より$Q_2(s_1,a)$を$a$についてそれぞれ計算することで
 \[Q_2(s_1,a_1)=2,Q_2(s_1,a_2)=3\]
 が得られる。これの最大値を取るので
@@ -158,6 +158,50 @@ U_0(s_1) & =P(s_1|s_1,a_1)R(s_1,a_1,s_1)\\
         $\pi_1$ & $a_1$ & $a_1$ \\ \hline
     \end{tabular}
 \end{center}
+
+\section{}
+(a)
+
+状態$s_2,s_4,s_5$はそれぞれ$s_4,s_5,s_0$にしか遷移しないため価値関数$U$はそれぞれ
+\[U(s_2)=-10,U(s_4)=-10,U(s_5)=100\]
+となる。
+
+(b)
+
+状態$s_3$での状態価値関数$U(s_3)$は
+\begin{align*}
+    U(s_3) & =\max_{\textbf{a}\in\{a,b\}}\sum_{s'}P(s'|s_3,\textbf{a})[R(s_3,\textbf{a},s')+\gamma U(s')] \\
+           & =\sum_{s'}P(s'|s_3,b)[R(s_3,b,s')+\gamma U(s')] \\
+           & =P(s_4|s_3,b)[R(s_3,b,s_4)+\gamma U(s_4)] \\
+           &\qquad + P(s_5|s_3,b)[R(s_3,b,s_5)+\gamma U(s_5)] 
+    \intertext{となる。$P(s_4|s_3,b)=p,P(s_5|s_3,b)=q$を代入し、ほかの値も課題資料中の表の値を用いると、}
+    U(s_3) & =-20p + 96q 
+    \intertext{$p+q=1$より、pまたはqで整理すると}
+           & =96-116p \\
+           & =116q -20
+\end{align*}
+となる。
+
+(c)
+
+状態$s_1$での状態価値関数$U(s_1)$は
+\begin{align*}
+    U(s_1) & =\max_{\textbf{a}\in\{a,b\}}\sum_{s'}P(s'|s_1,\textbf{a})[R(s_1,\textbf{a},s')+\gamma U(s')] \\
+           & =\max(P(s_3|s_1,a)[R(s_1,a,s_3)+\gamma U(s_3)] ,P(s_2|s_1,b)[R(s_1,b,s_2)+\gamma U(s_2)])
+\end{align*}
+である。ここに資料中の値と前問で出した答えを代入すると
+\[U(s_1) =\max (86-116p,-5)\]
+となる。この関数の解は
+
+\begin{equation*}
+U(s_1) =
+\begin{cases}
+86-116p & (p < \frac{91}{116})\\
+-5 & \text{otherwise}
+\end{cases}
+\end{equation*}
+
+となる。
 
 
 \end{document}
