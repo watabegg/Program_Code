@@ -100,8 +100,64 @@ $s_2$でも同様な計算を行うと
 \begin{center}
     \begin{tabular}[h]{|c|c|c|c|} \hline
               & $s_1$ & $s_2$ & $s_0$ \\ \hline
-        $U_1$ &   3   &   2   &   0   \\ \hline
+        $U_2$ &   3   &   2   &   0   \\ \hline
     \end{tabular}
 \end{center}
+
+(c)
+
+方策評価によって得られる価値関数$U^{\pi_i}=U_i(s)$は
+\[U_i(s)=\sum_{s'}P(s'|s,\pi_i(s))[R(s,\pi_i(s),s')+\gamma U_i(s')]\]
+となる。今回求めるのは$U^{\pi_i}=U_0(s)$であるので、式は
+\[U_0(s)=\sum_{s'}P(s'|s,\pi_0(s))R(s,\pi_0(s),s')\]
+としてしまう。課題資料にある$\pi_0$を用いて$s_1$から計算していく。
+
+$U_0(s_1)$は
+\begin{align*}
+U_0(s_1) & =P(s_1|s_1,a_1)R(s_1,a_1,s_1)\\
+         & =1
+\end{align*}
+となる。同様に$U_0(s_2)=-10,U_0(s_0)=0$と計算できる。
+
+表で表すと以下のようになる。
+\begin{center}
+    \begin{tabular}[h]{|c|c|c|c|} \hline
+              & $s_1$ & $s_2$ & $s_0$ \\ \hline
+        $U_0$ &   1   &  -10  &   0   \\ \hline
+    \end{tabular}
+\end{center}
+
+(d)
+
+方策$\pi_1(s)$は
+\[\pi_1(s)=\arg \max_{a}\sum_{s'}P(s'|s,a)[R(s,a,s')+\gamma U_0(s')]\]
+となる。$\gamma = \frac{1}{2}$で、$U_0(s)$は前問の値を使う。
+
+状態行動価値関数$Q(s,a)$を$s=s_1,s_2$について$a_1,a_2$それぞれで計算すると
+\begin{align*}
+    Q(s_1,a_1) & =P(s_1|s_1,a_1)[R(s_1,a_1,s_1)+\frac{1}{2}U_0(s_1)] \\
+               & =1.5\\
+    Q(s_1,a_2) & =P(s_1|s_1,a_2)[R(s_1,a_2,s_1)+\frac{1}{2}U_0(s_1)] \\ 
+               & \qquad + P(s_2|s_1,a_2)[R(s_1,a_2,s_2)+\frac{1}{2}U_0(s_2)]\\
+               & =-0.25\\
+    Q(s_2,a_1) & =P(s_1|s_2,a_1)[R(s_2,a_1,s_1)+\frac{1}{2}U_0(s_1)] \\
+               & \qquad + P(s_2|s_2,a_1)[R(s_2,a_1,s_2)+\frac{1}{2}U_0(s_2)]\\
+               & =-1.25\\
+    Q(s_2,a_2) & =P(s_0|s_2,a_2)[R(s_2,a_2,s_0)+\frac{1}{2}U_0(s_0)] \\
+               & =-10
+\end{align*}
+
+よって以上の結果から
+\[\pi_1(s_1)=a_1,\pi_1(s_2)=a_1\]
+となる。
+
+表で表すと以下のようになる。
+\begin{center}
+    \begin{tabular}[h]{|c|c|c|} \hline
+                & $s_1$ & $s_2$ \\ \hline
+        $\pi_1$ & $a_1$ & $a_1$ \\ \hline
+    \end{tabular}
+\end{center}
+
 
 \end{document}
