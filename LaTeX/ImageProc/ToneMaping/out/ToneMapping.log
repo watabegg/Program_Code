@@ -1,10 +1,10 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  30 MAY 2023 17:38
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  26 JUL 2023 03:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Program_code/LaTeX/ImageProc/ToneMaping.tex
-(c:/Program_code/LaTeX/ImageProc/ToneMaping.tex
+**c:/Program_Code/LaTeX/ImageProc/ToneMaping/ToneMapping.tex
+(c:/Program_Code/LaTeX/ImageProc/ToneMaping/ToneMapping.tex
 pLaTeX2e <2023-02-14>+1 (based on LaTeX2e <2022-11-01> patch level 1)
 L3 programming layer <2023-03-30> (c:/texlive/2023/texmf-dist/tex/platex/jsclasses/jsarticle.cls
 Document Class: jsarticle 2023/02/23 jsclasses (okumura, texjporg)
@@ -425,8 +425,8 @@ File: l3backend-dvipdfmx.def 2023-03-30 L3 backend support: dvipdfmx
 \g__pdf_backend_object_int=\count308
 \g__pdf_backend_annotation_int=\count309
 \g__pdf_backend_link_int=\count310
-) (out/ToneMaping.aux)
-\openout1 = `ToneMaping.aux'.
+) (out/ToneMapping.aux)
+\openout1 = `ToneMapping.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
 LaTeX Font Info:    ... okay on input line 40.
@@ -501,14 +501,14 @@ LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
 (Font)              scaled to size 8.64899pt on input line 73.
 [1
 
-] [2] (out/ToneMaping.aux) ) 
+] [2] (out/ToneMapping.aux) ) 
 Here is how much of TeX's memory you used:
  16425 strings out of 476685
- 341803 string characters out of 5808308
+ 341847 string characters out of 5808308
  1851481 words of memory out of 5000000
  36579 multiletter control sequences out of 15000+600000
  532522 words of font info for 122 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 84i,9n,89p,456b,373s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,9n,89p,468b,373s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/ToneMaping.dvi (2 pages, 5392 bytes).
+Output written on out/ToneMapping.dvi (2 pages, 5392 bytes).
