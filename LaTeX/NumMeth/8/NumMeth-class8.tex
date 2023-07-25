@@ -45,6 +45,40 @@ lineskip=-0.5ex
 \date{\today}
 \maketitle
 
+\section{演習内容}
+Class-8でも引き続き、いくつかの$xy$平面上のデータからそのデータをすべて通るなめらかな曲線を描くための手法、
+最小二乗法についてコードを実装し、実際に動かしていく。
+
+最小二乗法はよく用いられる、データから関数を見つけ出す手法で、
+大雑把に言えばデータ点と予測される関数の$y$座標の値の誤差を二乗し、それが最小になる関数を探す手法である。
+
+まず、データ点から予測される関数が単一の一次方程式$y=ax+b$であるときを考える。
+データ点はそれぞれ$(x_i,y_i)\quad (i=0,1,\cdots,n)$である。
+このときのデータと予測される関数との誤差$E_i$は
+\begin{equation}
+    E_i = ax_i+b-y_i
+\end{equation}
+で表される。
+
+これを二乗してすべてのデータ点で足し合わせることで二乗誤差$E$を得る。
+\begin{align}
+    E &= \sum_{i=0}^{n}(E_i)^2 \notag \\
+      &= \sum_{i=0}^{n}(ax_i+b-y_i)^2
+\end{align}
+
+これを最小にする$a,b$を決めたいので$a,b$それぞれで(2)の式を偏微分することで
+\begin{align}
+    \frac{\partial E}{\partial a} &= \frac{\partial \sum_{i=0}^{n}(ax_i+b-y_i)^2}{\partial a} \notag \\
+                                  &= \sum_{i=0}^{n}2x_i(ax_i+b-y_i) \\
+    \frac{\partial E}{\partial b} &= \frac{\partial \sum_{i=0}^{n}(ax_i+b-y_i)^2}{\partial b} \notag \\
+                                  &= \sum_{i=0}^{n}2(ax_i+b-y_i) 
+\end{align}
+の(3),(4)の二式が得られる。
+
+この二式イコール0を連立方程式として解けば求めたい$a,b$の係数を得られる。
+
+これを拡張し、一般化すれば任意の関数の一次結合をした関数で誤差の二乗が最小の関数を得ることができる。
+
 
 
 
