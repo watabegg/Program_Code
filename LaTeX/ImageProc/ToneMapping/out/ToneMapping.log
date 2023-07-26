@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  27 JUL 2023 01:42
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  27 JUL 2023 01:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -553,14 +553,23 @@ File: ./img/flatten_afterfunc.jpg Graphic file (type bmp)
 <./img/flatten_afterfunc.jpg>
 File: ./img/flatten_afterimg.jpg Graphic file (type bmp)
 <./img/flatten_afterimg.jpg>
-[7] [8] (out/ToneMapping.aux) ) 
+[7]
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 308.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 308.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 308.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 308.
+[8] [9] [10] [11] [12] [13] (out/ToneMapping.aux) ) 
 Here is how much of TeX's memory you used:
- 16498 strings out of 476685
- 343892 string characters out of 5808308
- 1854481 words of memory out of 5000000
- 36638 multiletter control sequences out of 15000+600000
- 532522 words of font info for 122 fonts, out of 8000000 for 9000
+ 16767 strings out of 476685
+ 346160 string characters out of 5808308
+ 2056481 words of memory out of 5000000
+ 36902 multiletter control sequences out of 15000+600000
+ 533349 words of font info for 127 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 84i,14n,89p,469b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,14n,89p,469b,1757s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/ToneMapping.dvi (8 pages, 16168 bytes).
+Output written on out/ToneMapping.dvi (13 pages, 33720 bytes).
