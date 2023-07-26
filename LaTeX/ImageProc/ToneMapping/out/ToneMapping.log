@@ -1,10 +1,10 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  26 JUL 2023 19:14
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  26 JUL 2023 23:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Program_Code/LaTeX/ImageProc/ToneMaping/ToneMapping.tex
-(c:/Program_Code/LaTeX/ImageProc/ToneMaping/ToneMapping.tex
+**c:/Program_Code/LaTeX/ImageProc/ToneMapping/ToneMapping.tex
+(c:/Program_Code/LaTeX/ImageProc/ToneMapping/ToneMapping.tex
 pLaTeX2e <2023-02-14>+1 (based on LaTeX2e <2022-11-01> patch level 1)
 L3 programming layer <2023-03-30> (c:/texlive/2023/texmf-dist/tex/platex/jsclasses/jsarticle.cls
 Document Class: jsarticle 2023/02/23 jsclasses (okumura, texjporg)
@@ -532,16 +532,26 @@ Overfull \hbox (31.51671pt too wide) in paragraph at lines 169--195
  []
 
 [3]
-File: C:/Users/user/Documents/ImageProc/task/img/Morita.jpg Graphic file (type bmp)
-<C:/Users/user/Documents/ImageProc/task/img/Morita.jpg>
-[4] (out/ToneMapping.aux) ) 
+File: ./img/linear_beforeimg.jpg Graphic file (type bmp)
+<./img/linear_beforeimg.jpg>
+[4]
+File: ./img/linear_beforefunc.jpg Graphic file (type bmp)
+<./img/linear_beforefunc.jpg>
+File: ./img/linear_afterfunc.jpg Graphic file (type bmp)
+<./img/linear_afterfunc.jpg>
+[5]
+File: ./img/linear_afterimg.jpg Graphic file (type bmp)
+<./img/linear_afterimg.jpg>
+File: ./img/linear_imgcon.jpg Graphic file (type bmp)
+<./img/linear_imgcon.jpg>
+[6] [7] (out/ToneMapping.aux) ) 
 Here is how much of TeX's memory you used:
- 16450 strings out of 476685
- 342618 string characters out of 5808308
+ 16472 strings out of 476685
+ 343025 string characters out of 5808308
  1854481 words of memory out of 5000000
- 36598 multiletter control sequences out of 15000+600000
+ 36618 multiletter control sequences out of 15000+600000
  532522 words of font info for 122 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 84i,14n,89p,468b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,14n,89p,469b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/ToneMapping.dvi (4 pages, 9964 bytes).
+Output written on out/ToneMapping.dvi (7 pages, 13100 bytes).

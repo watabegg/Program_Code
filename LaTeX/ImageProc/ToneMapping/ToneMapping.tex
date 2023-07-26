@@ -131,7 +131,7 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
 これにより求まった式(4)の係数を利用するのが線形濃度変換の計算方法となる。
 
 このヒストグラムの濃度変換はほかにも、
-いくつかの区分の一次式、多項式を組み合わせたもの(スプライン関数)や$tan$関数などを用いることもある。
+いくつかの区分の一次式、多項式を組み合わせたもの(スプライン関数)や$\tan$関数などを用いることもある。
 
 \subsection{ヒストグラム平坦化}
 続いて、逆光時など明るさにばらつきがある画像を補正する処理、ヒストグラム平坦化について説明していく。
@@ -207,12 +207,58 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
 図\ref{Morita}のような画像を用意した。これは上田市駅近くにある町中華モリタである。
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=60mm]{C:/Users/user/Documents/ImageProc/task/img/Morita.jpg}
+    \includegraphics[width=120mm]{./img/linear_beforeimg.jpg}
     \caption{線形濃度変換を行う前の画像}
     \label{Morita}
 \end{figure}
 
-図\ref{Morita}の画像は雲の色や建物の色など、少しはっきりとしない部分が多く、コントラストが低くなっていることが予想できる。
+図\ref{Morita}の画像は雲の色や建物の色など、少しはっきりとしない部分が多く、コントラストが低くなっていることがわかる。
+
+\newpage
+実際にヒストグラムを出力してみると図\ref{bfhist}のように輝度値の範囲が狭くなっていることが分かる。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/linear_beforefunc.jpg}
+    \caption{線形濃度変換を行う前の画像(図\ref{Morita})のヒストグラム}
+    \label{bfhist}
+\end{figure}
+
+これを線形濃度変換で輝度値の範囲を広くしていく。
+
+処理前の輝度値の範囲はおよそ0.06~0.91である。この範囲を0~1に広げたいので$x_1=0.06,x_2=0.91,y_1=0,y_2=1$
+として式(4)を使って$y=ax+b$の定数部分を求めれば$a\simeq 1.17,b\simeq -0.07$となるので
+$y=1.17x-0.07$の関数を用いて変換を行えばよい。
+
+実際に変換を行うとヒストグラムは図\ref{afhist}のように出力された。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/linear_afterfunc.jpg}
+    \caption{線形濃度変換を行ったあとの画像のヒストグラム}
+    \label{afhist}
+\end{figure}
+
+図\ref{afhist}を見れば分かるようにヒストグラムが輝度値いっぱいに展開されていることが分かる。
+
+\newpage
+この線形濃度変換を行った画像が図\ref{afMorita}になる。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=120mm]{./img/linear_afterimg.jpg}
+    \caption{線形濃度変換を行った後の画像}
+    \label{afMorita}
+\end{figure}
+
+処理前と処理後で画像を比較すると図\ref{conimg}のようになる。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=120mm]{./img/linear_imgcon.jpg}
+    \caption{処理前後の画像比較(左が処理前、右が処理後)}
+    \label{conimg}
+\end{figure}
+
+こう比較すると元画像の輝度値がそこまで酷く狭いわけではなかったためわかりずらいが、
+確かにコントラストに補正が入りはっきりとした画像になっていることが分かる。
+
 
 
 \end{document}
