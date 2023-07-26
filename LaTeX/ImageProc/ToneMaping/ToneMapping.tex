@@ -128,4 +128,91 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
 \end{equation}
 と求まる。
 
+これにより求まった式(4)の係数を利用するのが線形濃度変換の計算方法となる。
+
+このヒストグラムの濃度変換はほかにも、
+いくつかの区分の一次式、多項式を組み合わせたもの(スプライン関数)や$tan$関数などを用いることもある。
+
+\subsection{ヒストグラム平坦化}
+続いて、逆光時など明るさにばらつきがある画像を補正する処理、ヒストグラム平坦化について説明していく。
+
+逆光などで明るさのばらつく画像は図\ref{hist_2}のようなヒストグラムになっている。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/flatten_ex.jpg}
+    \caption{明るさにばらつきのある画像のヒストグラム}
+    \label{hist_2}
+\end{figure}
+
+このようなヒストグラムに対して、ヒストグラムの山を広げるような処理をするのがヒストグラム平坦化である。
+
+ヒストグラムの山を広げるという処理は線形濃度変換のようなシンプルなマッピング関数では実装が難しい。
+そのため、ヒストグラム個別にマッピング関数を生成する必要がある。
+
+このマッピング関数$f(x)$を求めるのは、複雑ではない。ヒストグラムの勾配が大きいところほど大きな山ができていることを
+考えれば、このヒストグラム関数$h(x)$を単に積分してしまえばよい。
+すなわち式にして表すと適当な0以上の係数$s$を用いて、式(5)のようになる。
+\begin{equation}
+    f(x) = s \int h(x)dx
+\end{equation}
+
+ただしヒストグラム関数が離散値であるので
+\begin{equation}
+    f(x) = \sum_{i=i}^{x}h(i)
+\end{equation}
+とすることで、入力画像毎にマッピング関数を決めることができる。
+
+実際にこの処理を画像に施すと図\ref{hist_3}のようなヒストグラムの変換を行うことができる。
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tabular}{ccccc}
+    \begin{minipage}[l]{0.2\hsize}
+        \centering
+        \includegraphics[width=40mm]{./img/flatten_ex.jpg}
+    \end{minipage}&
+    \begin{minipage}[c]{0.2\hsize}
+        \centering
+        \begin{math}
+                \overset{f(x) = \sum_{i=i}^{x}h(i)}{\to}
+        \end{math}
+    \end{minipage}&
+    \begin{minipage}[c]{0.21\hsize}
+        \centering
+        \includegraphics[width=30mm]{./img/flatten_func_ex.jpg}
+    \end{minipage}&
+    \begin{minipage}{0.12\hsize}
+        \centering
+        \begin{math}
+                \overset{h'(x)=f(x)h(x)}{\to}
+        \end{math}
+    \end{minipage}&
+    \begin{minipage}[c]{0.2\hsize}
+        \centering
+        \includegraphics[width=40mm]{./img/flatten_ex2.jpg}
+    \end{minipage}
+    \end{tabular}
+    \caption{ヒストグラム平坦化によるヒストグラムの変化例}
+    \label{hist_3}
+\end{figure}
+
+これがヒストグラム平坦化の処理内容となる。
+
+\section{演習}
+では実際に、画像に対してヒストグラムの線形濃度変換とヒストグラム平坦化の処理を行う。
+
+\subsection{線形濃度変換}
+まず、線形濃度変換から行う。
+
+図\ref{Morita}のような画像を用意した。これは上田市駅近くにある町中華モリタである。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=60mm]{C:/Users/user/Documents/ImageProc/task/img/Morita.jpg}
+    \caption{線形濃度変換を行う前の画像}
+    \label{Morita}
+\end{figure}
+
+図\ref{Morita}の画像は雲の色や建物の色など、少しはっきりとしない部分が多く、コントラストが低くなっていることが予想できる。
+
+
 \end{document}
