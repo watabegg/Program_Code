@@ -162,7 +162,8 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
 \end{equation}
 とすることで、入力画像毎にマッピング関数を決めることができる。
 
-実際にこの処理を画像に施すと図\ref{hist_3}のようなヒストグラムの変換を行うことができる。
+実際にこの処理を画像に施すと図\ref{hist_3}のようなヒストグラムの変換を行うことができる
+(図\ref{hist_3}では簡略化した数式で表している)。
 
 \begin{figure}[htbp]
     \centering
@@ -184,7 +185,7 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
     \begin{minipage}{0.12\hsize}
         \centering
         \begin{math}
-                \overset{h'(x)=f(x)h(x)}{\to}
+                \overset{h'(x)=f(h(x))}{\to}
         \end{math}
     \end{minipage}&
     \begin{minipage}[c]{0.2\hsize}
@@ -198,8 +199,9 @@ $y=ax+b$の形の線形関数を用いて変形を行うとき(この変形は�
 
 これがヒストグラム平坦化の処理内容となる。
 
-\section{演習}
-では実際に、画像に対してヒストグラムの線形濃度変換とヒストグラム平坦化の処理を行う。
+\section{演習-考察}
+では実際に、画像に対してヒストグラムの線形濃度変換とヒストグラム平坦化の処理を行い、
+その処理で当該画像がどのように変化したのかを考える。
 
 \subsection{線形濃度変換}
 まず、線形濃度変換から行う。
@@ -260,6 +262,44 @@ $y=1.17x-0.07$の関数を用いて変換を行えばよい。
 確かにコントラストに補正が入りはっきりとした画像になっていることが分かる。
 
 \subsection{ヒストグラム平坦化}
+続いてヒストグラム平坦化を行う画像は図\ref{MtIbuki}である。これは私が岐阜県の伊吹山へ行ったときに撮った写真である。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=60mm]{C:/Users/user/Documents/ImageProc/task/img/MtIbuki.jpg}
+    \caption{ヒストグラム平坦化を行う前の画像}
+    \label{MtIbuki}
+\end{figure}
 
+この画像は一見明るさのばらつきが酷くないが、ヒストグラムを見ると図\ref{bfhist_2}のように
+大きな輝度値のピークを暗いところと明るいところに2つ確認できる。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/flatten_beforefunc.jpg}
+    \caption{処理前の図\ref{MtIbuki}のヒストグラム}
+    \label{bfhist_2}
+\end{figure}
+
+これをヒストグラム平坦化にかけると図\ref{afhist_2}のヒストグラムと図\ref{afMtIbuki}の出力画像が得られる。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/flatten_afterfunc.jpg}
+    \caption{処理後の図\ref{afMtIbuki}のヒストグラム}
+    \label{afhist_2}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=80mm]{./img/flatten_afterimg.jpg}
+    \caption{ヒストグラム平坦化を行った後の画像}
+    \label{afMtIbuki}
+\end{figure}
+
+図\ref{bfhist_2}と図\ref{afhist_2}を比較するとわかるがヒストグラムにあったピークがかなり広がり、
+勾配が緩やかになったことが分かる。また、図\ref{bfhist_2}では狭かった輝度値の範囲も図\ref{bfhist_2}
+ではヒストグラム平坦化を施したことで大きく広がっていることが分かる。
+
+また結果として出力された図\ref{afMtIbuki}は全体的に明るくなり、
+逆光画像の影部分のようになっていた手前の草むらや雲もくっきりと見えるようになった。
+画像自体が明るくなっているのは輝度値の範囲が広がったことにあると思うが、
+輪郭のぼんやりしていた空が明るくなっているのはヒストグラム平坦化によるものだと考えられる。
 
 \end{document}

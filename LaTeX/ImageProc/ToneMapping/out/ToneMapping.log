@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  27 JUL 2023 01:00
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  27 JUL 2023 01:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -508,26 +508,26 @@ File: ./img/flatten_ex.jpg Graphic file (type bmp)
 File: ./img/flatten_ex.jpg Graphic file (type bmp)
 <./img/flatten_ex.jpg>
 
-Overfull \hbox (32.43979pt too wide) in paragraph at lines 172--173
+Overfull \hbox (32.43979pt too wide) in paragraph at lines 173--174
  [][] 
  []
 
 File: ./img/flatten_func_ex.jpg Graphic file (type bmp)
 <./img/flatten_func_ex.jpg>
 
-Overfull \hbox (6.42416pt too wide) in paragraph at lines 186--189
+Overfull \hbox (1.88943pt too wide) in paragraph at lines 187--190
  []$[]$ 
  []
 
 File: ./img/flatten_ex2.jpg Graphic file (type bmp)
 <./img/flatten_ex2.jpg>
 
-Overfull \hbox (32.43979pt too wide) in paragraph at lines 192--193
+Overfull \hbox (32.43979pt too wide) in paragraph at lines 193--194
  [][] 
  []
 
 
-Overfull \hbox (31.51671pt too wide) in paragraph at lines 169--195
+Overfull \hbox (31.51671pt too wide) in paragraph at lines 170--196
  [][][][] 
  []
 
@@ -544,14 +544,23 @@ File: ./img/linear_afterimg.jpg Graphic file (type bmp)
 <./img/linear_afterimg.jpg>
 File: ./img/linear_imgcon.jpg Graphic file (type bmp)
 <./img/linear_imgcon.jpg>
-[6] [7] (out/ToneMapping.aux) ) 
+[6]
+File: C:/Users/user/Documents/ImageProc/task/img/MtIbuki.jpg Graphic file (type bmp)
+<C:/Users/user/Documents/ImageProc/task/img/MtIbuki.jpg>
+File: ./img/flatten_beforefunc.jpg Graphic file (type bmp)
+<./img/flatten_beforefunc.jpg>
+File: ./img/flatten_afterfunc.jpg Graphic file (type bmp)
+<./img/flatten_afterfunc.jpg>
+File: ./img/flatten_afterimg.jpg Graphic file (type bmp)
+<./img/flatten_afterimg.jpg>
+[7] [8] (out/ToneMapping.aux) ) 
 Here is how much of TeX's memory you used:
- 16472 strings out of 476685
- 343025 string characters out of 5808308
+ 16498 strings out of 476685
+ 343892 string characters out of 5808308
  1854481 words of memory out of 5000000
- 36618 multiletter control sequences out of 15000+600000
+ 36638 multiletter control sequences out of 15000+600000
  532522 words of font info for 122 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  84i,14n,89p,469b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/ToneMapping.dvi (7 pages, 13152 bytes).
+Output written on out/ToneMapping.dvi (8 pages, 16168 bytes).
