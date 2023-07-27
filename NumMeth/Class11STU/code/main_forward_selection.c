@@ -4,15 +4,15 @@
 #include <math.h>
 #include <float.h>
 #define N 220
-#define NF 6 /* åŸºæœ¬é–¢æ•°ã®æ•°*/
+#define NF 6 /* Šî–{ŠÖ”‚Ì”*/
 #include "my_library_v3.h"
 #include "minjijo_lusolve_extended.h"
 #include "forward_selection.h"
 /* main_forward_selection */
 int main(void)
 {
-    int n;             /* nå€‹ãƒ‡ãƒ¼ã‚¿ç‚¹æ•°, */
-    double x[N], y[N]; /* ãƒ‡ãƒ¼ã‚¿ */
+    int n;             /* nŒÂƒf[ƒ^“_”, */
+    double x[N], y[N]; /* ƒf[ƒ^ */
     char *data = "example2.txt";
     // char *data="nh_covid-italy.txt";
     // char *data="nh_bb_age_weigth.txt";
@@ -24,15 +24,15 @@ int main(void)
         Methods /
         Class11 ";
         char fname_data[200];
-    printf("ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯å‰æ–¹é¸æŠã‚’ä½¿ç”¨ã—ã¦\n");
-    printf("èª¤å·®ãŒå°ã•ã„ãƒ¢ãƒ‡ãƒ«ã‚’è¦‹ã¤å‡ºã™\n");
-    /* ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ› */
+    printf("‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í‘O•û‘I‘ğ‚ğg—p‚µ‚Ä\n");
+    printf("Œë·‚ª¬‚³‚¢ƒ‚ƒfƒ‹‚ğŒ©‚Âo‚·\n");
+    /* ƒf[ƒ^‚Ì“ü—Í */
     sprintf(fname_data, "%s/data/%s", path, data);
     n = data_input(fname_data, x, y);
-    /* å‰æ–¹é¸æŠ */
+    /* ‘O•û‘I‘ğ */
     forward_step_wise_selection(NF, x, y, n, path, data);
-    printf("ãƒ¢ãƒ‡ãƒ«èª¤å·®ã¨æ±‚ã‚ãŸåŸºæœ¬é–¢æ•°ã®ä¿‚æ•°ã¯ãƒ•ã‚¡ã‚¤ãƒ« out_%s ã«ä¿å­˜ã•ã‚Œã¾ã™\n", data);
-    printf("è£œé–“çµæœã¯ãƒ•ã‚¡ã‚¤ãƒ« mk#_est_%s ã«ä¿å­˜ã•ã‚Œã¾ã™\n", data);
-    printf("å‡¦ç†ã®çµ‚äº†\n");
+    printf("ƒ‚ƒfƒ‹Œë·‚Æ‹‚ß‚½Šî–{ŠÖ”‚ÌŒW”‚Íƒtƒ@ƒCƒ‹ out_%s ‚É•Û‘¶‚³‚ê‚Ü‚·\n", data);
+    printf("•âŠÔŒ‹‰Ê‚Íƒtƒ@ƒCƒ‹ mk#_est_%s ‚É•Û‘¶‚³‚ê‚Ü‚·\n", data);
+    printf("ˆ—‚ÌI—¹\n");
     return 0;
 }

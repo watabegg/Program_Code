@@ -1,9 +1,9 @@
 typedef struct struct_model
 {
-    int k;         /* åŸºæœ¬é–¢æ•°ã®æ•°k */
-    int f_id[N];   /* åŸºæœ¬é–¢æ•°ã®id 1,...,NF*/
-    double sol[N]; /* ãƒ¢ãƒ‡ãƒ«ã®æ±‚ã‚ãŸa1,...akã®ä¿‚æ•° */
-    double err;    /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·® */
+    int k;         /* Šî–{ŠÖ”‚Ì”k */
+    int f_id[N];   /* Šî–{ŠÖ”‚Ìid 1,...,NF*/
+    double sol[N]; /* ƒ‚ƒfƒ‹‚Ì‹‚ß‚½a1,...ak‚ÌŒW” */
+    double err;    /* ƒ‚ƒfƒ‹‚ÌŒë· */
 } struct_model;
 enum result
 {
@@ -39,15 +39,15 @@ void forward_step_wise_selection(int nf, double x[N], double y[N], int n,
                                  char *path, char *data)
 {
     int i, k, j;
-    struct_model current_m, best_m; /* ç¾è¡Œãƒ¢ãƒ‡ãƒ«ã¨æœ€é«˜ãƒ¢ãƒ‡ãƒ« */
+    struct_model current_m, best_m; /* Œ»sƒ‚ƒfƒ‹‚ÆÅ‚ƒ‚ƒfƒ‹ */
     current_m.k = 0;
     current_m.err = DBL_MAX; /* DBL_MAX <float.h> */
     best_m.err = DBL_MAX;
     char fname_hokan[200], fname_out[200];
     FILE *fp_out;
-    /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®ã¨åŸºæœ¬é–¢æ•°ã¨æ±‚ã‚ãŸä¿‚æ•°ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¨­å®šã™ã‚‹ */
+    /* ƒ‚ƒfƒ‹‚ÌŒë·‚ÆŠî–{ŠÖ”‚Æ‹‚ß‚½ŒW”‚Ìƒtƒ@ƒCƒ‹–¼‚ğİ’è‚·‚é */
     sprintf(fname_out, "%s/results/out_%s", path, data);
-    /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®ã¨åŸºæœ¬é–¢æ•°ã¨æ±‚ã‚ãŸä¿‚æ•°ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã */
+    /* ƒ‚ƒfƒ‹‚ÌŒë·‚ÆŠî–{ŠÖ”‚Æ‹‚ß‚½ŒW”‚Ìƒtƒ@ƒCƒ‹‚ğŠJ‚­ */
     fp_out = fopen(fname_out, "w");
     for (k = 1; k <= nf; k++) /* k basic functions */
     {
@@ -56,18 +56,18 @@ void forward_step_wise_selection(int nf, double x[N], double y[N], int n,
         {
             if (f_in_model(current_m, i) == FALSE)
             {
-                /* ç¾åœ¨ã®ãƒ¢ãƒ‡ãƒ«ã§é–¢æ•°fiã‚’è©¦ã™ */
+                /* Œ»İ‚Ìƒ‚ƒfƒ‹‚ÅŠÖ”fi‚ğ‚· */
                 current_m.k = k;
                 current_m.f_id[k] = i;
-                /* ãƒ¢ãƒ‡ãƒ«ã®ä¿‚æ•°ã‚’æ±‚ã‚ã‚‹ */
+                /* ƒ‚ƒfƒ‹‚ÌŒW”‚ğ‹‚ß‚é */
                 compute_model(n, k, x, y, current_m.f_id, current_m.sol);
-                /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®ã‚’æ±‚ã‚ã‚‹ */
+                /* ƒ‚ƒfƒ‹‚ÌŒë·‚ğ‹‚ß‚é */
                 current_m.err = model_error(n, k, x, y, current_m.sol,
                                             current_m.f_id);
-                /* æœ€é«˜ãƒ¢ãƒ‡ãƒ«ã‚’æ›´æ–°ã™ã‚‹ */
+                /* Å‚ƒ‚ƒfƒ‹‚ğXV‚·‚é */
                 if (current_m.err < best_m.err)
                     copy_model(&current_m, &best_m);
-                /* èª¤å·®ã¨æ±‚ã‚ãŸåŸºæœ¬é–¢æ•°ã®ä¿‚æ•°ã‚’å‡ºåŠ› */
+                /* Œë·‚Æ‹‚ß‚½Šî–{ŠÖ”‚ÌŒW”‚ğo—Í */
                 printf("%d %f ", i, current_m.err);
                 for (j = 1; j <= k; j++)
                 {
@@ -76,24 +76,24 @@ void forward_step_wise_selection(int nf, double x[N], double y[N], int n,
                 printf("\n");
             }
         }
-        /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®, ãƒ¢ãƒ‡ãƒ«ã®åŸºæœ¬é–¢æ•°ã¨æ±‚ã‚ãŸä¿‚æ•°ã‚’å‡ºåŠ› */
+        /* ƒ‚ƒfƒ‹‚ÌŒë·, ƒ‚ƒfƒ‹‚ÌŠî–{ŠÖ”‚Æ‹‚ß‚½ŒW”‚ğo—Í */
         model_error_output(fp_out, k, best_m.err, best_m.k, best_m.sol,
                            best_m.f_id);
-        printf("k=%d æœ€é«˜ã®ãƒ¢ãƒ‡ãƒ«\n", best_m.k);
-        printf(" èª¤å·®: %f\n", best_m.err);
-        printf(" ãƒ¢ãƒ‡ãƒ«: ");
+        printf("k=%d Å‚‚Ìƒ‚ƒfƒ‹\n", best_m.k);
+        printf(" Œë·: %f\n", best_m.err);
+        printf(" ƒ‚ƒfƒ‹: ");
         for (j = 1; j <= best_m.k; j++)
         {
             printf("%.3f*f%d ", best_m.sol[j], best_m.f_id[j]);
         }
         printf("\n");
-        /* ã‚°ãƒ©ãƒ•ã‚’æããŸã‚ã®æº–å‚™ (æ•°è¡¨ã‚’å‡ºåŠ›) */
+        /* ƒOƒ‰ƒt‚ğ•`‚­‚½‚ß‚Ì€”õ (”•\‚ğo—Í) */
         sprintf(fname_hokan, "%s/results/mk%d_est_%s", path, best_m.k, data);
         // printf("%s\n", fname_hokan);
         data_output(fname_hokan, n, best_m.k, x, y, best_m.sol, best_m.f_id);
-        /* ç¾åœ¨ãƒ¢ãƒ‡ãƒ«ã‚’æ›´æ–°ã™ã‚‹ */
+        /* Œ»İƒ‚ƒfƒ‹‚ğXV‚·‚é */
         copy_model(&best_m, &current_m);
     }
-    /* ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹ */
+    /* ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é */
     fclose(fp_out);
 }
