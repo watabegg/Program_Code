@@ -20,8 +20,8 @@ fname_data = "example2.txt"
 fm = "../results/out_"+fname_data #モデルの誤差, モデルの係数と基本関数
 # モデルをエラーごとに並べ替える
 column_names = [i for i in range(0, 5)]
-df_m_sort = pd.read_csv(fm, sep="\t", header=None, names = column_names)
-df_m_sort.sort_values(by=[1]) 
+#df_m_sort = pd.read_csv(fm, sep="\t", header=None, names = column_names)
+#df_m_sort.sort_values(by=[1]) 
 
 #調べるモデル
 model_number = 6

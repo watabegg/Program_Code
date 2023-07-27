@@ -13,16 +13,14 @@ int main(void)
 {
     int n;             /* n個データ点数, */
     double x[N], y[N]; /* データ */
-    char *data = "example2.txt";
+    // char *data = "example2.txt";
     // char *data="nh_covid-italy.txt";
     // char *data="nh_bb_age_weigth.txt";
     // char *data="nh_bb_age_length.txt";
     // char *data="nh_fish.txt";
-    // char *data="nh_wine.txt";
+    char *data="nh_wine.txt";
     char *path =
-        "/Users/hernan/Documents/Shindai/Lectures/Lectures-Mac-2023/Numerical
-        Methods /
-        Class11 ";
+        "C:/Program_code/NumMeth/Class11STU";
         char fname_data[200];
     printf("このプログラムは前方選択を使用して\n");
     printf("誤差が小さいモデルを見つ出す\n");
