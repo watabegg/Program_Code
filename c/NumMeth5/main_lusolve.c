@@ -21,7 +21,7 @@ int main(void)
     }
 
     /*LU分解とガウス消去*/
-    lu_solve(n, a, b, x);
+    lu_solve(n, a, b, x); /*ax=b*/
     /*** 結果***/
     printf("x:\n");
     for (i = 1; i <= n; i++)
