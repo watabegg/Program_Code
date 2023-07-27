@@ -8,15 +8,15 @@
 #include "minjijo_lusolve_extended.h"
 int main(void)
 {
-    int n;               /* nå€‹ãƒ‡ãƒ¼ã‚¿ç‚¹æ•°, */
-    double x[N], y[N];   /* ãƒ‡ãƒ¼ã‚¿ */
-    int k, f_id[N];      /* ãƒ¢ãƒ‡ãƒ«ï¼šåŸºæœ¬é–¢æ•°ã®æ•°kã€åŸºæœ¬é–¢æ•°ã®id */
-    double sol[N] = {0}; /*æ±‚ã‚ãŸã®ãƒ¢ãƒ‡ãƒ«ä¿‚æ•°a1,...ak*/
-    double err;          /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®*/
-    int m;               /*ã€€èª¿ã¹ã‚‹ãƒ¢ãƒ‡ãƒ«æ•°ã€€*/
-    /* ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã€€*/
-    // char *data = "example2.txt";
-    // char *data="nh_covid-italy.txt";
+    int n;               /* nŒÂƒf[ƒ^“_”, */
+    double x[N], y[N];   /* ƒf[ƒ^ */
+    int k, f_id[N];      /* ƒ‚ƒfƒ‹FŠî–{ŠÖ”‚Ì”kAŠî–{ŠÖ”‚Ìid */
+    double sol[N] = {0}; /*‹‚ß‚½‚Ìƒ‚ƒfƒ‹ŒW”a1,...ak*/
+    double err;          /* ƒ‚ƒfƒ‹‚ÌŒë·*/
+    int m;               /*@’²‚×‚éƒ‚ƒfƒ‹”@*/
+    /* ƒf[ƒ^ƒtƒ@ƒCƒ‹@*/
+    //char *data = "example2.txt";
+    //char *data="nh_covid-italy.txt";
     // char *data="nh_bb_age_weigth.txt";
     // char *data="nh_bb_age_length.txt";
     // char *data="nh_fish.txt";
@@ -25,53 +25,54 @@ int main(void)
     char *path =
         "C:/Program_code/NumMeth/Class10STU";
 
-        /* ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æ‰±ã†å¤‰æ•°ã€€*/
+        /* ƒtƒ@ƒCƒ‹–¼‚ğˆµ‚¤•Ï”@*/
         char fname_data[200],
          fname_models[200], fname_hokan[200],
          fname_out[200];
-    /* ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’æ‰±ã†å¤‰æ•°ã€€*/
+    /* ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğˆµ‚¤•Ï”@*/
     FILE *fp_models, *fp_out;
 
-    /* ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¨­å®šã™ã‚‹ã€€*/
+    /* ƒf[ƒ^ƒtƒ@ƒCƒ‹–¼‚ğİ’è‚·‚é@*/
     sprintf(fname_data, "%s/data/%s", path, data);
-    /*ã€€ãƒ¢ãƒ‡ãƒ«ã®ä»•æ§˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹ */
+    /*@ƒ‚ƒfƒ‹‚Ìd—lƒtƒ@ƒCƒ‹‚ğİ’è‚·‚é */
     sprintf(fname_models, "%s/data/models.txt", path);
-    /* è£œé–“çµæœãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹ã€€*/
+    /* •âŠÔŒ‹‰Êƒtƒ@ƒCƒ‹‚ğİ’è‚·‚é@*/
     sprintf(fname_out, "%s/results/out_%s", path, data);
-    /* ãƒ¢ãƒ‡ãƒ«ã®ä»•æ§˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã*/
+    /* ƒ‚ƒfƒ‹‚Ìd—lƒtƒ@ƒCƒ‹‚ğŠJ‚­*/
     fp_models = fopen(fname_models, "r");
-    /* ãƒ¢ãƒ‡ãƒ«ã®ä»•æ§˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã*/
+    /* ƒ‚ƒfƒ‹‚Ìd—lƒtƒ@ƒCƒ‹‚ğŠJ‚­*/
     fp_out = fopen(fname_out, "w");
 
-    printf("ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯æœ€å°2ä¹—æ³•ã«ã‚ˆã£ã¦ã€€\n");
+    printf("‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÍÅ¬2æ–@‚É‚æ‚Á‚Ä@\n");
     printf("y = a1*f1(x) + a2*f2(x) +...+ ak*fk(x) \n");
-    printf("ã®å½¢ã®æ›²ç·šã‚’ã‚ã¦ã¯ã‚ã‚‹ã‚‚ã®ã§ã™ï¼\n\n");
-    /*** ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ› ***/
+    printf("‚ÌŒ`‚Ì‹Èü‚ğ‚ ‚Ä‚Í‚ß‚é‚à‚Ì‚Å‚·D\n\n");
+    /*** ƒf[ƒ^‚Ì“ü—Í ***/
     n = data_input(fname_data, x, y);
-    printf("%s ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ %d å€‹ãƒ‡ãƒ¼ã‚¿ç‚¹æ•°ã‚’èª­ã¿è¾¼ã‚“ã \n", data, n);
-    /* èª¿ã¹ã‚‹ãƒ¢ãƒ‡ãƒ«ã®æ•°ã‚’èª­ã¿è¾¼ã‚€ */
+    printf("%s ƒtƒ@ƒCƒ‹‚©‚ç %d ŒÂƒf[ƒ^“_”‚ğ“Ç‚İ‚ñ‚¾\n", data, n);
+    /* ’²‚×‚éƒ‚ƒfƒ‹‚Ì”‚ğ“Ç‚İ‚Ş */
     fscanf(fp_models, "%d", &m);
-    printf("models.txtãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ %d å€‹ãƒ¢ãƒ‡ãƒ«ã‚’èª¿ã¹ã‚‹\n", m);
-    /* models.txt ãƒ•ã‚¡ã‚¤ãƒ«ã§æŒ‡å®šã•ã‚ŒãŸå„ãƒ¢ãƒ‡ãƒ«ã‚’èª¿ã¹ã‚‹ã€€*/
+    printf("models.txtƒtƒ@ƒCƒ‹‚©‚ç %d ŒÂƒ‚ƒfƒ‹‚ğ’²‚×‚é\n", m);
+    /* models.txt ƒtƒ@ƒCƒ‹‚Åw’è‚³‚ê‚½Šeƒ‚ƒfƒ‹‚ğ’²‚×‚é@*/
     for (int i = 1; i <= m; i++)
     {
-        /* ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€€*/
+        /* ƒ‚ƒfƒ‹‚ğ“Ç‚İ‚Ş@*/
         k = read_model(fp_models, f_id);
-        printf("m%d k %d\n", i, k);
-        /* ãƒ¢ãƒ‡ãƒ«ã®ä¿‚æ•°ã‚’æ±‚ã‚ã‚‹ã€€*/
+        printf("m%d k %d ", i, k);
+        /* ƒ‚ƒfƒ‹‚ÌŒW”‚ğ‹‚ß‚é@*/
         compute_model(n, k, x, y, f_id, sol);
-        /* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®ã‚’æ±‚ã‚ã‚‹ã€€*/
+        /* ƒ‚ƒfƒ‹‚ÌŒë·‚ğ‹‚ß‚é@*/
         err = model_error(n, k, x, y, sol, f_id);
-        /*ã€€ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®, ãƒ¢ãƒ‡ãƒ«ã®åŸºæœ¬é–¢æ•°ã¨æ±‚ã‚ãŸä¿‚æ•°ã‚’å‡ºåŠ› */
+        printf("err %lf\n", err);
+        /*@ƒ‚ƒfƒ‹‚ÌŒë·, ƒ‚ƒfƒ‹‚ÌŠî–{ŠÖ”‚Æ‹‚ß‚½ŒW”‚ğo—Í */
         model_error_output(fp_out, i, err, k, sol, f_id);
-        /* è£œé–“çµæœãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¨­å®šã™ã‚‹ã€€*/
+        /* •âŠÔŒ‹‰Êƒtƒ@ƒCƒ‹‚ğİ’è‚·‚é@*/
         sprintf(fname_hokan, "%s/results/m%d_est_%s", path, i, data);
-        /*ã€€è£œé–“çµæœãƒ•ã‚¡ã‚¤ãƒ«ã€€: ã‚°ãƒ©ãƒ•ã‚’æããŸã‚ã®æº–å‚™ (æ•°è¡¨ã‚’å‡ºåŠ›) */
+        /*@•âŠÔŒ‹‰Êƒtƒ@ƒCƒ‹@: ƒOƒ‰ƒt‚ğ•`‚­‚½‚ß‚Ì€”õ (”•\‚ğo—Í) */
         data_output(fname_hokan, n, k, x, y, sol, f_id);
     }
     fclose(fp_models);
     fclose(fp_out);
-    printf("ãƒ¢ãƒ‡ãƒ«èª¤å·®ã¨æ±‚ã‚ãŸåŸºæœ¬é–¢æ•°ã®ä¿‚æ•°ã¯ãƒ•ã‚¡ã‚¤ãƒ« out_%s ã«ä¿å­˜ã•ã‚Œã¾ã™\n", data);
-    printf("è£œé–“çµæœã¯ãƒ•ã‚¡ã‚¤ãƒ« m#_est_%s ã«ä¿å­˜ã•ã‚Œã¾ã™\n", data);
-    printf("å‡¦ç†ã®çµ‚äº†\n");
+    printf("ƒ‚ƒfƒ‹Œë·‚Æ‹‚ß‚½Šî–{ŠÖ”‚ÌŒW”‚Íƒtƒ@ƒCƒ‹ out_%s ‚É•Û‘¶‚³‚ê‚Ü‚·\n", data);
+    printf("•âŠÔŒ‹‰Ê‚Íƒtƒ@ƒCƒ‹ m#_est_%s ‚É•Û‘¶‚³‚ê‚Ü‚·\n", data);
+    printf("ˆ—‚ÌI—¹\n");
 }

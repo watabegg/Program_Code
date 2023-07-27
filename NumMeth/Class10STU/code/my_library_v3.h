@@ -1,4 +1,4 @@
-/*L1-ãƒãƒ«ãƒ */
+/*L1-ƒmƒ‹ƒ€*/
 double vector_norm1(double a[N+1]) {
 	int i = 0;
 	double norm = 0.0;
@@ -9,15 +9,15 @@ double vector_norm1(double a[N+1]) {
 	return norm;
 }
 
-/*è¡Œåˆ—ã®å…¥åŠ›*/
+/*s—ñ‚Ì“ü—Í*/
 int input_matrix(double a[N][N]) {
 	int n, i, j;
 	char z, zz;
 	while(1) { 
-		printf("è¡Œåˆ—ã®æ¬¡æ•°ã®å…¥åŠ› (1 < n < %d) n = ", N-1);
+		printf("s—ñ‚ÌŸ”‚Ì“ü—Í (1 < n < %d) n = ", N-1);
 		scanf("%d%c",&n, &zz);
 		if ((n <= 1) || (N-1 <= n)) continue;
-		printf("\nè¡Œåˆ—Aã®æˆåˆ†ã‚’å…¥åŠ›ã—ã¾ã™\n\n");
+		printf("\ns—ñA‚Ì¬•ª‚ğ“ü—Í‚µ‚Ü‚·\n\n");
 		for(i=1;i<=n;i++) {
 			for(j=1; j<=n; j++) {
 				printf("a(%d, %d)=", i, j);
@@ -25,7 +25,7 @@ int input_matrix(double a[N][N]) {
 			}
 			printf("\n");
 		}
-		printf("æ­£ã—ãå…¥åŠ›ã—ã¾ã—ãŸã‹ï¼Ÿ(y/n)");
+		printf("³‚µ‚­“ü—Í‚µ‚Ü‚µ‚½‚©H(y/n)");
 		scanf("%c%c", &z, &zz);
 		if (z == 'y') break;
 	}
@@ -33,7 +33,7 @@ int input_matrix(double a[N][N]) {
 	return n;
 }
 
-/*è¡Œåˆ—ã®å‡ºåŠ›*/
+/*s—ñ‚Ìo—Í*/
 void print_matrix(double a[N][N], int n) {
 	int i, j;
 	for(i=1; i<=n; i++) {
@@ -50,16 +50,16 @@ void print_matrix(double a[N][N], int n) {
 
 
 
-/*LUåˆ†è§£*/
+/*LU•ª‰ğ*/
 int ludecomp(int n, double a[N][N], double l[N][N], double u[N][N]) {
 	int i, j, k;
 	double p, q;
 	
-    /*LUåˆ†è§£ã¨ã‚¬ã‚¦ã‚¹æ¶ˆå»*/
+    /*LU•ª‰ğ‚ÆƒKƒEƒXÁ‹*/
 	for(i=1; i<=n; i++) {
 		p = a[i][i];
 		if (fabs(p) < 1.0e-6) {
-			printf("ã“ã®è¡Œåˆ—ã¯LUåˆ†è§£å‡ºæ¥ã¾ã›ã‚“. \n");
+			printf("‚±‚Ìs—ñ‚ÍLU•ª‰ğo—ˆ‚Ü‚¹‚ñ. \n");
 			return -1;
 		}
 		
@@ -103,20 +103,20 @@ int ludecomp(int n, double a[N][N], double l[N][N], double u[N][N]) {
 
 
 
-/*LUåˆ†è§£ã«ã‚ˆã‚‹é€£ç«‹ä¸€æ¬¡æ–¹ç¨‹å¼ã®è§£*/
+/*LU•ª‰ğ‚É‚æ‚é˜A—§ˆêŸ•û’ö®‚Ì‰ğ*/
 int lu_solve(int n, double a[N][N], double b[N], double x[N]) {
 	int i,j; 
 	double l[N][N] = {0}, u[N][N] = {0};
 	double y[N] = {0};
 	
-	/*LUåˆ†è§£*/
+	/*LU•ª‰ğ*/
 	int ret = ludecomp(n, a, l, u);
 	
 	if (ret != 0) {
 		return ret;
 	} 
 	
-	/*å‰é€²ä»£å…¥*/ 
+	/*‘Oi‘ã“ü*/ 
 	for(i=1; i<= n; i++){
 		double py = b[i];
 		for(j=1; j < i; j++) {
@@ -125,7 +125,7 @@ int lu_solve(int n, double a[N][N], double b[N], double x[N]) {
 		y[i] = py/l[i][i]; 
 	} 
 	
-	/*å¾Œé€€ä»£å…¥*/ 
+	/*Œã‘Ş‘ã“ü*/ 
 	for (i = n; i >= 1; i--) {
 		double px = y[i];
 		for(int j = i+1; j <= n; j++) {

@@ -1,4 +1,4 @@
-/* åŸºæœ¬é–¢æ•°fiã®xã§ã®é–¢æ•°å€¤yã‚’æ±‚ã‚ã‚‹ */
+/* Šî–{ŠÖ”fi‚Ìx‚Å‚ÌŠÖ”’ly‚ğ‹‚ß‚é */
 double ffv(int fi, double x)
 {
     double y;
@@ -28,7 +28,7 @@ double ffv(int fi, double x)
     }
     return y;
 }
-/*** ãƒ‡ãƒ¼ã‚¿ã®å…¥åŠ› ***/
+/*** ƒf[ƒ^‚Ì“ü—Í ***/
 int data_input(char *fname, double x[N], double y[N])
 {
     int n = -1, i;
@@ -37,15 +37,15 @@ int data_input(char *fname, double x[N], double y[N])
     fp = fopen(fname, "r");
     if (fp == NULL)
     {
-        printf("ãƒ•ã‚¡ã‚¤ãƒ«ã€Œ%sã€ã‚’é–‹ãã“ã¨ãŒã§ãã¾ã›ã‚“", fname);
+        printf("ƒtƒ@ƒCƒ‹u%sv‚ğŠJ‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ", fname);
         exit(0);
     }
-    /* ãƒ‡ãƒ¼ã‚¿ã®å€‹æ•°ã¯ä½•å€‹ã§ã™ã‹ï¼Ÿï¼ˆ1< n < %dï¼‰n = ", N); */
+    /* ƒf[ƒ^‚ÌŒÂ”‚Í‰½ŒÂ‚Å‚·‚©Hi1< n < %djn = ", N); */
     fscanf(fp, "%d", &n);
     if ((n <= 1) || (N <= n))
-        printf("ãƒ‡ãƒ¼ã‚¿ã®å€‹æ•°ã¯(1< n < %dï¼‰ã§ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“, n = %d", N, n);
+        printf("ƒf[ƒ^‚ÌŒÂ”‚Í(1< n < %dj‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñ, n = %d", N, n);
 
-    /* printf("\nãƒ‡ãƒ¼ã‚¿xã®å€¤ã¯å°ã‹ã‚‰å¤§ã®é †ã«å…¥åŠ›ã™ã‚‹. \n"); */
+    /* printf("\nƒf[ƒ^x‚Ì’l‚Í¬‚©‚ç‘å‚Ì‡‚É“ü—Í‚·‚é. \n"); */
     for (i = 1; i <= n; i++)
     {
         fscanf(fp, "%lf", &x[i]);
@@ -55,32 +55,32 @@ int data_input(char *fname, double x[N], double y[N])
     fclose(fp);
     return n;
 }
-/*ã€€ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿å–ã‚‹ã€€*/
+/*@ƒ‚ƒfƒ‹‚ğ“Ç‚İæ‚é@*/
 int read_model(FILE *fp_models, int f_id[N])
 {
     int k = 0;
     char line[81], *token;
-    /* åŸºæœ¬é–¢æ•°fk(x)ã‚’ï¼‘ï½kã®ç•ªå·ã‚’èª­ã¿å–ã‚‹ */
-    /* ãƒ•ã‚¡ã‚¤ãƒ«ã® 1 è¡Œã‹ã‚‰æ–‡å­—åˆ—ã¨ã—ã¦ãƒ¢ãƒ‡ãƒ«ã®ä»•æ§˜ã‚’èª­ã¿å–ã‚‹ã€€*/
+    /* Šî–{ŠÖ”fk(x)‚ğ‚P`k‚Ì”Ô†‚ğ“Ç‚İæ‚é */
+    /* ƒtƒ@ƒCƒ‹‚Ì 1 s‚©‚ç•¶š—ñ‚Æ‚µ‚Äƒ‚ƒfƒ‹‚Ìd—l‚ğ“Ç‚İæ‚é@*/
     fgets(line, sizeof(line), fp_models);
-    /* ç©ºç™½ã§åŒºåˆ‡ã‚‰ã‚ŒãŸæ–‡å­—åˆ—ã«åˆ†å‰² */
+    /* ‹ó”’‚Å‹æØ‚ç‚ê‚½•¶š—ñ‚É•ªŠ„ */
     token = strtok(line, " ");
     while (token != NULL)
     {
         k++;
-        /* é–¢æ•°ã®IDã‚’æ–‡å­—åˆ—ã‹ã‚‰æ•´æ•°ã«å¤‰æ›ã™ã‚‹ */
+        /* ŠÖ”‚ÌID‚ğ•¶š—ñ‚©‚ç®”‚É•ÏŠ·‚·‚é */
         f_id[k] = atoi(token);
-        /* æ¬¡ã®é–¢æ•°ã®IDã‚’å–å¾—ã—ã¾ã™ */
+        /* Ÿ‚ÌŠÖ”‚ÌID‚ğæ“¾‚µ‚Ü‚· */
         token = strtok(NULL, " ");
     }
-    /* åŸºæœ¬é–¢æ•°ã®æ•°ã‚’è¿”ã™ */
+    /* Šî–{ŠÖ”‚Ì”‚ğ•Ô‚· */
     return k;
 }
-/* A[n][k],tA[k][n]ã¨b[k]ã‚’è¨­å®šã™ã‚‹ */
+/* A[n][k],tA[k][n]‚Æb[k]‚ğİ’è‚·‚é */
 void set_A_tA_b(int n, int k, int f_id[N], double x[N], double y[N], double A[N][N], double tA[N][N], double b[N])
 {
     int i, j;
-    /* é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã€Aã¨tAã‚’è¨­å®šã™ã‚‹ */
+    /* ŠÖ”‚ğŒÄ‚Ño‚µAA‚ÆtA‚ğİ’è‚·‚é */
     for (i = 1; i <= n; i++)
     {
         for (j = 1; j <= k; j++)
@@ -88,11 +88,11 @@ void set_A_tA_b(int n, int k, int f_id[N], double x[N], double y[N], double A[N]
             A[i][j] = ffv(f_id[j], x[i]);
             tA[j][i] = A[i][j];
         }
-        /* bã‚’è¨­å®šã™ã‚‹ */
+        /* b‚ğİ’è‚·‚é */
         b[i] = y[i];
     }
 }
-/* tA[k][n]ãƒ»A[n][k]ã‚’è¨ˆç®—ã—ã¦é…åˆ—tAA[k][k]ã«å…¥ã‚Œã‚‹ */
+/* tA[k][n]EA[n][k]‚ğŒvZ‚µ‚Ä”z—ñtAA[k][k]‚É“ü‚ê‚é */
 void seki_tA_A(int n, int k, double tA[N][N], double A[N][N], double tAA[N][N])
 {
     int i, j, jj;
@@ -111,7 +111,7 @@ void seki_tA_A(int n, int k, double tA[N][N], double A[N][N], double tAA[N][N])
         }
     }
 }
-/* tA[k][n]ãƒ»b[k]ã‚’è¨ˆç®—ã—ã¦tAb[k]é…åˆ—ã«å…¥ã‚Œã‚‹ */
+/* tA[k][n]Eb[k]‚ğŒvZ‚µ‚ÄtAb[k]”z—ñ‚É“ü‚ê‚é */
 void seki_tA_b(int n, int k, double tA[N][N], double b[N], double tAb[N])
 {
     double s;
@@ -127,7 +127,7 @@ void seki_tA_b(int n, int k, double tA[N][N], double b[N], double tAb[N])
         tAb[i] = s;
     }
 }
-/* ãƒ¢ãƒ‡ãƒ«ã®ä¿‚æ•°ã‚’æ±‚ã‚ã‚‹ã€€*/
+/* ƒ‚ƒfƒ‹‚ÌŒW”‚ğ‹‚ß‚é@*/
 void compute_model(int n, int k, double x[N], double y[N], int f_id[N],
                    double sol[N])
 {
@@ -135,17 +135,17 @@ void compute_model(int n, int k, double x[N], double y[N], int f_id[N],
     int i;
 
     for (i = 0; i <= k; i++)
-        sol[i] = 0; /* æ±‚ã‚ãŸa1,...akã®ä¿‚æ•°ã‚’æ‰±ã†*/
-    /* A[n][k],tA[k][n]ã¨b[k]ã‚’è¨­å®šã™ã‚‹ */
+        sol[i] = 0; /* ‹‚ß‚½a1,...ak‚ÌŒW”‚ğˆµ‚¤*/
+    /* A[n][k],tA[k][n]‚Æb[k]‚ğİ’è‚·‚é */
     set_A_tA_b(n, k, f_id, x, y, A, tA, b);
-    /* tA[k][n]ãƒ»A[n][k]ã‚’è¨ˆç®—ã—ã¦é…åˆ—tAA[k][k]ã«å…¥ã‚Œã‚‹ */
+    /* tA[k][n]EA[n][k]‚ğŒvZ‚µ‚Ä”z—ñtAA[k][k]‚É“ü‚ê‚é */
     seki_tA_A(n, k, tA, A, tAA);
-    /* tA[k][n]ãƒ»b[k]ã‚’è¨ˆç®—ã—ã¦tAb[k]é…åˆ—ã«å…¥ã‚Œã‚‹ */
+    /* tA[k][n]Eb[k]‚ğŒvZ‚µ‚ÄtAb[k]”z—ñ‚É“ü‚ê‚é */
     seki_tA_b(n, k, tA, b, tAb);
-    /* LUåˆ†è§£æ³•ã§è§£ã */
+    /* LU•ª‰ğ–@‚Å‰ğ‚­ */
     lu_solve(k, tAA, tAb, sol);
 }
-/* ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®ã‚’æ±‚ã‚ã‚‹ã€€*/
+/* ƒ‚ƒfƒ‹‚ÌŒë·‚ğ‹‚ß‚é@*/
 double model_error(int n, int k, double x[N], double y[N], double sol[N],
                    int f_id[N])
 {
@@ -163,7 +163,7 @@ double model_error(int n, int k, double x[N], double y[N], double sol[N],
     }
     return err / n;
 }
-/*ã€€ãƒ¢ãƒ‡ãƒ«ã®èª¤å·®, ãƒ¢ãƒ‡ãƒ«ã®åŸºæœ¬é–¢æ•°ã¨æ±‚ã‚ãŸä¿‚æ•°ã‚’å‡ºåŠ› */
+/*@ƒ‚ƒfƒ‹‚ÌŒë·, ƒ‚ƒfƒ‹‚ÌŠî–{ŠÖ”‚Æ‹‚ß‚½ŒW”‚ğo—Í */
 void model_error_output(FILE *fp_out, int i, double err, int k, double sol[N], int f_id[N])
 {
     int j;
@@ -174,7 +174,7 @@ void model_error_output(FILE *fp_out, int i, double err, int k, double sol[N], i
     }
     fprintf(fp_out, "\n");
 }
-/*ã€€è£œé–“çµæœãƒ•ã‚¡ã‚¤ãƒ«ã€€: ã‚°ãƒ©ãƒ•ã‚’æããŸã‚ã®æº–å‚™ (æ•°è¡¨ã‚’å‡ºåŠ›) */
+/*@•âŠÔŒ‹‰Êƒtƒ@ƒCƒ‹@: ƒOƒ‰ƒt‚ğ•`‚­‚½‚ß‚Ì€”õ (”•\‚ğo—Í) */
 void data_output(char *fname, int n, int k, double x[N], double y[N],
                  double sol[N], int f_id[N])
 {
@@ -185,7 +185,7 @@ void data_output(char *fname, int n, int k, double x[N], double y[N],
     fp = fopen(fname, "w");
     if (fp == NULL)
     {
-        printf("ãƒ•ã‚¡ã‚¤ãƒ«ã€Œ%sã€ã‚’é–‹ãã“ã¨ãŒã§ãã¾ã›ã‚“", fname);
+        printf("ƒtƒ@ƒCƒ‹u%sv‚ğŠJ‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ", fname);
         exit(0);
     }
     h = (x[n] - x[1]) / 500.0;
