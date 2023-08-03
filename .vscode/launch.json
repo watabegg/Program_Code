@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "OctaveDebugger",
+            "request": "launch",
+            "name": "Execute selected file.",
+            "program": "${file}",
+            "octave": "octave-cli",
+            "sourceFolder": "${workspaceFolder}",
+            "autoTerminate": false
+        },
+        {
             "name": "Python: 現在のファイル",
             "type": "python",
             "request": "launch",
