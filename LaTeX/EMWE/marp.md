@@ -1,23 +1,32 @@
 ---
 marp: true
-theme: gaia
+theme: academic
+paginate: true
+math: katex
 style: |
-    section.center {
+    section.center{
         text-align: center;
     }
-
+    
 ---
-<!-- paginate: true
-_backgroundColor: MediumSeaGreen
-_color: white
-_class: center
--->
+<!-- _class: lead -->
 
 # スライドタイトル
-***サブタイトル***
 
-yyyy年㎜月DD日
-名前
+#### サブタイトル
+
+<br>
+
+**渡辺 大樹**
+電子情報システム工学科
+YYYY/MM/DD
 
 --- 
+
+<!-- _header: 目次 -->
+
+1. はじめに
+2. コード
+3. 数式
+4. 図 
 
