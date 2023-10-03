@@ -6,6 +6,7 @@ Created on Mon Oct 5 17:36:56 2020
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import copy as cp
 
 def sin_2v(x1,x2):
     return np.sin(x1) + np.sin(x2)
@@ -21,23 +22,24 @@ def exhaustive_search(f, x_min, x_max, delta):
     fi = open(txtname, 'w')
     points = []
     fvalues = []
-    x = x_min
+    x = cp.copy(x_min)
     fx = f(*x)
     fbest = fx
     xbest = x
     while x[0] < x_max[0]:
-        x[0] += delta
+        x[1] = x_min[1]
         while x[1] < x_max[1]:
             points.append(x)
             fvalues.append(fx)
 
             x[1] += delta
             fx = f(*x)
-            if x[0] <= x_max[0] and x[1] <= x_max[1]:
+            if x <= x_max:
                 if fx > fbest:
                     fbest = fx
-                    xbest = x
+                    xbest = cp.copy(x)
             fi.write("f({}): {}\n".format(x, fx))
+        x[0] += delta
 
     fi.write("best f({}): {}".format(xbest, fbest))
     fi.close()
