@@ -27,17 +27,29 @@ def hill_climbing(f, x0, delta, x_min, x_max):
     climb = True
     if index_max[0] == 0:
         sign[0] = -1.0
+        if index_max[1] == 0:
+            sign[1] = -1.0
+        elif index_max[1] == 2:
+            sign[1] = 1.0
+        else:
+            sign[1] = 0.0
     elif index_max[0] == 2:
         sign[0] = 1.0
+        if index_max[1] == 0:
+            sign[1] = -1.0
+        elif index_max[1] == 2:
+            sign[1] = 1.0
+        else:
+            sign[1] = 0.0
     else:
-        climb = False
+        sign[0] = 0.0
+        if index_max[1] == 0:
+            sign[1] = -1.0
+        elif index_max[1] == 2:
+            sign[1] = 1.0
+        else:
+            climb = False
 
-    if index_max[1] == 0:
-        sign[1] = -1.0
-    elif index_max[1] == 2:
-        sign[1] = 1.0
-    else:
-        climb = False
     
     x = x0 + np.array([sign[0]*delta,sign[1]*delta])
     fx = evaluations[index_max]
