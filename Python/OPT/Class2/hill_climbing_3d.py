@@ -3,11 +3,11 @@ import numpy as np
 import copy as cp
 
 def sin_2v(x1,x2):
-    return np.sin(x1) + np.sin(x2)
+    return (np.sin(x1) + np.sin(x2)) / 2
 
 
 def p3d_2v(x1,x2):
-    return np.sin(x1**3 - 5*(x1+0.1)**2) / (x1**3 + (x1+0.1)**-2) + np.sin(x2**3 - 5*(x2+0.1)**2) / (x2**3 + (x2+0.1)**-2)
+    return (np.sin(x1**3 - 5*(x1+0.1)**2) / (x1**3 + (x1+0.1)**-2) + np.sin(x2**3 - 5*(x2+0.1)**2) / (x2**3 + (x2+0.1)**-2)) / 2
 
 
 def hill_climbing(f, x0, delta, x_min, x_max):

@@ -40,13 +40,34 @@ lineskip=-0.5ex
 \begin{document}
 \definecolor{shadecolor}{gray}{0.70}
 
-\title{}
+\title{最適化 Class-2 演習}
 \author{21T2166D 渡辺大樹}
 \date{\today}
 \maketitle
 
+\section{演習内容}
+Class-2では探索における最適化を、関数の最大値を求めるアルゴリズムの設計を用いて理解していく。
+
+今回用いるアルゴリズムは全探索と山登り探索になる。
+全探索は決められた定義域における関数の値をすべて求め、そこから最大の値となる関数の値と引数を特定する方法になる。
+
+山登り探索はある初期値から関数の値が大きくなる方へ山に登るように移動し、最大となった点の関数の値と引数を返す方法になる。
+
+この二つの探索を1変数関数と2変数関数で行っていく。
+実装したコードはソースコード\ref{ex},\ref{hill},\ref{ex3d},\ref{hill3d}に示す。コードがかなり長いためレポート末に示す。
+
+\subsection{1変数関数での探索}
+最大値を求める関数は(1)(2)の2種類を用いる。
+\begin{align}
+    f(x) &= \sin(x)\\
+    g(x) &= \frac{\sin(x^3-5(x+0.1)^2)}{x^3+(x+0.1)^{-2}}
+\end{align}
 
 
 
+\lstinputlisting[caption=exhaustive\_search.py, label=ex]{C:/Program_Code/Python/OPT/Class2/exhaustive_search.py}
+\lstinputlisting[caption=hill\_climbing.py, label=hill]{C:/Program_Code/Python/OPT/Class2/hill_climbing.py}
+\lstinputlisting[caption=exhaustive\_search\_3d.py, label=ex3d]{C:/Program_Code/Python/OPT/Class2/exhaustive_search_3d.py}
+\lstinputlisting[caption=hill\_climbing\_3d.py, label=hill3d]{C:/Program_Code/Python/OPT/Class2/hill_climbing_3d.py}
 
 \end{document}
