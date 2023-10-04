@@ -13,33 +13,44 @@ def p3d_2v(x1,x2):
 def hill_climbing(f, x0, delta, x_min, x_max):
     txtname = "./text/hillclimb3d_sin_" + str(x_min) + "_" + str(x_max) + "_" + str(delta) + "_" + str(x0) + ".txt"
     fi = open(txtname, 'w')
-    evaluations = np.array([f(x0-delta), f(x0), f(x0+delta)])  
+    evaluations = np.array([
+        [f(x0[0]-delta,x0[1]-delta), f(x0[0]-delta,x0[1]), f(x0[0]-delta,x0[1]+delta)],
+        [f(x0[0],x0[1]-delta), f(*x0), f(x0[0],x0[1]+delta)],
+        [f(x0[0]+delta,x0[1]-delta), f(x0[0]+delta,x0[1]), f(x0[0]+delta,x0[1]+delta)]
+        ])  
     points = [x0]
     fvalues = [evaluations[1]]
 
-    index_max = np.argmax(evaluations)
+    index_max = np.unravel_index(np.argmax(evaluations), evaluations.shape)
 
-    sign = 1.0
+    sign = np.array([1.0,1.0]) #登る方向
     climb = True
-    if index_max == 0:
-        sign = -1.0
-    elif index_max == 2:
-        sign = 1.0
+    if index_max[0] == 0:
+        sign[0] = -1.0
+    elif index_max[0] == 2:
+        sign[0] = 1.0
+    else:
+        climb = False
+
+    if index_max[1] == 0:
+        sign[1] = -1.0
+    elif index_max[1] == 2:
+        sign[1] = 1.0
     else:
         climb = False
     
-    x = x0 + (sign*delta)
+    x = x0 + np.array([sign[0]*delta,sign[1]*delta])
     fx = evaluations[index_max]
     fbest = fx
     while climb == True:
         points.append(x)
         fvalues.append(fx)
 
-        x = x + (sign*delta)
-        fx = f(x)
-        if fx > fbest and (x <= x_max and x >= x_min):
+        x = x + np.array([sign[0]*delta,sign[1]*delta])
+        fx = f(*x)
+        if fx > fbest and (all(x <= x_max) and all(x >= x_min)):
             fbest = fx
-            fi.write("f({}): {}".format(x, fx))
+            fi.write("f({}): {}\n".format(x, fx))
         else:
             climb = False
 
@@ -50,10 +61,10 @@ def hill_climbing(f, x0, delta, x_min, x_max):
 f = sin_2v
 # f = p3d_2v
 # 変数の範囲を設定
-x_min = [0,0]
-x_max = [np.pi, np.pi]
+x_min = np.array([0,0])
+x_max = np.array([np.pi, np.pi])
 # 探索の出発点
-x0 = [0,6,0,6]  # x_min < x0 < x_max
+x0 = np.array([0.6,0.6])  # x_min < x0 < x_max
 # 探索方向を決定するための間隔
 delta = 0.01
 # 山のりを呼び出す

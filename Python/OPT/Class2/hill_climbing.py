@@ -39,7 +39,7 @@ def hill_climbing(f, x0, delta, x_min, x_max):
         fx = f(x)
         if fx > fbest and (x <= x_max and x >= x_min):
             fbest = fx
-            fi.write("f({}): {}".format(x, fx))
+            fi.write("f({}): {}\n".format(x, fx))
         else:
             climb = False
 
