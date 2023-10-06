@@ -17,7 +17,7 @@ def hill_climbing(f, x0, delta, x_min, x_max):
         [f(x0[0]-delta,x0[1]-delta), f(x0[0]-delta,x0[1]), f(x0[0]-delta,x0[1]+delta)],
         [f(x0[0],x0[1]-delta), f(*x0), f(x0[0],x0[1]+delta)],
         [f(x0[0]+delta,x0[1]-delta), f(x0[0]+delta,x0[1]), f(x0[0]+delta,x0[1]+delta)]
-        ])  
+        ])
     points = [x0]
     fvalues = [evaluations[1]]
 
@@ -78,7 +78,7 @@ x_max = np.array([np.pi, np.pi])
 # 探索の出発点
 x0 = np.array([0.6,0.6])  # x_min < x0 < x_max
 # 探索方向を決定するための間隔
-delta = 0.01
+delta = 0.05
 # 山のりを呼び出す
 points, fvalues = hill_climbing(f, x0, delta, x_min, x_max) 
 # points = np.array(points)
