@@ -17,7 +17,7 @@ def p3d(x):
 
 def exhaustive_search(f, x_min, x_max, delta):
 
-    txtname = "./text/exsearch_p3d_" + str(x_min) + "_" + str(x_max) + "_" + str(delta) + ".txt"
+    txtname = "./text/exsearch_p3d_" + str(x_min) + "_" + str(x_max) + "_" + str(delta) + ".csv"
     fi = open(txtname, 'w')
     points = []
     fvalues = []
@@ -43,11 +43,11 @@ def exhaustive_search(f, x_min, x_max, delta):
     return points, fvalues, xbest, fbest
 
 # 関数を選ぶ
-#f = sin
+# f = sin
 f = p3d
 # 変数の範囲を設定
-x_min = -2
-x_max = -1.1
+x_min = 0
+x_max = np.pi
 # 探索の間隔を設定
 delta = 0.001
 # 全探索を呼び出す
