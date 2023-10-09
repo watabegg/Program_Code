@@ -17,12 +17,14 @@
 % ソースコード
 \usepackage{listings,jlisting,color}
 \lstset{
+language={C},
+backgroundcolor={\color[gray]{.85}},
 basicstyle={\ttfamily},
 identifierstyle={\small},
-commentstyle={\smallitshape},
-keywordstyle={\small\bfseries},
+commentstyle={\smallitshape \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
 ndkeywordstyle={\small},
-stringstyle={\small\ttfamily},
+stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
 frame={tb},
 breaklines=true,
 columns=[l]{fullflexible},
@@ -32,7 +34,8 @@ xleftmargin=3zw,
 numberstyle={\scriptsize},
 stepnumber=1,
 numbersep=1zw,
-lineskip=-0.5ex
+lineskip=-0.5ex,
+morecomment=[l]{//}
 }
 \renewcommand{\lstlistingname}{ソースコード}
 
@@ -237,7 +240,7 @@ $f(1.5709999999999378)=0.9999999792586128$となった。理論値との誤差�
 
 \section{ソースコード}
 
-\lstinputlisting[caption=exhaustive\_search.py, label=ex]{C:/Program_Code/Python/OPT/Class2/exhaustive_search.py}
+\lstinputlisting[language=c,caption=exhaustive\_search.py, label=ex]{C:/Program_Code/Python/OPT/Class2/exhaustive_search.py}
 \lstinputlisting[caption=hill\_climbing.py, label=hill]{C:/Program_Code/Python/OPT/Class2/hill_climbing.py}
 \lstinputlisting[caption=exhaustive\_search\_3d.py, label=ex3d]{C:/Program_Code/Python/OPT/Class2/exhaustive_search_3d.py}
 \lstinputlisting[caption=hill\_climbing\_3d.py, label=hill3d]{C:/Program_Code/Python/OPT/Class2/hill_climbing_3d.py}
