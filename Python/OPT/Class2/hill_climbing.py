@@ -11,7 +11,7 @@ def p3d(x):
 
 
 def hill_climbing(f, x0, delta, x_min, x_max):
-    txtname = "./text/hillclimb_p3d_" + str(x_min) + "_" + str(x_max) + "_" + str(delta) + "_" + str(x0) + ".txt"
+    txtname = "./text/hillclimb_p3d_" + str(x_min) + "_" + str(x_max) + "_" + str(delta) + "_" + str(x0) + ".csv"
     fi = open(txtname, 'w')
     evaluations = np.array([f(x0-delta), f(x0), f(x0+delta)])  
     points = [x0]
@@ -55,7 +55,7 @@ x_max = -1.1
 # 探索の出発点
 x0 = -1.3  # x_min < x0 < x_max
 # 探索方向を決定するための間隔
-delta = 0.001
+delta = 0.01
 # 山のりを呼び出す
 points, fvalues = hill_climbing(f, x0, delta, x_min, x_max) 
 points = np.array(points)
