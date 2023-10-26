@@ -15,7 +15,6 @@ int main(void) {
 
     /* ここから */
     int* p = data; //dataのポインタ
-    int* data_p; //書き換え用のポインタ
     int listmax = SIZE; //dataの0でない要素数を保管
 
     int bool=0; //仕様2
@@ -31,22 +30,21 @@ int main(void) {
         }
     }
     if(bool){
-        return 1;
+        return 1; //上記のエラーあれば終了
     }
 
     while(*(p + 1) != 0){ 
         //data[1]が0になると終了(for文でceli(log2(SIZE))回繰り返しても良い)
         print_array(data);
         for(int i = 1; i < listmax; i += 2){ 
-            //listmaxになるまで1つ飛ばしで繰り返す(p+iがdataの奇数番目に来る為)
-            data_p = p + i; //ポインタを奇数番目に移動
-            if(*(data_p) != 0){ 
-                if(*(data_p + 1) != 0 && (i + 1) < SIZE){ 
+            //dataの要素が0にならないところ(listmax)までiが奇数になるよう移動
+            if(*(p + i) != 0){ 
+                if(*(p + i + 1) != 0 && (i + 1) < SIZE){ 
                     //date[i+1]が0でないかつi+1<SIZEを確認
-                    *(data_p + 1) += *(data_p); //奇数番目を足し合わせ
+                    *(p + i + 1) += *(p + i); //data[i+1]にdata[i]を足し合わせ
                 }
-                *(data_p - 1) += *(data_p); //奇数番目を足し合わせ
-                *(data_p) = 0; //奇数番目を0
+                *(p + i - 1) += *(p + i); //data[i-1]にdata[i]を足し合わせ
+                *(p + i) = 0; //data[i]を0
             }
         }
 
