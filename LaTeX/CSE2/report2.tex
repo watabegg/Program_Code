@@ -1,0 +1,132 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+language={Python},
+backgroundcolor={\color[gray]{.85}},
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex,
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+\definecolor{shadecolor}{gray}{0.70}
+
+\title{通信システム実験2 待ち行列シミュレーション}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+\section{実験内容}
+本実験ではネットワークにおけるパケット通信のレスポンスなどに用いられる
+待ち行列理論をバスの運行シミュレーションを通してその理論の体験、理解を進める目的で行う。
+
+実験1ではベルヌーイ過程を、実験2ではポアソン過程をシミュレーション、理解し、これらを用いて実験3でバスの運行シミュレーションを行う。
+
+\section{レポート課題}
+以下にレポート課題の解答を示す。
+
+\subsection*{レポート課題1.1}
+確率変数$Z$の分布関数$F_Z(x)$を密度関数$f_Z(x)$で表すと
+\begin{align}
+    F_Z(x) = \int_{-\infty}^{\infty}f_Z(x)dx
+\end{align}
+となる。
+
+\subsection*{レポート課題1.2}
+到着確率の期待値が$\frac{\delta}{p}$となることを示す。
+
+タイムスロットの間隔を$\delta$,各スロットでの到着確率を$p$としたときの到着間隔の期待値を求める。
+到着間隔の確率変数を$Z$,確率を$P_Z(n)$とすると$n=1,2,3,\cdots$に対して確率$P_Z(n)$は
+\begin{equation}
+    \begin{split}
+        P_Z(1) &= p \\
+        P_Z(2) &= p(1-p) \\
+        P_Z(3) &= P(1-p)^2 
+    \end{split}
+\end{equation}
+となる。
+期待値の式は確率変数とその時の確率を掛け合わせ、
+\begin{align}
+    E[Z] = \sum_{n=1}^{\infty}n \cdot \delta \cdot P_Z(n) 
+\end{align}
+となる。
+
+この式に先ほどの確率$P_Z(n)$の一般化した式を代入することで
+\begin{align}
+    E[Z] = \delta p\sum_{n=1}^{\infty}n(1-p)^{n-1}
+\end{align}
+という式が得られる。
+
+ここでシグマの中身を部分和として計算していく。
+\begin{align}
+    S_n = \sum_{k=1}^{n}k(1-p)^{k-1}
+\end{align}
+とする。
+$S_n$に$(1-p)$を掛け算すると
+\begin{align}
+    (1-p)S_n = \sum_{k=1}^{n}k(1-p)^k
+\end{align}
+となる。
+(5)から(6)を引き算すると
+\begin{align}
+    pS_n = \sum_{k=1}^{n+1}(1-p)^{k-1}
+\end{align}
+という式が得られる。この式は初項$1$公比$(1-p)$の等比数列の和となるため
+公式を用いて計算すると
+\begin{align}
+    pS_n = \frac{1-(1-p)^n}{p}
+\end{align}
+となる。すなわち$S_n$は
+\begin{align}
+    S_n = \frac{1-(1-p)^n}{p^2}
+\end{align}
+となる。
+
+$S_n$は部分和のためnについて極限をとることで
+\begin{align}
+    \sum_{n=1}^{\infty}n(1-p)^{n-1} = \frac{1}{p^2}
+\end{align}
+となる。これを(4)式に代入しなおすことで
+\begin{align}
+    E[Z] = \frac{\delta}{p}
+\end{align}
+が得られる。これにより題意は示された。
+
+\subsection*{レポート課題1.3}
+10面サイコロの0~9の目をすべて出すために必要なサイコロを振る回数の平均を求める。
+
+これはサイコロを振る回数の期待値として
+
+
+\end{document}
