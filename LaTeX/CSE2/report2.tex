@@ -209,7 +209,7 @@ $(\frac{k}{10})(1-\frac{k}{10})^{m-1}$となる。
 実験にはPythonを用いて発生させた乱数が0.1より小さいときに成功、大きいと失敗とし失敗した場合はまた同じ
 施行を繰り返させ、施行が失敗した回数を数えることでそれを到着間隔とした。
 
-用いたソースコードは以下\ref{bern}に示す。
+用いたコードは以下ソースコード\ref{bern}に示す。
 \lstinputlisting[language=python,caption=Beenoulli.py, label=bern]{C:/Program_Code/Python/CSE2/Bernoulli.py}
 
 このコードによって得られたヒストグラムを図\ref{berhist}に示す.
@@ -223,6 +223,41 @@ $(\frac{k}{10})(1-\frac{k}{10})^{m-1}$となる。
 この図\ref{berhist}が到着間隔の実験的な分布となる。
 
 \subsection{実験2}
+実験2では指数分布に従う乱数を実験的に発生させ、その累積相対度数のヒストグラムと平均値を
+求め、指数分布の分布関数や期待値と比較していく。
+
+一様乱数から任意の分布に従う確率変数を生成するには、今必要としている確率変数の分布関数を
+$y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
+\begin{equation}
+    X=F^{-1}(U)
+\end{equation}
+を計算すればよい。
+
+レポート課題2.3で示した内容を用いれば、指数分布を一様乱数から生成するための式は
+\begin{equation}
+    X = -\frac{1}{\lambda}\log(1-U)
+\end{equation}
+となる。
+この式から得られた乱数を統計的に処理して累積相対度数のグラフと平均値を取得する。
+
+用いたコードは以下ソースコード\ref{expo}に示す。
+\lstinputlisting[language=python,caption=Exporand.py, label=expo]{C:/Program_Code/Python/CSE2/Exporand.py}
+
+このコードで得られたヒストグラムを図\ref{expohist}に示す。
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{Exporand.png}
+\caption{指数分布に従う乱数の累積相対度数と指数分布の分布関数}
+\label{expohist}
+\end{figure}
+
+図\ref{expohist}では青色のヒストグラムが実験で発生させた乱数の累積グラフ、
+赤色のグラフが指数分布の分布関数になっている。どちらともパラメータ$\lambda$は$1$で計算している。
+ここからわかるように、ほとんど一致したグラフを生成できていることがわかる。
+
+またこの施行で得られた平均値は0.999425708871489となった。
+期待値は$\frac{1}{\lambda}$であることから$\lambda=1$であるとき期待値も$1$となるため、
+そこそこの精度で一致していることが読み取れる。
 
 
 \end{document}
