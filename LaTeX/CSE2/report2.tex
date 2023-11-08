@@ -21,8 +21,8 @@ language={Python},
 backgroundcolor={\color[gray]{.85}},
 basicstyle={\ttfamily},
 identifierstyle={\small},
-commentstyle={\smallitshape \color[rgb]{0,0.5,0}},
-keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+commentstyle={\small \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{0.5,0,0.5}},
 ndkeywordstyle={\small},
 stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
 frame={tb},
@@ -54,13 +54,13 @@ lineskip=-0.5ex,
 \begin{description}
 \setlength{\leftskip}{8.9cm}
 \item[　　実験日:] 2023/11/01
-\item[　実験場所:] 
+\item[　実験場所:] W2棟101室
 \item[　　実験者:] 21T2166D 渡辺　大樹
-\item[共同実験者:] 
-\item[　　　　　 ] 
-\item[　　　　　 ] 
-\item[　　　　　 ] 
-\item[　　　　　 ] 
+\item[共同実験者:] 20T2062A 斎藤　創真
+\item[　　　　　 ] 21T2004H 朝日　純菜
+\item[　　　　　 ] 21T2033A 岡村　椋平
+\item[　　　　　 ] 21T2091J 徳竹　稜平
+\item[　　　　　 ] 21T2099D 中田　奏音
 \end{description}
 \end{flushright}
 \end{titlepage}
@@ -72,7 +72,7 @@ lineskip=-0.5ex,
 本実験ではネットワークにおけるパケット通信のレスポンスなどに用いられる
 待ち行列理論をバスの運行シミュレーションを通してその理論の体験、理解を進める目的で行う。
 
-実験1ではベルヌーイ過程を、実験2ではポアソン過程をシミュレーション、理解し、これらを用いて実験3でバスの運行シミュレーションを行う。
+実験1ではベルヌーイ過程を、実験2では指数分布をシミュレーション、理解し、これらを用いて実験3でバスの運行シミュレーションを行う。
 
 \section{レポート課題}
 以下にレポート課題の解答を示す。
@@ -145,8 +145,84 @@ $S_n$は部分和のためnについて極限をとることで
 が得られる。これにより題意は示された。
 
 \subsection*{レポート課題1.3}
-10面サイコロの0~9の目をすべて出すために必要なサイコロを振る回数の平均を求める。
-これはサイコロを振る回数の期待値を求めることでその題意が求まるため、
+10面サイコロの0-9の目をすべて出すために必要なサイコロを振る回数の平均を求める。
+
+サイコロの目をコンプリートする回数を計算することは上記課題1.2で行った
+タイムスロットの到着間隔の期待値を考えることと同じで、k個目のサイコロの目がm回目で揃う確率は
+$(\frac{k}{10})(1-\frac{k}{10})^{m-1}$となる。
+これをmが無限大になるまで和を求めればよいためサイコロを振る回数の平均$E$は
+\begin{align}
+    E &= \sum_{k=1}^{10}\frac{1}{1-\frac{k}{10}}\\
+      &= 10(\frac{1}{10}+\frac{2}{10}+\frac{3}{10}+\cdots+1)
+\end{align}
+となりしたがっておおよそ$E=29.28$という値が得られる。
+
+\subsection{レポート課題2.1}
+指数分布の密度関数が$f(x)=\lambda e^{-\lambda x}$であることを用いて
+分布関数が$F(x)=1-e^{-\lambda x}$となることを示す。
+
+密度関数を定義されるすべての$x$で積分することで分布関数が求まるので計算をすると
+\begin{align}
+    F(x) &= \int_{0}^{x}\lambda e^{-\lambda t}dt \\
+         &= \left[-e^{-\lambda t}\right]_{0}^{x} \\
+         &= 1 - e^{-\lambda x}
+\end{align}
+となり、よって題意は求まった。
+
+\subsection{レポート課題2.2}
+期待値は確率とそのときの値を掛け合わせたものび総和で求まる。指数分布は連続な確率関数なので
+\begin{align}
+    E[x] &= \int_{0}^{\infty}x(\lambda e^{-\lambda x})dx \\
+         &= \left[xe^{-\lambda x}\right]_{0}^{\infty} - \lambda \int_{0}^{\infty} -\frac{1}{\lambda} e^{-\lambda x} dx \\
+         &= -\frac{1}{\lambda} \left[e^{-\lambda x}\right]_{0}^{\infty} \\
+         &= \frac{1}{\lambda}
+\end{align}
+と部分積分などを用いることで求まった。
+
+\subsection{レポート課題2.3}
+ここでは分布関数$F(x)=1-e^{-\lambda x}$の逆関数が$F^{-1}(x)=-\frac{1}{\lambda}\log(1-x)$
+となることを示す。
+\begin{align}
+    y &= F(x) \\
+      &= 1-e^{-\lambda x}
+\end{align}
+とする。$x$と$y$を入れ替えることで逆関数となる。入れ替えた後の関数を$y$について解いていく。
+\begin{align}
+    x &= 1 - e^{-\lambda y} \\
+    e^{-\lambda y}  &= 1 - x \\
+    -\lambda y &= \log(1-x) \\
+    y &= -\frac{1}{\lambda}\log(1-x)
+\end{align}
+このように式を変形させることで示される。
+
+
+\section{実験}
+以下に実験とその結果について示していく。
+
+\subsection{実験1}
+実験1では、間隔$\delta$により短く区切られた一つのタイムスロットでそれぞれ確率$p$の確率的施行
+を行い、成功か失敗かを決める、ベルヌーイ過程を実験的に行う。
+
+今回の実験では$\delta=1,p=0.1$として計算をおこなう。この施行ののち、到着まで
+いくつのタイムスロットで失敗をしたのかの到着間隔をヒストグラムにまとめる。
+
+実験にはPythonを用いて発生させた乱数が0.1より小さいときに成功、大きいと失敗とし失敗した場合はまた同じ
+施行を繰り返させ、施行が失敗した回数を数えることでそれを到着間隔とした。
+
+用いたソースコードは以下\ref{bern}に示す。
+\lstinputlisting[language=python,caption=Beenoulli.py, label=bern]{C:/Program_Code/Python/CSE2/Bernoulli.py}
+
+このコードによって得られたヒストグラムを図\ref{berhist}に示す.
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{Bernoulli.png}
+\caption{到着間隔の相対度数分布}
+\label{berhist}
+\end{figure}
+
+この図\ref{berhist}が到着間隔の実験的な分布となる。
+
+\subsection{実験2}
 
 
 \end{document}

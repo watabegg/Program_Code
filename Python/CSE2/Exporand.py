@@ -21,6 +21,8 @@ print('期待値:' + str(1/lamb)) #理論値平均値出力
 
 x = np.arange(0,maxnum,0.1)
 plt.figure() #累積相対度数のグラフ
+plt.xlabel()
+plt.ylabel()
 plt.plot(x,1-np.exp(-lamb*x),color='r')
 plt.bar(np.arange(0,maxnum,0.1), np.array(list(itertools.accumulate(hlist[0])))/LOOP, width=0.1) #hlistの累積和を計算してnumpyの配列に変更
 plt.show()
