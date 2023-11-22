@@ -195,6 +195,15 @@ $(\frac{k}{10})(1-\frac{k}{10})^{m-1}$となる。
 \end{align}
 このように式を変形させることで示される。
 
+\subsection{レポート課題3}
+ランダムな到着とみなせる現象はレジの行列や自動販売機に支払われる硬貨などが挙げられる。
+
+レジの行列はとてもポピュラーな例である。客がその任意のタイミングでレジ行列に並び、
+レジでの会計が終わることでその処理が終了するため、ランダムな到着とみなせる。
+
+自動販売機に支払われる硬貨も、その利用者が支払う際に自身が持つ任意の硬貨の組み合わせで
+支払いを行うため、硬貨によるある程度の重み(例えば100円硬貨での支払いは多く、50円硬貨での支払いは少ない)がつく
+と予想されるが、ランダムな到着とみなすことができる。
 
 \section{実験}
 以下に実験とその結果について示していく。
@@ -258,6 +267,51 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 またこの施行で得られた平均値は0.999425708871489となった。
 期待値は$\frac{1}{\lambda}$であることから$\lambda=1$であるとき期待値も$1$となるため、
 そこそこの精度で一致していることが読み取れる。
+
+\subsection{実験3}
+実験3ではパラメータ$\lambda_1$のポアソン過程に従って到着するバスに、
+パラメータ$\lambda_2$のポアソン過程に従って到着する乗客が乗るようなバスの運行をシミュレートしていく。条件として到着し、
+バスが来るまで待っている乗客はすべて到着したバスに乗るものとしてシミュレートする。
+
+またパラメータ$\lambda_1,\lambda_2$はその都度適宜変更していく。
+
+実験ではソースコード\ref{bus}を用いた。
+\lstinputlisting[language=python,caption=Buses.py, label=bus]{C:/Program_Code/Python/CSE2/Buses.py}
+
+先にソースコード\ref{bus}を実行して得られた乗客者数、同乗者数、乗客の待ち時間の平均を
+いくつかの$\lambda$で求めた結果を表\ref{result}にして示しておく。
+\begin{table}[h]
+    \centering
+    \caption{実験3で得られた平均値}
+    \begin{tabular}{|r|r|r|r|r|} \hline
+        $\lambda_1$ & $\lambda_2$ & 乗客者数平均 & 同乗者数平均 & 待ち時間平均 \\ \hline
+        1 & 5  & 5.00864 & 10.01472 & 1.00119 \\ \hline
+        2 & 5  & 4.99634 & 5.99988  & 0.49941 \\ \hline
+        1 & 10 & 9.99268 & 20.96280 & 0.99802 \\ \hline
+        2 & 10 & 5.01614 & 11.05486 & 0.50255 \\ \hline
+    \end{tabular}
+    \label{result}
+\end{table}
+
+\subsubsection{実験3.1}
+実験3.1ではバスの平均乗客者数とその乗客者数の分布について調べていく。
+
+ソースコード\ref{bus}で得られた乗客者数の相対度数分布のグラフを以下図\ref{3.1.1},\ref{3.1.2}に示す。
+\begin{figure}[h]
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_cus_1_5.png}
+      \caption{$\lambda_1=1,\lambda_2=5$のときの乗客者数ヒストグラム}
+      \label{3.1.1}
+    \end{minipage}
+    \hspace{0.04\columnwidth} 
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_cus_2_5.png}
+      \caption{$\lambda_1=2,\lambda_2=5$のときの乗客者数ヒストグラム}
+      \label{3.1.2}
+    \end{minipage}
+  \end{figure}
 
 
 \end{document}
