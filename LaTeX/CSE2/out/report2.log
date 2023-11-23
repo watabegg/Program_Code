@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  23 NOV 2023 01:03
+This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  23 NOV 2023 23:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -481,24 +481,27 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: C:/Program_Code/LaTeX/CSE2/Bus_cus_1_5.png Graphic file (type bmp)
 <C:/Program_Code/LaTeX/CSE2/Bus_cus_1_5.png>
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 304.
+(Font)              scaled to size 5.76599pt on input line 303.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 304.
+(Font)              scaled to size 5.76599pt on input line 303.
 File: C:/Program_Code/LaTeX/CSE2/Bus_cus_2_5.png Graphic file (type bmp)
 <C:/Program_Code/LaTeX/CSE2/Bus_cus_2_5.png>
 
-Overfull \hbox (4.4382pt too wide) in paragraph at lines 301--314
+Overfull \hbox (4.4382pt too wide) in paragraph at lines 300--313
 [][]   [] 
  []
 
-[9] (out/report2.aux) ) 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9] [10] (out/report2.aux) ) 
 Here is how much of TeX's memory you used:
- 14935 strings out of 479062
- 291135 string characters out of 5869666
- 1060373 words of memory out of 5000000
- 32765 multiletter control sequences out of 15000+600000
+ 14936 strings out of 479062
+ 291145 string characters out of 5869666
+ 1060374 words of memory out of 5000000
+ 32766 multiletter control sequences out of 15000+600000
  422537 words of font info for 114 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  84i,15n,89p,448b,1980s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on out/report2.dvi (10 pages, 72620 bytes).
+Output written on out/report2.dvi (11 pages, 74252 bytes).

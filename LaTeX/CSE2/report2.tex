@@ -286,7 +286,7 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
     \begin{tabular}{|r|r|r|r|r|} \hline
         $\lambda_1$ & $\lambda_2$ & 乗客者数平均 & 同乗者数平均 & 待ち時間平均 \\ \hline
         1 & 5  & 5.00864 & 10.01472 & 1.00119 \\ \hline
-        2 & 5  & 4.99634 & 5.99988  & 0.49941 \\ \hline
+        2 & 5  & 2.49612 & 5.99988  & 0.49941 \\ \hline
         1 & 10 & 9.99268 & 20.96280 & 0.99802 \\ \hline
         2 & 10 & 5.01614 & 11.05486 & 0.50255 \\ \hline
     \end{tabular}
@@ -295,7 +295,6 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 
 \subsubsection{実験3.1}
 実験3.1ではバスの平均乗客者数とその乗客者数の分布について調べていく。
-
 ソースコード\ref{bus}で得られた乗客者数の相対度数分布のグラフを以下図\ref{3.1.1},\ref{3.1.2}に示す。
 \begin{figure}[h]
     \begin{minipage}[b]{0.48\columnwidth}
@@ -311,7 +310,30 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
       \caption{$\lambda_1=2,\lambda_2=5$のときの乗客者数ヒストグラム}
       \label{3.1.2}
     \end{minipage}
-  \end{figure}
+\end{figure}
+
+乗客者数の平均は表\ref{result}に示してあるが、再度乗客者数の平均だけ表\ref{result_1}に示す。
+\begin{table}[h]
+    \centering
+    \caption{実験3で得られた乗客者数平均値}
+    \begin{tabular}{|r|r|r|} \hline
+        $\lambda_1$ & $\lambda_2$ & 乗客者数平均  \\ \hline
+        1 & 5  & 5.00864 \\ \hline
+        2 & 5  & 2.49612 \\ \hline
+        1 & 10 & 9.99268 \\ \hline
+        2 & 10 & 5.01614 \\ \hline
+    \end{tabular}
+    \label{result_1}
+\end{table}
+
+図\ref{3.1.1},\ref{3.1.2}を見ると指数分布のような度数分布として出力されている。
+表\ref{result_1}を見ると乗客者数平均と$\lambda$にある関係が見える。
+
+小数誤差を考慮し整理すると、乗客者数平均を$C_{ave}$としたとき
+\begin{equation}
+    C_{ave} = \frac{\lambda_2}{\lambda_1}
+\end{equation}
+となることがわかる。
 
 
 \end{document}
