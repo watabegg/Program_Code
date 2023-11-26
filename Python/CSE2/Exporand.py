@@ -7,7 +7,7 @@ LOOP = 10 ** 6
 lamb = 1 # λの値，変更してもよい
 maxnum = 15 # グラフの最大出力，λを変えたときに変えるかも
 
-randnum = [(-np.log(1-rand.random()))/lamb for i in range(LOOP)] 
+randnum = [(-np.log(1-rand.random()))/lamb for _ in range(LOOP)] 
 # 指数分布に従う乱数のリスト
 
 hlist = np.histogram(randnum, range=(0,maxnum), bins=maxnum * 10, density=False) 

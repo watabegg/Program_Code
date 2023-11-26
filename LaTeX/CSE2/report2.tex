@@ -1,5 +1,6 @@
 \documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
 
+\usepackage{url}
 
 % 数式
 \usepackage{amsmath,amsfonts}
@@ -222,7 +223,7 @@ $(\frac{k}{10})(1-\frac{k}{10})^{m-1}$となる。
 \lstinputlisting[language=python,caption=Beenoulli.py, label=bern]{C:/Program_Code/Python/CSE2/Bernoulli.py}
 
 このコードによって得られたヒストグラムを図\ref{berhist}に示す.
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=80mm]{Bernoulli.png}
 \caption{到着間隔の相対度数分布}
@@ -253,7 +254,7 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 \lstinputlisting[language=python,caption=Exporand.py, label=expo]{C:/Program_Code/Python/CSE2/Exporand.py}
 
 このコードで得られたヒストグラムを図\ref{expohist}に示す。
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=80mm]{Exporand.png}
 \caption{指数分布に従う乱数の累積相対度数と指数分布の分布関数}
@@ -268,7 +269,7 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 期待値は$\frac{1}{\lambda}$であることから$\lambda=1$であるとき期待値も$1$となるため、
 そこそこの精度で一致していることが読み取れる。
 
-\subsection{実験3}
+\subsection{実験3 - 結果}
 実験3ではパラメータ$\lambda_1$のポアソン過程に従って到着するバスに、
 パラメータ$\lambda_2$のポアソン過程に従って到着する乗客が乗るようなバスの運行をシミュレートしていく。条件として到着し、
 バスが来るまで待っている乗客はすべて到着したバスに乗るものとしてシミュレートする。
@@ -280,12 +281,12 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 
 先にソースコード\ref{bus}を実行して得られた乗客者数、同乗者数、乗客の待ち時間の平均を
 いくつかの$\lambda$で求めた結果を表\ref{result}にして示しておく。
-\begin{table}[h]
+\begin{table}[ht]
     \centering
     \caption{実験3で得られた平均値}
     \begin{tabular}{|r|r|r|r|r|} \hline
         $\lambda_1$ & $\lambda_2$ & 乗客者数平均 & 同乗者数平均 & 待ち時間平均 \\ \hline
-        1 & 5  & 5.00864 & 10.01472 & 1.00119 \\ \hline
+        1 & 5  & 5.00864 & 10.97850 & 1.00119 \\ \hline
         2 & 5  & 2.49612 & 5.99988  & 0.49941 \\ \hline
         1 & 10 & 9.99268 & 20.96280 & 0.99802 \\ \hline
         2 & 10 & 5.01614 & 11.05486 & 0.50255 \\ \hline
@@ -295,6 +296,15 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 
 \subsubsection{実験3.1}
 実験3.1ではバスの平均乗客者数とその乗客者数の分布について調べていく。
+
+ソースコード\ref{bus}上では、平均乗客者数と乗客者数の分布を実験的に調べるためにwhile文を用いた。
+while文では脱出条件として、次に来るバスについて、それまでのバスの到着間隔の累積和よりもこれまで来た乗客の到着間隔の累積和
+が大きくなる時に脱出する、すなわちバスが次に来た段階で乗客のカウントをリセットさせている。
+逆に脱出条件に達していないときはバスの乗客のカウントを一つ増やし、次に来る乗客の到着間隔を新たに乱数で生成している。
+
+この乗客者数のカウントを配列にそれぞれ保存していき、その配列の頻度分析をすることで乗客者数の分布を、
+平均を求めることで乗客者数の平均をそれぞれ求めていく。
+
 ソースコード\ref{bus}で得られた乗客者数の相対度数分布のグラフを以下図\ref{3.1.1},\ref{3.1.2}に示す。
 \begin{figure}[h]
     \begin{minipage}[b]{0.48\columnwidth}
@@ -313,15 +323,15 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 \end{figure}
 
 乗客者数の平均は表\ref{result}に示してあるが、再度乗客者数の平均だけ表\ref{result_1}に示す。
-\begin{table}[h]
+\begin{table}[ht]
     \centering
-    \caption{実験3で得られた乗客者数平均値}
-    \begin{tabular}{|r|r|r|} \hline
-        $\lambda_1$ & $\lambda_2$ & 乗客者数平均  \\ \hline
-        1 & 5  & 5.00864 \\ \hline
-        2 & 5  & 2.49612 \\ \hline
-        1 & 10 & 9.99268 \\ \hline
-        2 & 10 & 5.01614 \\ \hline
+    \caption{実験3で得られた乗客者数平均値と$\frac{\lambda_2}{\lambda_1}$の値}
+    \begin{tabular}{|r|r|r|r|} \hline
+        $\lambda_1$ & $\lambda_2$ & 乗客者数平均 & $\frac{\lambda_2}{\lambda_1}$  \\ \hline
+        1 & 5  & 5.00864 & 5   \\ \hline
+        2 & 5  & 2.49612 & 2.5 \\ \hline
+        1 & 10 & 9.99268 & 10  \\ \hline
+        2 & 10 & 5.01614 & 5   \\ \hline
     \end{tabular}
     \label{result_1}
 \end{table}
@@ -333,7 +343,177 @@ $y=F(x)$,$[0,1)$の一様乱数を$U$としたとき
 \begin{equation}
     C_{ave} = \frac{\lambda_2}{\lambda_1}
 \end{equation}
-となることがわかる。
+となることが考えられる。
 
+また前述したように図\ref{3.1.1},\ref{3.1.2}では指数分布のような度数分布になったが実際に期待値が
+$C_{ave}$となるような指数分布を図\ref{3.1.1}に重ねると図\ref{3.1.3}のようになった。
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=80mm]{./Bus_cus_2_10_exp.png}
+    \caption{図\ref{3.1.1}に$\frac{1}{C_{ave}}$がパラメータとなる指数分布を重ねたヒストグラム}
+    \label{3.1.3}
+\end{figure}
+
+この図\ref{3.1.3}を見ると赤線で示される期待値が$C_{ave}$となる密度関数と、
+実験で得た度数分布がかなり類似した分布になっていることが分かる。
+この分布の類似は$\lambda$を別の値に変えても確認された。
+
+\subsubsection{実験3.2}
+実験3.2ではバスの中の乗客から見た混み具合、すなわち乗客から見たバスの同乗者数の分布とその平均値を求めていく。
+
+ソースコード\ref{bus}内では、同乗者数というものを、バスの乗客全員から見た、そのバスに乗っている、自分を含めた同乗者をすべてカウントする
+と解釈して実装した。
+すなわち同乗者数は乗客者数の2乗でカウントされる。前実験で用いた乗客者数のリストをPythonのリスト内包表記を二重で用いることで
+配列のすべての要素一つ一つの要素数をその要素の2乗に増やしている。この配列をnumpyに付属する関数で解析して度数分布を、
+乗客者数で割ることで乗客から見た同乗者数の平均を求めている。
+
+ソースコード\ref{bus}を実行することで得られた同乗者数の相対度数分布のグラフを以下図\ref{3.2.1},\ref{3.2.2}に示す。
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_pass_1_5.png}
+      \caption{$\lambda_1=1,\lambda_2=5$のときの同乗者数ヒストグラム}
+      \label{3.2.1}
+    \end{minipage}
+    \hspace{0.04\columnwidth} 
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_pass_2_5.png}
+      \caption{$\lambda_1=2,\lambda_2=5$のときの同乗者数ヒストグラム}
+      \label{3.2.2}
+    \end{minipage}
+\end{figure}
+
+同乗者数の平均も表\ref{result}に示してあるが、再度同乗者数の平均を表\ref{result_2}に示す。
+\begin{table}[ht]
+    \centering
+    \caption{実験3で得られた同乗者数平均値と$2\frac{\lambda_2}{\lambda_1}+1$の値}
+    \begin{tabular}{|r|r|r|r|} \hline
+        $\lambda_1$ & $\lambda_2$ & 同乗者数平均 & $2\frac{\lambda_2}{\lambda_1}+1$  \\ \hline
+        1 & 5  & 10.97850 & 11 \\ \hline
+        2 & 5  & 5.99988  & 6  \\ \hline
+        1 & 10 & 20.96280 & 21 \\ \hline
+        2 & 10 & 11.05486 & 11 \\ \hline
+    \end{tabular}
+    \label{result_2}
+\end{table}
+
+図\ref{3.2.1},\ref{3.2.2}を見ると$\chi$二乗分布のようなヒストグラムに見えるが、
+実際、一様分布ではない乱数の二乗和の分布となるので$\chi$二乗分布の密度関数に近づくことも考えられる。ただ$\chi$二乗分布ではない。
+
+表\ref{result_2}から同乗者数の平均と$\lambda$の値の関係を考えてみると同乗者数の平均値を$P_{ave}$とすると
+\begin{equation}
+    P_{ave} = 2\frac{\lambda_2}{\lambda_1}+1
+\end{equation}
+となることが考えられる。実際にこの式に$\lambda$を代入して計算した値を表\ref{result_2}に示している。
+
+\subsubsection{実験3.3}
+実験3.3ではバスの乗客がバス停に到着してからバスが着くまでに待つ時間の分布とその平均値を求めていく。
+
+ソースコード\ref{bus}内では、乗客が乗るバスが到着した時間からその乗客が到着した時間を引くことで待ち時間を求めている。
+この待ち時間を配列に追加していくことで、その配列を解析して度数分布を、その配列の平均値をとることで待ち時間の平均を求めている。
+
+ソースコード\ref{bus}を実行することで得られた同乗者数の相対度数分布のグラフを以下図\ref{3.3.1},\ref{3.3.2}に示す。
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_time_1_5.png}
+      \caption{$\lambda_1=1,\lambda_2=5$のときの待ち時間ヒストグラム}
+      \label{3.3.1}
+    \end{minipage}
+    \hspace{0.04\columnwidth} 
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{C:/Program_Code/LaTeX/CSE2/Bus_time_2_5.png}
+      \caption{$\lambda_1=2,\lambda_2=5$のときの待ち時間ヒストグラム}
+      \label{3.3.2}
+    \end{minipage}
+\end{figure}
+
+同乗者数の平均も表\ref{result}に示してあるが、再度乗客の待ち時間の平均を表\ref{result_3}に示す。
+\begin{table}[ht]
+    \centering
+    \caption{実験3で得られた乗客の待ち時間の平均値と$\frac{1}{\lambda_1}$の値}
+    \begin{tabular}{|r|r|r|r|} \hline
+        $\lambda_1$ & $\lambda_2$ & 乗客の待ち時間の平均 & $\frac{\lambda_2}{\lambda_1}$  \\ \hline
+        1 & 5  & 1.00119 & 1   \\ \hline
+        2 & 5  & 0.49941 & 0.5 \\ \hline
+        1 & 10 & 0.99802 & 1   \\ \hline
+        2 & 10 & 0.50255 & 0.5 \\ \hline
+    \end{tabular}
+    \label{result_3}
+\end{table}
+
+図\ref{3.3.1},\ref{3.3.2}を見ると指数分布のようなヒストグラムに見える。
+
+表\ref{result_3}から乗客の待ち時間の平均と$\lambda$の値の関係を考えてみると乗客の待ち時間の平均値を$T_{ave}$とすると
+\begin{equation}
+    T_{ave} = \frac{1}{\lambda_1}
+\end{equation}
+となることが考えられる。実際にこの式に$\lambda$を代入して計算した値を表\ref{result_2}に示している。
+
+\subsection{実験3 - 考察}
+以下で実験3の結果について考察していく。
+\subsubsection{考察1}
+考察1ではバスの平均乗客者数と乗客の平均同乗者数を比較し、関係を考える。先の実験3.1,3.2においてそれぞれの平均値の理論式を
+\begin{align}
+    C_{ave} &= \frac{\lambda_2}{\lambda_1} \\
+    P_{ave} &= 2\frac{\lambda_2}{\lambda_1}+1
+\end{align}
+と推定した。
+
+この二式より関係は
+\begin{equation}
+    P_{ave} = 2C_{ave}+1
+\end{equation}
+とすることができる。
+この(34)式がどのように導出されているのかについて考察していく。
+ただここでは$C_{ave}$の理論的な導出は易しいものではないことが予想されるので経験則に基づく式にはなるがこのまま用いる。
+
+この導出を考える前に$P_{ave}$をどのように求めたかに立ち返って考える。実験では乗客者数の二乗和を乗客者数で割った値として計算した。
+これはすなわち乗客者数をある密度関数$f(x)$に従う確率変数$X$としたとき、$+1$の項を無視すれば
+\begin{equation}
+    P_{ave} = \frac{\sum X^2}{\sum X}
+\end{equation}
+を計算していることになる。
+
+ここでこの分数をバスの台数となる$n$で分母分子割ると
+\begin{equation}
+    P_{ave} = \frac{\frac{\sum X^2}{n}}{\frac{\sum X}{n}}
+\end{equation}
+となる。ここでこの分母$\frac{\sum X}{n}$は乗客者数の総和をバスの台数で割ったもの、すなわちバス一台あたりの乗客者数$C_{ave}$
+と同じになる。
+ということで式は
+\begin{equation}
+    P_{ave} = \frac{\frac{\sum X^2}{n}}{C_{ave}}
+\end{equation}
+と変形できる。
+
+ここで分子に注目していく。先の実験3.1で図\ref{3.1.3}のように、乗客者数の分布は平均値が$C_{ave}$となる指数分布によく似ている
+という指摘をした。これを参考に$X$が実際に平均値が$C_{ave}$となる指数分布に従う確率変数だと仮定すると式(37)の分子は
+指数分布の確率変数の二乗平均となり、これは実際に計算が可能である。
+詳細な計算方法は省く\cite{exp}が指数分布における二乗平均は平均値が$E[x]$のとき$2E[x]^2$となることが知られている。
+これをそのまま式(37)に代入することで
+\begin{align}
+    P_{ave} &= \frac{2C_{ave}^2}{C_{ave}} \\
+            &= 2C_{ave}
+\end{align}
+と計算でき、$+1$の項を無視してしまっているがおよそ関係が導出できたのではないかとおもう。
+
+\subsubsection{考察2}
+考察2では乗客の平均待ち時間とバスの平均間隔の関係について考察していく。
+
+バスの平均間隔はパラメータ$\lambda_1$の指数分布を用いてバスの到着間隔を求めているため、理論値として$\frac{1}{\lambda_1}$となる。
+乗客の平均待ち時間は実験3.3の結果より類推して経験則的に$\frac{1}{\lambda_1}$であると予測した。
+
+この二つの式は同じ式となっていることが分かる。
+この二式がどのように同じになるのかは単純で、$\lambda_2$が関係してこない事象のため乗客の到着間隔を単位時間に固定して考えると、
+レート$\lambda_1$のポアソン過程に従うバスの到着から待ち時間を考えることはバスの到着間隔を求めていることと相違ないことが分かる。
+
+したがってこの二式が同じものとなることが分かる。
+
+\begin{thebibliography}{99}
+    \bibitem{exp} 指数分布の期待値・分散の導出（証明） | AVILEN AI Trend \url{https://ai-trend.jp/basic-study/exponential-distribution/e-parameter-derivasion/} 2023/11/23 閲覧
+\end{thebibliography}
 
 \end{document}
