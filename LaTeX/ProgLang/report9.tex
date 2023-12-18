@@ -1,0 +1,51 @@
+\documentclass[a4paper,11pt]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+language={c},
+backgroundcolor={\color[gray]{.85}},
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\small \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{0.5,0,0.5}},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex,
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{プログラミング言語I\hspace{-1.2pt}I レポート課題9}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+レポート課題9では示された二つの構造体を用いたコードを比較していく。
+まず比較する二つのコードをソースコード\ref{91},\ref{92}に示す。
+\lstinputlisting[language=c, caption={code1}, label=91]{C:/Program_Code/c/ProgLang/Class09/report9_2.c}
+\lstinputlisting[language=c, caption={code2}, label=92]{C:/Program_Code/c/ProgLang/Class09/report9.c}
+
+この二つのコードは
+
+
+\end{document}
