@@ -50,10 +50,43 @@ typedef struct {
     int card;
 } player;
 
-void Player_Move(player *p){ // playerのデータを受け付けて行動決定
+int Player_Move(player *p, int card, int prev){ // playerのデータを受け付けて行動決定
+    printf("");
+    int input;
+    char str;
+    int flag = 0;
+
+    while(true){
+        scanf("%s", &str);
+        if(str == "y"){
+            flag = 1;
+            break;
+        }
+        else if(str == "n"){
+            break;
+        }
+        else{
+            printf("");
+        }
+    }
+    if(flag){
+        input = -1;
+    }
+    else{
+        while(true){
+            printf(":");
+            scanf("%d", &input);
+            if(input <= prev){
+                printf("");
+            }
+            else(break);
+        }
+    }
+
+    return input;
 }
 
-void Ai_Move(player *p){
+int Ai_Move(player *p){
 }
 
 int card_shaffule(int card_list){ // 山札をシャッフル
@@ -156,16 +189,24 @@ int play_main(player *p){
             p[i].card = card_list[(turn * Players) + i];
             playcard[i] = p[i].card;
         }
+        int prevnum = 0;
         int card_sum = calc_sum(playcard);
         while(true){ // プレイのためのループ
             int i = 0;
+            int dec;
             int play_turn = (turn + i) % Players;
             if(play_turn == 3){
-                Player_Move(*p[3]);
+                dec = Player_Move(*p[3], playcard, prevnum);
                 i += 1;
             }
             else{
-                Ai_Move(*p[play_turn]);
+                dec = Ai_Move(*p[play_turn]);
+                i += 1;
+            }
+            if(dec == -1){
+
+            }
+            else{
                 i += 1;
             }
         }
