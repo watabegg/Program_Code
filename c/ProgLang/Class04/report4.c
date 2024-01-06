@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define SIZE 5
+#define SIZE 10
 
 //配列を表示するときはこれを利用する．
 void print_array(int arg_data[SIZE]) {
@@ -11,7 +11,7 @@ void print_array(int arg_data[SIZE]) {
 }
 
 int main(void) {
-    int data[SIZE] = { 1, 5, 8, 3, 10 };
+    int data[SIZE] = { 1, 5, 8, 3, 10, 1, 5, 8, 3, 10 };
 
     /* ここから */
     int* p = data; //dataのポインタ
