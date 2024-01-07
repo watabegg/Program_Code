@@ -44,7 +44,6 @@ MAX->0:1
 
 int key[CARDS] = {0,1,2,3,4,5,10,15,20,-5,-10,200,100,199}; // 200:x2 100:MAX0 199:s0
 int value[CARDS] = {3,4,4,4,4,4,3,2,1,2,1,1,1,1};
-int value_copy[CARDS] = {3,4,4,4,4,4,3,2,1,2,1,1,1,1};
 
 typedef struct {
     int life;
@@ -113,19 +112,79 @@ int Player_Move(player *p, int prev){ // playerのデータを受け付けて行
 }
 
 int Ai_Move(player *p, int prev, int turn){
-    int otherhand[4] = {0};
+    int otherhand[Players] = {0};
+    int guess = 5; // botの手札予想
+    static int self_prev[Players - 1] = {0};
     int max_flag = 0;
     int double_flag = 0;
-    for(int i = 0; i < 4; i++){
+    int output;
+    for(int i = 0; i < Players; i++){
         if(i != turn){
-            otherhand[i] = p[i]->card; 
+            otherhand[i] = p[i]->card;
             switch (p[i]->card){
                 case 100:
                     max_flag = 1;
                     break;
-                
+                case 200:
+                    double_flag = 1;
+                    break;
                 default:
                     break;
+            }
+        }
+    }
+    int other_sum = calc_sum(otherhand, CARDS);
+    if(prev == 0){
+        if(other_sum < 0){
+            output = 1;
+        }
+        else{
+            output = other_sum / 2;
+        }
+    }
+    else{
+        int interval = self_prev - prev;
+        if(prev > (other_sum + guess)){
+            if(interval > 3 && interval <= 5){
+                guess = 10;
+                if(prev >= (other_sum + guess)){
+                    output = -1;
+                }
+                else{
+                    output = (((other_sum + guess) - prev) / 2) + 1;
+                }
+            }
+            else if(interval > 5 && interval <= 8){
+                guess = 15;
+                if(prev >= (other_sum + guess)){
+                    output = -1;
+                }
+                else{
+                    output = (((other_sum + guess) - prev) / 3) + 1;
+                }
+            }
+            else if(interval > 8){
+                guess = 20;
+                if(prev >= (other_sum + guess)){
+                    output = -1;
+                }
+                else{
+                    output = (((other_sum + guess) - prev) / 5) + 1;
+                }
+            }
+            else{
+                output = 1;
+            }
+        }
+        else{
+            if(interval == 3){
+            }
+            else if(interval > 3 && interval <= 5){
+            }
+            else if(interval > 5 && interval <= 7){
+            }
+            else{
+                output = interval / 3;
             }
         }
     }
