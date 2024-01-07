@@ -31,7 +31,7 @@
 -5:2
 -10:1
 x2:1
-MAX0:1
+MAX->0:1
 */
 
 #include <stdio.h>
@@ -42,92 +42,98 @@ MAX0:1
 #define Players 4
 #define CARDS 14
 
-static int key[CARDS] = {0,1,2,3,4,5,10,15,20,-5,-10,200,100,199}; // 200:x2 100:MAX0 199:s0
-static int value[CARDS] = {3,4,4,4,4,4,3,2,1,2,1,1,1,1};
+int key[CARDS] = {0,1,2,3,4,5,10,15,20,-5,-10,200,100,199}; // 200:x2 100:MAX0 199:s0
+int value[CARDS] = {3,4,4,4,4,4,3,2,1,2,1,1,1,1};
+int value_copy[CARDS] = {3,4,4,4,4,4,3,2,1,2,1,1,1,1};
 
 typedef struct {
     int life;
-    int card;
+    char card[20];
 } player;
 
-int Player_Move(player *p, int card, int prev){ // playerのデータを受け付けて行動決定
-    printf("");
+int Player_Move(player *p, int prev){ // playerのデータを受け付けて行動決定
+    printf("現在のプレイヤーの手札は\n");
+    for(int i = 0; i < Players - 1; i++){
+        printf("プレイヤー%d:%s ", i + 1, p[i]->card);
+    }
+    printf("\nです。\n\n");
+    if(prev){
+        printf("直前のプレイヤーは%dを宣言しています。\n", prev);
+    }
+    else{
+        printf("あなたが最初のプレイヤーです。\n");
+    }
     int input;
+    char input_str[100];
     char str;
     int flag = 0;
 
     while(true){
-        scanf("%s", &str);
-        if(str == "y"){
-            flag = 1;
-            break;
-        }
-        else if(str == "n"){
-            break;
+        if(prev){
+            printf("コヨーテを宣言しますか？(はい:y いいえ:n):");
+            scanf("%s", &str);
+            if(str == "y"){
+                flag = 1;
+                break;
+            }
+            else if(str == "n"){
+                break;
+            }
+            else{
+                printf("入力エラー yかnを入力してください");
+            }
         }
         else{
-            printf("");
+            break;
         }
     }
     if(flag){
+        printf("あなたはコヨーテを宣言しました。");
         input = -1;
     }
     else{
-        while(true){
-            printf(":");
-            scanf("%d", &input);
-            if(input <= prev){
-                printf("");
+        while(1){
+            printf("宣言する数字を入力してください:");
+            fgets(input_str, sizeof(input_str), stdin);
+
+            char *endptr;
+            input = strtol(input_str, &endptr, 10);
+
+            if(input_str[0] != '\n' && (*endptr == '\n' || *endptr == '\0') && input != 0 && input > prev){
+                break;
             }
-            else(break);
+            else{
+                printf("入力エラー 数値以外、もしくは前の宣言より小さい数字が入力されています。");
+            }
         }
+        printf("あなたは%dを宣言しました。", input);
     }
 
     return input;
 }
 
-int Ai_Move(player *p){
-}
-
-int card_shaffule(int card_list){ // 山札をシャッフル
-    srand((unsigned int)time(NULL));
-    int size = sizeof(card_list) / sizeof(card_list[0]);
-
-    for(int i = size - 1; i > 0; i--){
-        int j = rand() % (i + 1);
-
-        int tmp = card_list[i];
-        card_list[i] = card_list[j];
-        card_list[j] = tmp;
-    }
-
-    return card_list;
-}
-
-int generate_list(){ // シャッフルされていない山札を生成
-    int num_cards = 0;
-
-    for(int i = 0; i < CARDS; i++){
-        num_cards += value[i];
-    }
-    int card_list[num_cards];
-
-    for(int i = 0; i < CARDS; i++){
-        int num = 0;
-        int j = 0;
-        for(j; j < value[i]; j++){
-            card_list[num + j] = key[i];
+int Ai_Move(player *p, int prev, int turn){
+    int otherhand[4] = {0};
+    int max_flag = 0;
+    int double_flag = 0;
+    for(int i = 0; i < 4; i++){
+        if(i != turn){
+            otherhand[i] = p[i]->card; 
+            switch (p[i]->card){
+                case 100:
+                    max_flag = 1;
+                    break;
+                
+                default:
+                    break;
+            }
         }
-        num += j;
     }
-
-    return card_list;
-
+    // テキストを外部ファイルでやる
 }
 
-int card_dict(int key_input){ // 辞書型っぽいやつの関数
+int card_dict(int key_input, int num){ // 辞書型っぽいやつの関数
     int index;
-
     for(int i = 0; i < CARDS; i++){
         if(key_input == key[i]){
             index = i;
@@ -137,18 +143,40 @@ int card_dict(int key_input){ // 辞書型っぽいやつの関数
             return -1;
         }
     }
-
-    return value[index];
+    return (value[index] - num);
 }
 
-int calc_sum(int hands[Players]){ // 場のカードの合計を計算する関数
+void card_shaffule(int card_list[], int size){ // 山札をシャッフル
+    srand((unsigned int)time(NULL));
+
+    for(int i = size - 1; i > 0; i--){
+        int j = rand() % (i + 1);
+
+        int tmp = card_list[i];
+        card_list[i] = card_list[j];
+        card_list[j] = tmp;
+    }
+}
+
+void generate_list(int card_list[]){ // シャッフルされていない山札を生成
+    for(int i = 0; i < CARDS; i++){
+        int num = 0;
+        int j = 0;
+        for(j; j < value[i]; j++){
+            card_list[num + j] = key[i];
+        }
+        num += j;
+    }
+}
+
+int calc_sum(int card[], int size){ // カードの合計を計算する関数
     int sum = 0;
-    int max = hands[0];
+    int max = card[0];
     int max_flag = 0;
     int double_flag = 0;
     int shuffle_flag = 0;
-    for(int i = 0; i < Players; i++){
-        switch (hands[i]){
+    for(int i = 0; i < size; i++){
+        switch (card[i]){
         case 200: // x2のカードが場にある場合
             double_flag = 1;
             break;
@@ -159,10 +187,10 @@ int calc_sum(int hands[Players]){ // 場のカードの合計を計算する関�
             shuffle_flag = 1;
             break;
         default:
-            if(hands[i] > max){ // カードの最大値を保存
-                max = hands[i];
+            if(card[i] > max){ // カードの最大値を保存
+                max = card[i];
             }
-            sum += hands[i];
+            sum += card[i];
             break;
         }
     }
@@ -172,46 +200,108 @@ int calc_sum(int hands[Players]){ // 場のカードの合計を計算する関�
     if(double_flag){ // フラグが立っていれば二倍
         sum = 2 * sum;
     }
-
-    return max, shuffle_flag;
+    return sum;
 }
 
 int play_main(player *p){
     srand((unsigned int)time(NULL));
-    int card_list = card_shaffule(generate_list());
-    int play_start = (rand() % Players);
-    int turn = 0;
+    int num = 0;
 
-    while(p[0]->life && p[1]->life && p[2]->life && p[3]->life){ // コヨーテしたらここに戻る
-        int playcard[Players];
+    for(int i = 0; i < CARDS; i++){ // 山札の枚数をnumに代入
+        num += value[i];
+    }
+    int card_list[num];
+    generate_list(card_list); // 山札を生成
+    card_shaffule(card_list, num); // 山札をシャッフル
+    int start = (rand() % Players); // スタートプレイヤーをランダムに決定
+    int turn = 0; // 山札を引く回数を保存するための変数
 
-        for(int i = 0; i < Players; i++){
-            p[i].card = card_list[(turn * Players) + i];
-            playcard[i] = p[i].card;
+    while(p[0]->life && p[1]->life && p[2]->life && p[3]->life){ 
+        // コヨーテしたらここに戻る
+        int playcard[Players]; // プレイヤーの持つカードを保存
+        int flag;
+        
+        for(int i = 0; i < Players; i++){ 
+            // 適宜文字を変更しながらプレイヤーの手札を決定、構造体に代入
+            switch (card_list[(turn * Players) + i]){
+                case 100:
+                    p[i].card = "MAX->0";
+                    break;
+                case 200:
+                    p[i].card = "x2";
+                    break;
+                case 199:
+                    p[i].card = "シャッフル0";
+                    flag = 1; // シャッフルフラグ
+                    break;
+                default:
+                char str[20];
+                    sprintf(str, "%d", card_list[(turn * Players) + i]);
+                    // 上記に合わせてintをcharに
+                    p[i].card = str;
+                    break;
+            }
+            playcard[i] = card_list[(turn * Players) + i];
         }
-        int prevnum = 0;
-        int card_sum = calc_sum(playcard);
-        while(true){ // プレイのためのループ
-            int i = 0;
-            int dec;
-            int play_turn = (turn + i) % Players;
-            if(play_turn == 3){
-                dec = Player_Move(*p[3], playcard, prevnum);
-                i += 1;
+
+        int prevnum = 0; // 直前に宣言した数を保存
+        int card_sum = calc_sum(playcard, Players); // 場の合計を計算
+        while(1){ // プレイのためのループ
+            int i = 0; // プレイヤーの試行ターンを保存
+            int dec; // プレイヤーの行動を保存
+            int play_turn = (start + i) % Players; // 誰のターンか計算
+            if(play_turn == Players - 1){ // 3ならお前の番
+                dec = Player_Move(*p, prevnum);
             }
             else{
-                dec = Ai_Move(*p[play_turn]);
-                i += 1;
+                dec = Ai_Move(*p, prevnum, play_turn);
             }
-            if(dec == -1){
+            if(dec == -1){ // コヨーテ後の処理
+                printf("プレイヤー%dによりコヨーテが宣言されました。\n", play_turn + 1);
+                printf("場のカードは");
+                for(int j = 0; j < Players; j++){ // 場のカード全出力
+                    printf("プレイヤー%d:%s ", j + 1, p[j]->card);
+                }
+                printf("です。\n合計値は%dでした。", card_sum);
+                if(prevnum > card_sum){ // 宣言されていた数がデカいと…
+                    start = (play_turn - 1) % Players;
+                    printf("コヨーテ成功です。プレイヤー%dのライフが一つ減ります。", (start) + 1);
+                    p[start]->life -= 1;
+                }
+                else{ // 小さいと…
+                    start = play_turn;
+                    printf("コヨーテ失敗です。プレイヤー%dのライフが一つ減ります。", play_turn + 1);
+                    p[play_turn]->life -= 1;
+                }
+                if(flag){ // シャッフルフラグが立っている場合
+                    generate_list(card_list);
+                    card_shaffule(card_list, num);
 
+                    turn = 0; // 山札を引く場所もリセット
+                    value_copy = value; // valueもリセット
+                }
+                else{
+                    turn += 1; // 山札を次のゾーンへ
+                }
+                break;
             }
             else{
                 i += 1;
             }
         }
     }
-
+    int lose;
+    for(int i = 0; i < Players; i++){
+        if(p[i]->life == 0){
+            lose = i;
+        }
+    }
+    if(lose == 3){
+        printf("ゲーム終了 あなたの負けです。");
+    }
+    else{
+        printf("ゲーム終了 プレイヤー%dの負けです。", lose);
+    }
 }
 
 int main(void){
