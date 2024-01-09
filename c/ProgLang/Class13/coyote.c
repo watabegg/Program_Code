@@ -1,39 +1,3 @@
-/*
-ãƒœãƒ¼ãƒ‰ã‚²ãƒ¼ãƒ  ã‚³ãƒ¨ãƒ¼ãƒ†(PCã‚½ãƒ­ãƒ—ãƒ¬ã‚¤ç”¨ã«æ”¹å®š)
-
-è‡ªåˆ†ä»¥å¤–ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚«ãƒ¼ãƒ‰ã‚’è¦‹ã¦ã€ãã®å ´ã®ã‚«ãƒ¼ãƒ‰ã«æ›¸ã‹ã‚ŒãŸæ•°ã®åˆè¨ˆã‚’æ¨ç†ã™ã‚‹ã‚²ãƒ¼ãƒ ã€‚
-æœ€åˆã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¯ãã®å ´ã®ã‚«ãƒ¼ãƒ‰ã®åˆè¨ˆãŒå°‘ãªãã¨ã‚‚ã„ãã¤ã§ã‚ã‚‹ã‹ã‚’å®£è¨€ã—ã€æ¬¡ã«ç¶šããƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¯
-å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå®£è¨€ã—ãŸä»¥ä¸Šã®æ•°å­—ã‚’å®£è¨€ã™ã‚‹ã“ã¨ã§ã‚²ãƒ¼ãƒ ãŒé€²ã‚€ã€‚
-ã‚‚ã—å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå®£è¨€ã—ãŸæ•°ãŒã“ã®å ´ã®ã‚«ãƒ¼ãƒ‰ã®åˆè¨ˆã‚ˆã‚Šå¤§ãã„ã¨æ€ã£ãŸå ´åˆã€Œã‚³ãƒ¨ãƒ¼ãƒ†ã€ã¨å®£è¨€ã™ã‚‹ã“ã¨ãŒã§ãã‚‹ã€‚
-ã€Œã‚³ãƒ¨ãƒ¼ãƒ†ã€ã¨å®£è¨€ã—ãŸå ´åˆã€å ´ã®ã‚«ãƒ¼ãƒ‰ã‚’ã™ã¹ã¦é–‹ç¤ºã—ã€å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå®£è¨€ã—ãŸæ•°ã¨å ´ã®ã‚«ãƒ¼ãƒ‰ã®åˆè¨ˆã‚’æ¯”è¼ƒã™ã‚‹ã€‚
-ã‚‚ã—å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå®£è¨€ã—ãŸæ•°ã®ã»ã†ãŒå¤§ãã‘ã‚Œã°ã€Œã‚³ãƒ¨ãƒ¼ãƒ†ã€ã¯æˆåŠŸã€‚å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ©ã‚¤ãƒ•ãŒä¸€ã¤æ¸›ã‚‹ã€‚
-ã‚‚ã—å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå®£è¨€ã—ãŸæ•°ãŒå ´ã®ã‚«ãƒ¼ãƒ‰ã®åˆè¨ˆã‚ˆã‚Šå°ã•ã‘ã‚Œã°ã€Œã‚³ãƒ¨ãƒ¼ãƒ†ã€ã¯å¤±æ•—ã€‚ã€Œã‚³ãƒ¨ãƒ¼ãƒ†ã€ã‚’å®£è¨€ã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ©ã‚¤ãƒ•ãŒä¸€ã¤æ¸›ã‚‹ã€‚
-ã“ã‚Œã‚’ç¹°ã‚Šè¿”ã—ã€ãƒ©ã‚¤ãƒ•ã®ãªããªã£ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè² ã‘ã¨ãªã‚‹ã€‚
-
-è©³ç´°ãƒ«ãƒ¼ãƒ«
-ãƒ»ä½¿ç”¨ã•ã‚ŒãŸã‚«ãƒ¼ãƒ‰ã¯æ¨ã¦æœ­ã¨ã™ã‚‹ã€ãŸã ã—ã‚·ãƒ£ãƒƒãƒ•ãƒ«0ãŒå‡ºãŸéš›ã¯æ¬¡ã®å ´ã«è¡Œãã¨ãã«æ¨ã¦æœ­ã¨æ®‹ã£ãŸå±±æœ­ã‚’æ··ãœã€ãƒ—ãƒ¬ã‚¤ã‚’å†é–‹ã™ã‚‹ã€‚
-ãƒ»x2ã¯å ´ã®åˆè¨ˆã®æ•°å­—ã‚’æœ€å¾Œã«2å€ã™ã‚‹ã‚«ãƒ¼ãƒ‰ã§ã‚ã‚‹ã€‚
-ãƒ»MAX0ã¯å ´ã®ä¸€ç•ªå¤§ããªæ•°å­—ã‚’0ã«ã™ã‚‹ã€‚
-
-ãƒ©ã‚¤ãƒ•:2
-ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼:4
-ã‚«ãƒ¼ãƒ‰å†…è¨³
-1:4
-2:4
-3:4
-4:4
-5:4
-10:3
-15:2
-20:1
-0:3
-ã‚·ãƒ£ãƒƒãƒ•ãƒ«0:1
--5:2
--10:1
-x2:1
-MAX->0:1
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,78 +14,113 @@ typedef struct {
     char card[20];
 } player;
 
-int Player_Move(player *p, int prev){ // playerã®ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘ä»˜ã‘ã¦è¡Œå‹•æ±ºå®š
-    printf("ç¾åœ¨ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹æœ­ã¯\n");
-    for(int i = 0; i < Players - 1; i++){
-        printf("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%d:%s ", i + 1, p[i]->card);
+int calc_sum(int card[], int size){ // ƒJ[ƒh‚Ì‡Œv‚ğŒvZ‚·‚éŠÖ”
+    int sum = 0;
+    int max = -10;
+    int max_flag = 0;
+    int double_flag = 0;
+    int shuffle_flag = 0;
+    for(int i = 0; i < size; i++){
+        switch (card[i]){
+        case 200: // x2‚ÌƒJ[ƒh‚ªê‚É‚ ‚éê‡
+            double_flag = 1;
+            break;
+        case 100: // MAX0‚ÌƒJ[ƒh‚ªê‚É‚ ‚éê‡
+            max_flag = 1;
+            break;
+        case 199: // ƒVƒƒƒbƒtƒ‹0‚ÌƒJ[ƒh‚ªê‚É‚ ‚éê‡
+            shuffle_flag = 1;
+            break;
+        default:
+            if(card[i] > max){ // ƒJ[ƒh‚ÌÅ‘å’l‚ğ•Û‘¶
+                max = card[i];
+            }
+            sum += card[i];
+            break;
+        }
     }
-    printf("\nã§ã™ã€‚\n\n");
-    if(prev){
-        printf("ç›´å‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¯%dã‚’å®£è¨€ã—ã¦ã„ã¾ã™ã€‚\n", prev);
+    if(max_flag){ // ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚ê‚ÎMAX‚ğÁ‹
+        sum -= max;
+    }
+    if(double_flag){ // ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚ê‚Î“ñ”{
+        sum = 2 * sum;
+    }
+    return sum;
+}
+
+int Player_Move(player *p, int prev){ // player‚Ìƒf[ƒ^‚ğó‚¯•t‚¯‚Äs“®Œˆ’è
+    printf("Œ»İ‚ÌƒvƒŒƒCƒ„[‚ÌèD‚Í\n");
+    for(int i = 0; i < Players - 1; i++){
+        printf("ƒvƒŒƒCƒ„[%d:%s ", i + 1, p[i].card);
+    }
+    printf("\n‚Å‚·B\n\n");
+    if(prev != 0){
+        printf("’¼‘O‚ÌƒvƒŒƒCƒ„[‚Í%d‚ğéŒ¾‚µ‚Ä‚¢‚Ü‚·B\n", prev);
     }
     else{
-        printf("ã‚ãªãŸãŒæœ€åˆã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã§ã™ã€‚\n");
+        printf("‚ ‚È‚½‚ªÅ‰‚ÌƒvƒŒƒCƒ„[‚Å‚·B\n");
     }
     int input;
     char input_str[100];
-    char str;
+    char str[2];
     int flag = 0;
 
-    while(true){
-        if(prev){
-            printf("ã‚³ãƒ¨ãƒ¼ãƒ†ã‚’å®£è¨€ã—ã¾ã™ã‹ï¼Ÿ(ã¯ã„:y ã„ã„ãˆ:n):");
+    while(1){
+        if(prev != 0){
+            printf("ƒRƒˆ[ƒe‚ğéŒ¾‚µ‚Ü‚·‚©H(‚Í‚¢:y ‚¢‚¢‚¦:n):");
             scanf("%s", &str);
-            if(str == "y"){
+            if(strcmp(str, "y") == 0){
                 flag = 1;
                 break;
             }
-            else if(str == "n"){
+            else if(strcmp(str, "n") == 0){
                 break;
             }
             else{
-                printf("å…¥åŠ›ã‚¨ãƒ©ãƒ¼ yã‹nã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
+                printf("“ü—ÍƒGƒ‰[ y‚©n‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B\n");
             }
         }
         else{
             break;
         }
     }
-    if(flag){
-        printf("ã‚ãªãŸã¯ã‚³ãƒ¨ãƒ¼ãƒ†ã‚’å®£è¨€ã—ã¾ã—ãŸã€‚");
+    if(flag == 1){
+        printf("‚ ‚È‚½‚ÍƒRƒˆ[ƒe‚ğéŒ¾‚µ‚Ü‚µ‚½B\n\n");
         input = -1;
     }
     else{
         while(1){
-            printf("å®£è¨€ã™ã‚‹æ•°å­—ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„:");
+            printf("éŒ¾‚·‚é”š‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢:");
             fgets(input_str, sizeof(input_str), stdin);
 
             char *endptr;
             input = strtol(input_str, &endptr, 10);
 
-            if(input_str[0] != '\n' && (*endptr == '\n' || *endptr == '\0') && input != 0 && input > prev){
+            if(input_str[0] != '\n' && *endptr == '\n' && *endptr != '\0' && input != 0 && input > prev){
                 break;
             }
             else{
-                printf("å…¥åŠ›ã‚¨ãƒ©ãƒ¼ æ•°å€¤ä»¥å¤–ã€ã‚‚ã—ãã¯å‰ã®å®£è¨€ã‚ˆã‚Šå°ã•ã„æ•°å­—ãŒå…¥åŠ›ã•ã‚Œã¦ã„ã¾ã™ã€‚");
+                printf("“ü—ÍƒGƒ‰[ ”’lˆÈŠOA‚à‚µ‚­‚Í‘O‚ÌéŒ¾‚æ‚è¬‚³‚¢”š‚ª“ü—Í‚³‚ê‚Ä‚¢‚Ü‚·B\n");
             }
         }
-        printf("ã‚ãªãŸã¯%dã‚’å®£è¨€ã—ã¾ã—ãŸã€‚", input);
+        printf("‚ ‚È‚½‚Í%d‚ğéŒ¾‚µ‚Ü‚µ‚½B\n", input);
     }
 
     return input;
 }
 
-int Ai_Move(player *p, int prev, int turn){
-    int otherhand[Players] = {0};
-    int guess = 5; // botã®æ‰‹æœ­äºˆæƒ³
-    static int self_prev[Players - 1] = {0};
-    int max_flag = 0;
-    int double_flag = 0;
-    int output;
+int Ai_Move(int card[], int prev, int turn){
+    int otherhand[Players] = {0}; // ‘¼ƒvƒŒƒCƒ„[‚ÌèD
+    int guess = 5; // bot‚ÌèD—\‘z
+    int *pguess = &guess; // guess‚Ìƒ|ƒCƒ“ƒ^
+    static int self_prev[Players - 1] = {0}; // ©•ª‚Ì’¼‘O‚ÌéŒ¾
+    int max_flag = 0; // MAX->0ƒtƒ‰ƒO
+    int double_flag = 0; // x2ƒtƒ‰ƒO
+    int output; // bot‚Ìs“®•Ô‚è’l
     for(int i = 0; i < Players; i++){
         if(i != turn){
-            otherhand[i] = p[i]->card;
-            switch (p[i]->card){
+            otherhand[i] = card[i];
+            switch (card[i]){
                 case 100:
                     max_flag = 1;
                     break;
@@ -133,44 +132,47 @@ int Ai_Move(player *p, int prev, int turn){
             }
         }
     }
-    int other_sum = calc_sum(otherhand, CARDS);
+    otherhand[turn] = guess;
+    int sum = calc_sum(otherhand, Players);
     if(prev == 0){
-        if(other_sum < 0){
+        if(sum < 0){
             output = 1;
         }
         else{
-            output = other_sum / 2;
+            output = (sum / 3) + 1;
         }
     }
     else{
-        int interval = self_prev - prev;
-        if(prev > (other_sum + guess)){
-            if(interval > 3 && interval <= 5){
-                guess = 10;
-                if(prev >= (other_sum + guess)){
-                    output = -1;
+        int interval = prev - self_prev[turn];
+        if(prev > sum){
+            if(interval > 3 && interval <= 6){
+                *pguess = 10;
+                sum = calc_sum(otherhand, Players);
+                if(prev >= sum){
+                    output = -1; // ƒRƒˆ[ƒe
                 }
                 else{
-                    output = (((other_sum + guess) - prev) / 2) + 1;
+                    output = 1; // +1éŒ¾
                 }
             }
-            else if(interval > 5 && interval <= 8){
-                guess = 15;
-                if(prev >= (other_sum + guess)){
-                    output = -1;
+            else if(interval > 6){
+                *pguess = 200; // x2‚Æ—\‘z
+                sum = calc_sum(otherhand, Players);
+                if(double_flag){ // x2ƒtƒ‰ƒO‚ª‚È‚©‚Á‚½‚ç
+                    if(prev >= sum){
+                        output = -1; // ƒRƒˆ[ƒe
+                    }
+                    else{
+                        output = 2;
+                    }
                 }
                 else{
-                    output = (((other_sum + guess) - prev) / 3) + 1;
+                    output = 1;
                 }
+                
             }
-            else if(interval > 8){
-                guess = 20;
-                if(prev >= (other_sum + guess)){
-                    output = -1;
-                }
-                else{
-                    output = (((other_sum + guess) - prev) / 5) + 1;
-                }
+            else if(interval == 3){
+                output = 1;
             }
             else{
                 output = 1;
@@ -178,34 +180,32 @@ int Ai_Move(player *p, int prev, int turn){
         }
         else{
             if(interval == 3){
+                output = 1;
             }
-            else if(interval > 3 && interval <= 5){
-            }
-            else if(interval > 5 && interval <= 7){
+            else if(interval > 3 && interval <= 9){
+                *pguess = 0;
+                sum = calc_sum(otherhand, Players);
+                if(prev >= sum){
+                    output = 1;
+                }
+                else{
+                    output = 2;
+                }
             }
             else{
-                output = interval / 3;
+                output = (interval / 3) + 1;
             }
         }
     }
-    // ãƒ†ã‚­ã‚¹ãƒˆã‚’å¤–éƒ¨ãƒ•ã‚¡ã‚¤ãƒ«ã§ã‚„ã‚‹
-}
-
-int card_dict(int key_input, int num){ // è¾æ›¸å‹ã£ã½ã„ã‚„ã¤ã®é–¢æ•°
-    int index;
-    for(int i = 0; i < CARDS; i++){
-        if(key_input == key[i]){
-            index = i;
-        }
-        else{
-            printf("Key Errer");
-            return -1;
-        }
+    if(output != -1){
+        output += prev;
     }
-    return (value[index] - num);
+
+    return output;
+    // ƒtƒŒ[ƒo[ƒeƒLƒXƒg‚ğŠO•”ƒtƒ@ƒCƒ‹‚Å‚â‚é
 }
 
-void card_shaffule(int card_list[], int size){ // å±±æœ­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
+int card_shaffule(int card_list[], int size){ // RD‚ğƒVƒƒƒbƒtƒ‹
     srand((unsigned int)time(NULL));
 
     for(int i = size - 1; i > 0; i--){
@@ -215,159 +215,137 @@ void card_shaffule(int card_list[], int size){ // å±±æœ­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
         card_list[i] = card_list[j];
         card_list[j] = tmp;
     }
+
+    return 0;
 }
 
-void generate_list(int card_list[]){ // ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã•ã‚Œã¦ã„ãªã„å±±æœ­ã‚’ç”Ÿæˆ
+int generate_list(int card_list[]){ // ƒVƒƒƒbƒtƒ‹‚³‚ê‚Ä‚¢‚È‚¢RD‚ğ¶¬
+int num = 0;
     for(int i = 0; i < CARDS; i++){
-        int num = 0;
         int j = 0;
         for(j; j < value[i]; j++){
             card_list[num + j] = key[i];
         }
         num += j;
     }
-}
 
-int calc_sum(int card[], int size){ // ã‚«ãƒ¼ãƒ‰ã®åˆè¨ˆã‚’è¨ˆç®—ã™ã‚‹é–¢æ•°
-    int sum = 0;
-    int max = card[0];
-    int max_flag = 0;
-    int double_flag = 0;
-    int shuffle_flag = 0;
-    for(int i = 0; i < size; i++){
-        switch (card[i]){
-        case 200: // x2ã®ã‚«ãƒ¼ãƒ‰ãŒå ´ã«ã‚ã‚‹å ´åˆ
-            double_flag = 1;
-            break;
-        case 100: // MAX0ã®ã‚«ãƒ¼ãƒ‰ãŒå ´ã«ã‚ã‚‹å ´åˆ
-            max_flag = 1;
-            break;
-        case 199: // ã‚·ãƒ£ãƒƒãƒ•ãƒ«0ã®ã‚«ãƒ¼ãƒ‰ãŒå ´ã«ã‚ã‚‹å ´åˆ
-            shuffle_flag = 1;
-            break;
-        default:
-            if(card[i] > max){ // ã‚«ãƒ¼ãƒ‰ã®æœ€å¤§å€¤ã‚’ä¿å­˜
-                max = card[i];
-            }
-            sum += card[i];
-            break;
-        }
-    }
-    if(max_flag){ // ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚Œã°MAXã‚’æ¶ˆå»
-        sum -= max;
-    }
-    if(double_flag){ // ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚Œã°äºŒå€
-        sum = 2 * sum;
-    }
-    return sum;
+    return 0;
 }
 
 int play_main(player *p){
     srand((unsigned int)time(NULL));
     int num = 0;
 
-    for(int i = 0; i < CARDS; i++){ // å±±æœ­ã®æšæ•°ã‚’numã«ä»£å…¥
+    for(int i = 0; i < CARDS; i++){ // RD‚Ì–‡”‚ğnum‚É‘ã“ü
         num += value[i];
     }
     int card_list[num];
-    generate_list(card_list); // å±±æœ­ã‚’ç”Ÿæˆ
-    card_shaffule(card_list, num); // å±±æœ­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
-    int start = (rand() % Players); // ã‚¹ã‚¿ãƒ¼ãƒˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«æ±ºå®š
-    int turn = 0; // å±±æœ­ã‚’å¼•ãå›æ•°ã‚’ä¿å­˜ã™ã‚‹ãŸã‚ã®å¤‰æ•°
+    generate_list(card_list); // RD‚ğ¶¬
+    card_shaffule(card_list, num); // RD‚ğƒVƒƒƒbƒtƒ‹
+    int start = (rand() % Players); // ƒXƒ^[ƒgƒvƒŒƒCƒ„[‚ğƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ’è
+    int turn = 0; // RD‚ğˆø‚­‰ñ”‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì•Ï”
 
-    while(p[0]->life && p[1]->life && p[2]->life && p[3]->life){ 
-        // ã‚³ãƒ¨ãƒ¼ãƒ†ã—ãŸã‚‰ã“ã“ã«æˆ»ã‚‹
-        int playcard[Players]; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æŒã¤ã‚«ãƒ¼ãƒ‰ã‚’ä¿å­˜
+    while(p[0].life && p[1].life && p[2].life && p[3].life){ 
+        // ƒRƒˆ[ƒe‚µ‚½‚ç‚±‚±‚É–ß‚é
+        int playcard[Players]; // ƒvƒŒƒCƒ„[‚Ì‚ÂƒJ[ƒh‚ğ•Û‘¶
         int flag;
         
         for(int i = 0; i < Players; i++){ 
-            // é©å®œæ–‡å­—ã‚’å¤‰æ›´ã—ãªãŒã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹æœ­ã‚’æ±ºå®šã€æ§‹é€ ä½“ã«ä»£å…¥
+            char str[20];
+            // “K‹X•¶š‚ğ•ÏX‚µ‚È‚ª‚çƒvƒŒƒCƒ„[‚ÌèD‚ğŒˆ’èA\‘¢‘Ì‚É‘ã“ü
             switch (card_list[(turn * Players) + i]){
                 case 100:
-                    p[i].card = "MAX->0";
+                    strcpy(p[i].card, "MAX->0");
                     break;
                 case 200:
-                    p[i].card = "x2";
+                    strcpy(p[i].card, "x2");
                     break;
                 case 199:
-                    p[i].card = "ã‚·ãƒ£ãƒƒãƒ•ãƒ«0";
-                    flag = 1; // ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ•ãƒ©ã‚°
+                    strcpy(p[i].card, "ƒVƒƒƒbƒtƒ‹0");
+                    flag = 1; // ƒVƒƒƒbƒtƒ‹ƒtƒ‰ƒO
                     break;
                 default:
-                char str[20];
                     sprintf(str, "%d", card_list[(turn * Players) + i]);
-                    // ä¸Šè¨˜ã«åˆã‚ã›ã¦intã‚’charã«
-                    p[i].card = str;
+                    // ã‹L‚É‡‚í‚¹‚Äint‚ğchar‚É
+                    strcpy(p[i].card, str);
                     break;
             }
             playcard[i] = card_list[(turn * Players) + i];
         }
 
-        int prevnum = 0; // ç›´å‰ã«å®£è¨€ã—ãŸæ•°ã‚’ä¿å­˜
-        int card_sum = calc_sum(playcard, Players); // å ´ã®åˆè¨ˆã‚’è¨ˆç®—
-        while(1){ // ãƒ—ãƒ¬ã‚¤ã®ãŸã‚ã®ãƒ«ãƒ¼ãƒ—
-            int i = 0; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è©¦è¡Œã‚¿ãƒ¼ãƒ³ã‚’ä¿å­˜
-            int dec; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•ã‚’ä¿å­˜
-            int play_turn = (start + i) % Players; // èª°ã®ã‚¿ãƒ¼ãƒ³ã‹è¨ˆç®—
-            if(play_turn == Players - 1){ // 3ãªã‚‰ãŠå‰ã®ç•ª
-                dec = Player_Move(*p, prevnum);
+        int prevnum = 0; // ’¼‘O‚ÉéŒ¾‚µ‚½”‚ğ•Û‘¶
+        int i = 0; // ƒvƒŒƒCƒ„[‚Ìsƒ^[ƒ“‚ğ•Û‘¶
+        int card_sum = calc_sum(playcard, Players); // ê‚Ì‡Œv‚ğŒvZ
+        while(1){ // ƒvƒŒƒC‚Ì‚½‚ß‚Ìƒ‹[ƒv
+            int dec = 0; // ƒvƒŒƒCƒ„[‚Ìs“®‚ğ•Û‘¶
+            int play_turn = (start + i) % Players; // ’N‚Ìƒ^[ƒ“‚©ŒvZ
+            if(play_turn == Players - 1){ // 3‚È‚ç‚¨‘O‚Ì”Ô
+                dec = Player_Move(p, prevnum);
             }
             else{
-                dec = Ai_Move(*p, prevnum, play_turn);
+                dec = Ai_Move(playcard, prevnum, play_turn);
+                if(dec != -1){
+                    printf("ƒvƒŒƒCƒ„[%d‚Í%d‚ğéŒ¾‚µ‚Ü‚µ‚½B\n", play_turn + 1, dec);
+                }
             }
-            if(dec == -1){ // ã‚³ãƒ¨ãƒ¼ãƒ†å¾Œã®å‡¦ç†
-                printf("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%dã«ã‚ˆã‚Šã‚³ãƒ¨ãƒ¼ãƒ†ãŒå®£è¨€ã•ã‚Œã¾ã—ãŸã€‚\n", play_turn + 1);
-                printf("å ´ã®ã‚«ãƒ¼ãƒ‰ã¯");
-                for(int j = 0; j < Players; j++){ // å ´ã®ã‚«ãƒ¼ãƒ‰å…¨å‡ºåŠ›
-                    printf("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%d:%s ", j + 1, p[j]->card);
+            if(dec == -1){ // ƒRƒˆ[ƒeŒã‚Ìˆ—
+                printf("ƒvƒŒƒCƒ„[%d‚É‚æ‚èƒRƒˆ[ƒe‚ªéŒ¾‚³‚ê‚Ü‚µ‚½B\n", play_turn + 1);
+                printf("ê‚ÌƒJ[ƒh‚Í");
+                for(int j = 0; j < Players; j++){ // ê‚ÌƒJ[ƒh‘So—Í
+                    printf("ƒvƒŒƒCƒ„[%d:%s ", j + 1, p[j].card);
                 }
-                printf("ã§ã™ã€‚\nåˆè¨ˆå€¤ã¯%dã§ã—ãŸã€‚", card_sum);
-                if(prevnum > card_sum){ // å®£è¨€ã•ã‚Œã¦ã„ãŸæ•°ãŒãƒ‡ã‚«ã„ã¨â€¦
-                    start = (play_turn - 1) % Players;
-                    printf("ã‚³ãƒ¨ãƒ¼ãƒ†æˆåŠŸã§ã™ã€‚ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%dã®ãƒ©ã‚¤ãƒ•ãŒä¸€ã¤æ¸›ã‚Šã¾ã™ã€‚", (start) + 1);
-                    p[start]->life -= 1;
+                printf("‚Å‚·B\n‡Œv’l‚Í%d‚Å‚µ‚½B\n\n", card_sum);
+                if(prevnum > card_sum){ // éŒ¾‚³‚ê‚Ä‚¢‚½”‚ªƒfƒJ‚¢‚Æc
+                    start = (play_turn + 3) % Players;
+                    printf("ƒRƒˆ[ƒe¬Œ÷‚Å‚·BƒvƒŒƒCƒ„[%d‚Ìƒ‰ƒCƒt‚ªˆê‚ÂŒ¸‚è‚Ü‚·B\n", (start) + 1);
+                    p[start].life -= 1;
                 }
-                else{ // å°ã•ã„ã¨â€¦
+                else{ // ¬‚³‚¢‚Æc
                     start = play_turn;
-                    printf("ã‚³ãƒ¨ãƒ¼ãƒ†å¤±æ•—ã§ã™ã€‚ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%dã®ãƒ©ã‚¤ãƒ•ãŒä¸€ã¤æ¸›ã‚Šã¾ã™ã€‚", play_turn + 1);
-                    p[play_turn]->life -= 1;
+                    printf("ƒRƒˆ[ƒe¸”s‚Å‚·BƒvƒŒƒCƒ„[%d‚Ìƒ‰ƒCƒt‚ªˆê‚ÂŒ¸‚è‚Ü‚·B\n", play_turn + 1);
+                    p[play_turn].life -= 1;
                 }
-                if(flag){ // ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹å ´åˆ
+                if(flag){ // ƒVƒƒƒbƒtƒ‹ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚éê‡
                     generate_list(card_list);
                     card_shaffule(card_list, num);
 
-                    turn = 0; // å±±æœ­ã‚’å¼•ãå ´æ‰€ã‚‚ãƒªã‚»ãƒƒãƒˆ
-                    value_copy = value; // valueã‚‚ãƒªã‚»ãƒƒãƒˆ
+                    turn = 0; // RD‚ğˆø‚­êŠ‚àƒŠƒZƒbƒg
                 }
                 else{
-                    turn += 1; // å±±æœ­ã‚’æ¬¡ã®ã‚¾ãƒ¼ãƒ³ã¸
+                    turn += 1; // RD‚ğŸ‚Ìƒ][ƒ“‚Ö
                 }
                 break;
             }
             else{
                 i += 1;
+                prevnum = dec;
             }
         }
+
     }
     int lose;
     for(int i = 0; i < Players; i++){
-        if(p[i]->life == 0){
+        if(p[i].life == 0){
             lose = i;
         }
     }
     if(lose == 3){
-        printf("ã‚²ãƒ¼ãƒ çµ‚äº† ã‚ãªãŸã®è² ã‘ã§ã™ã€‚");
+        printf("ƒQ[ƒ€I—¹ ‚ ‚È‚½‚Ì•‰‚¯‚Å‚·B");
     }
     else{
-        printf("ã‚²ãƒ¼ãƒ çµ‚äº† ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼%dã®è² ã‘ã§ã™ã€‚", lose);
+        printf("ƒQ[ƒ€I—¹ ƒvƒŒƒCƒ„[%d‚Ì•‰‚¯‚Å‚·B", lose + 1);
     }
+
+    return 0;
 }
 
 int main(void){
     player p[Players];
-    p[0]->life = 2;
-    p[1]->life = 2;
-    p[2]->life = 2;
-    p[3]->life = 2;
 
+    p[0].life = 2;
+    p[1].life = 2;
+    p[2].life = 2;
+    p[3].life = 2;
+
+    play_main(p);
 }
