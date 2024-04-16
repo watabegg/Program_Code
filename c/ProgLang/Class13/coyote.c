@@ -16,6 +16,11 @@ typedef struct { // プレイヤーのための構造体
     char card[20];
 } player;
 
+void delay(int milliseconds) { // 遅延のための関数,botの思考時間を追加
+    clock_t start_time = clock();
+    while (clock() < start_time + milliseconds);
+}
+
 int calc_sum(int card[], int size){ // カードの合計を計算する関数
     int sum = 0;
     int max = -10;
@@ -265,6 +270,7 @@ int Ai_Move(int card[], int prev, int turn, char msg[][MAX_LENGTH]){
         self_prev[turn] = output;
     }
     printf("プレイヤー%d:%s\n", turn + 1, msg[msg_num]);
+    delay(500);
 
     return output;
     // フレーバーテキストを外部ファイルでやる
@@ -335,6 +341,7 @@ int play_main(player *p){
     int turn = 0; // 山札を引く回数を保存するための変数
 
     while(p[0].life && p[1].life && p[2].life && p[3].life){ 
+        printf("ゲームスタートです。\n\n");
         // コヨーテしたらここに戻る
         int playcard[Players]; // プレイヤーの持つカードを保存
         int flag;
@@ -374,11 +381,11 @@ int play_main(player *p){
             else{
                 dec = Ai_Move(playcard, prevnum, play_turn, lines);
                 if(dec != -1){
-                    printf("プレイヤー%dは%dを宣言しました。\n", play_turn + 1, dec);
+                    printf("プレイヤー%dは%dを宣言しました。\n\n", play_turn + 1, dec);
                 }
             }
             if(dec == -1){ // コヨーテ後の処理
-                printf("プレイヤー%dによりコヨーテが宣言されました。\n", play_turn + 1);
+                printf("プレイヤー%dによりコヨーテが宣言されました。\n\n", play_turn + 1);
                 printf("場のカードは");
                 for(int j = 0; j < Players; j++){ // 場のカード全出力
                     printf("プレイヤー%d:%s ", j + 1, p[j].card);
@@ -386,12 +393,12 @@ int play_main(player *p){
                 printf("です。\n合計値は%dでした。\n\n", card_sum);
                 if(prevnum > card_sum){ // 宣言されていた数がデカいと…
                     start = (play_turn + 3) % Players;
-                    printf("コヨーテ成功です。プレイヤー%dのライフが一つ減ります。\n", (start) + 1);
+                    printf("コヨーテ成功です。プレイヤー%dのライフが一つ減ります。\n\n", (start) + 1);
                     p[start].life -= 1;
                 }
                 else{ // 小さいと…
                     start = play_turn;
-                    printf("コヨーテ失敗です。プレイヤー%dのライフが一つ減ります。\n", play_turn + 1);
+                    printf("コヨーテ失敗です。プレイヤー%dのライフが一つ減ります。\n\n", play_turn + 1);
                     p[play_turn].life -= 1;
                 }
                 if(flag){ // シャッフルフラグが立っている場合
