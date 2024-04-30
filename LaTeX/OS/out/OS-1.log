@@ -1,10 +1,10 @@
-This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  23 MAY 2023 12:07
+This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  30 APR 2024 11:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Program_Code/latex/OS/OS-1.tex
-(c:/Program_Code/latex/OS/OS-1.tex
+**c:/Program_Code/LaTeX/OS/OS-1.tex
+(c:/Program_Code/LaTeX/OS/OS-1.tex
 pLaTeX2e <2021-06-01>+2 (based on LaTeX2e <2021-06-01> patch level 1)
 L3 programming layer <2021-10-12> (c:/texlive/2021/texmf-dist/tex/platex/jsclasses/jsarticle.cls
 Document Class: jsarticle 2021/06/28 jsclasses (okumura, texjporg)
@@ -251,4 +251,4 @@ Here is how much of TeX's memory you used:
  934 hyphenation exceptions out of 8191
  57i,6n,66p,240b,265s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on out/OS-1.dvi (1 page, 2528 bytes).
+Output written on out/OS-1.dvi (1 page, 2548 bytes).
