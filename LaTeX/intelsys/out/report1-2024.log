@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  13 MAY 2024 09:43
+This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.sjis) (TeX Live 2021/W32TeX) (preloaded format=platex 2021.10.18)  20 MAY 2024 11:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -336,24 +336,66 @@ File: pgflibraryshapes.geometric.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 File: tikzlibraryshapes.misc.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.misc.code.tex
 File: pgflibraryshapes.misc.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-)) (c:/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+)) (c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)) (c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)) (c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.callouts.code.tex (c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.callouts.code.tex)) (c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodepartlowerbox=\box81
+\pgfnodeparttwobox=\box82
+\pgfnodepartthreebox=\box83
+\pgfnodepartfourbox=\box84
+\pgfnodeparttwentybox=\box85
+\pgfnodepartnineteenbox=\box86
+\pgfnodeparteighteenbox=\box87
+\pgfnodepartseventeenbox=\box88
+\pgfnodepartsixteenbox=\box89
+\pgfnodepartfifteenbox=\box90
+\pgfnodepartfourteenbox=\box91
+\pgfnodepartthirteenbox=\box92
+\pgfnodeparttwelvebox=\box93
+\pgfnodepartelevenbox=\box94
+\pgfnodeparttenbox=\box95
+\pgfnodepartninebox=\box96
+\pgfnodeparteightbox=\box97
+\pgfnodepartsevenbox=\box98
+\pgfnodepartsixbox=\box99
+\pgfnodepartfivebox=\box100
+))) (c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfarrowinset=\dimen277
+\pgfarrowlength=\dimen278
+\pgfarrowwidth=\dimen279
+\pgfarrowlinewidth=\dimen280
+) (c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+) (c:/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count290
-\lst@gtempboxa=\box81
+\lst@gtempboxa=\box101
 \lst@token=\toks35
 \lst@length=\count291
-\lst@currlwidth=\dimen277
+\lst@currlwidth=\dimen281
 \lst@column=\count292
 \lst@pos=\count293
-\lst@lostspace=\dimen278
-\lst@width=\dimen279
+\lst@lostspace=\dimen282
+\lst@width=\dimen283
 \lst@newlines=\count294
 \lst@lineno=\count295
-\lst@maxwidth=\dimen280
+\lst@maxwidth=\dimen284
 (c:/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 \c@lstnumber=\count296
 \lst@skipnumbers=\count297
-\lst@framebox=\box82
+\lst@framebox=\box102
 ) (c:/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
@@ -369,168 +411,166 @@ File: l3backend-dvipdfmx.def 2021-10-12 L3 backend support: dvipdfmx
 \l__color_backend_stack_int=\count300
 \g__color_backend_stack_int=\count301
 \g__graphics_track_int=\count302
-\l__pdf_internal_box=\box83
+\l__pdf_internal_box=\box103
 \g__pdf_backend_object_int=\count303
 \g__pdf_backend_annotation_int=\count304
 \g__pdf_backend_link_int=\count305
 ) (out/report1-2024.aux)
 \openout1 = `report1-2024.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
 \c@lstlisting=\count306
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 44.
+(Font)              scaled to size 16.60605pt on input line 45.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 16.60605pt on input line 44.
+(Font)              scaled to size 16.60605pt on input line 45.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 44.
+(Font)              scaled to size 11.53198pt on input line 45.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 44.
+(Font)              scaled to size 11.53198pt on input line 45.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 44.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
+(Font)              scaled to size 5.76599pt on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 44.
+(Font)              scaled to size 11.53198pt on input line 45.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 7.68799pt on input line 44.
+(Font)              scaled to size 7.68799pt on input line 45.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 5.76599pt on input line 44.
+(Font)              scaled to size 5.76599pt on input line 45.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 45.
+(Font)              scaled to size 13.83836pt on input line 46.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 45.
+(Font)              scaled to size 13.83836pt on input line 46.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 45.
+(Font)              scaled to size 13.83836pt on input line 46.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 13.83836pt on input line 45.
+(Font)              scaled to size 13.83836pt on input line 46.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 11.53198pt on input line 46.
+(Font)              scaled to size 11.53198pt on input line 47.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 47.
+(Font)              scaled to size 9.60999pt on input line 48.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 9.60999pt on input line 47.
+(Font)              scaled to size 9.60999pt on input line 48.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 47.
+(Font)              scaled to size 6.72699pt on input line 48.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 4.805pt on input line 47.
+(Font)              scaled to size 4.805pt on input line 48.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 47.
+(Font)              scaled to size 6.72699pt on input line 48.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 4.805pt on input line 47.
+(Font)              scaled to size 4.805pt on input line 48.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 72.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 72.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 72.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 4.805pt on input line 74.
 [1
 
-]
-LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 68.
-LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 68.
-
-Overfull \hbox (54.41585pt too wide) in paragraph at lines 89--90
-[][] 
- []
-
-[2]
-Overfull \hbox (2.26723pt too wide) in paragraph at lines 125--126
+] [2]
+Overfull \hbox (2.26723pt too wide) in paragraph at lines 157--158
 [][] 
  []
 
 
-Overfull \hbox (1.2932pt too wide) in paragraph at lines 147--147
+Overfull \hbox (1.2932pt too wide) in paragraph at lines 179--179
  [][]\OT1/cmr/m/n/10 Timisoara 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 149--149
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 181--181
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$224 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 153--153
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 185--185
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$311 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 156--156
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 188--188
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$440 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 159--159
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 191--191
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$387 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 162--162
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 194--194
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$384 
  []
 
 [3]
-Overfull \hbox (1.2932pt too wide) in paragraph at lines 186--186
+Overfull \hbox (1.2932pt too wide) in paragraph at lines 218--218
  [][]\OT1/cmr/m/n/10 Timisoara 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 188--188
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 220--220
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$448 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 192--192
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 224--224
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$552 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 195--195
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 227--227
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$767 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 198--198
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 230--230
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$629 
  []
 
 
-Overfull \hbox (1.03856pt too wide) in paragraph at lines 201--201
+Overfull \hbox (1.03856pt too wide) in paragraph at lines 233--233
  [][]$\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ) :$628 
  []
 
 [4]
-Underfull \hbox (badness 1527) in paragraph at lines 238--241
+Underfull \hbox (badness 1527) in paragraph at lines 270--273
 []\JY1/mc/m/n/10 この関数 $\OML/cmm/m/it/10 h[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 )$ \JY1/mc/m/n/10 が $\OML/cmm/m/it/10 h[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 )$ \JY1/mc/m/n/10 以下になるとき 、 許容的であるといえる 。 $[]$ 関数は
  []
 
 [5] [6] [7] [8] [9] (out/report1-2024.aux) ) 
 Here is how much of TeX's memory you used:
- 14666 strings out of 479062
- 291896 string characters out of 5869666
- 603641 words of memory out of 5000000
- 32516 multiletter control sequences out of 15000+600000
- 424159 words of font info for 119 fonts, out of 8000000 for 9000
+ 16213 strings out of 479062
+ 337537 string characters out of 5869666
+ 671590 words of memory out of 5000000
+ 34023 multiletter control sequences out of 15000+600000
+ 426607 words of font info for 129 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 84i,13n,89p,457b,1447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,11n,89p,457b,1251s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on out/report1-2024.dvi (9 pages, 59292 bytes).
+Output written on out/report1-2024.dvi (9 pages, 58452 bytes).

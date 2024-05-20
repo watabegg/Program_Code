@@ -12,6 +12,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary {shapes.misc}
+\usetikzlibrary{shapes, arrows.meta, positioning}
 
 % ソースコード
 \usepackage{listings,jlisting,color}
@@ -56,35 +57,66 @@ $f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Buchares
 
 せっかくなので以下に実際に展開されたSearch Treeを示す。
 
-\newpage
-\begin{tikzpicture}[
-        level 1/.style={sibling distance=35mm, level distance=30mm},
-        level 2/.style={sibling distance=35mm, level distance=35mm},
-        level 3/.style={sibling distance=35mm, level distance=30mm},
-        level 4/.style={sibling distance=35mm, level distance=30mm},
-        every node/.style={text centered, text width=1.5cm, font=\small},
-        TreeNode/.style={circle, draw}
-    ]
-    \node[TreeNode, blue] {Arad}
-    child {
-            node[TreeNode, teal] {Sibiu}
-            child {node[TreeNode] {Arad}}
-            child {node[TreeNode] {Fagaras}}
-            child {node[TreeNode] {Oradea}}
-            child {
-                    node[TreeNode, teal] {Rimnicu Vilces}
-                    child {node[TreeNode] {Craiova}}
-                    child {
-                            node[TreeNode, teal] {Pitesti}
-                            child {node[TreeNode, red] {Bucharest}}
-                            child {node[TreeNode] {Craiova}}
-                            child {node[TreeNode] {Rimnicu Vilces}}
-                        }
-                    child {node[TreeNode] {Sibiu}}
-                }
-        }
-    child {node[TreeNode] {Timisoara}}
-    child {node[TreeNode] {Zerind}};
+
+\begin{tikzpicture}[node distance=1cm, auto, >={Latex[width=1mm,length=1mm]}, align=center]
+
+\tikzset{
+    node/.style = {rectangle, draw, minimum width=1.5cm, minimum height=1ex, font=\small},
+    leaf/.style = {rectangle, draw, fill=cyan!20, minimum width=1.5cm, minimum height=1ex, font=\small},
+    root/.style = {rectangle, draw, fill=white, minimum width=1.5cm, minimum height=1ex, font=\small},
+    edge from parent/.style = {draw, thick, black},
+    edge from parent path={(\tikzparentnode.south) -- (\tikzchildnode.north)},
+}
+
+% Define nodes
+\node[root] (A1) {\begin{tabular}{lc}1 & Arad \\ \hline & 0 \\ & 366 \\ & null \end{tabular}};
+\node[node, right=of A1] (B2) {Sibiu\\140\\393\\1};
+\node[leaf, above right=0.5cm and 1cm of A1] (A3) {Timișoara\\118\\447\\1};
+\node[leaf, below right=0.5cm and 1cm of A1] (A4) {Zerind\\75\\449\\1};
+
+\node[leaf, above right=0.5cm and 1cm of B2] (B5) {Arad\\280\\546\\2};
+\node[leaf, right=of B2] (B6) {Făgăraș\\239\\415\\2};
+\node[leaf, below=0.5cm of B6] (B7) {Oradea\\291\\671\\2};
+\node[node, below=0.5cm of B7] (B8) {R.V.\\220\\413\\2};
+
+\node[leaf, right=of B6] (B12) {Bucharest\\450\\450\\6};
+\node[leaf, below=0.5cm of B12] (B13) {Sibiu\\338\\591\\6};
+
+\node[leaf, right=of B8] (B9) {Craiova\\366\\526\\8};
+\node[node, below=0.5cm of B9] (B10) {Pitești\\317\\417\\8};
+
+\node[node, right=of B10] (B14) {Bucharest\\418\\418\\10};
+\node[leaf, below=0.5cm of B14] (B15) {Craiova\\455\\615\\10};
+\node[leaf, below=0.5cm of B15] (B16) {R.V.\\414\\607\\10};
+
+\node[leaf, below=0.5cm of B10] (B11) {Sibiu\\300\\553\\8};
+
+% Draw edges
+\draw[edge from parent] (A1) -- (B2);
+\draw[edge from parent] (A1) -- (A3);
+\draw[edge from parent] (A1) -- (A4);
+
+\draw[edge from parent] (B2) -- (B5);
+\draw[edge from parent] (B2) -- (B6);
+\draw[edge from parent] (B2) -- (B7);
+\draw[edge from parent] (B2) -- (B8);
+
+\draw[edge from parent] (B6) -- (B12);
+\draw[edge from parent] (B6) -- (B13);
+
+\draw[edge from parent] (B8) -- (B9);
+\draw[edge from parent] (B8) -- (B10);
+
+\draw[edge from parent] (B10) -- (B14);
+\draw[edge from parent] (B10) -- (B15);
+\draw[edge from parent] (B10) -- (B16);
+\draw[edge from parent] (B10) -- (B11);
+
+% Draw red edges
+\draw[red, very thick] (A1) -- (B2);
+\draw[red, very thick] (B2) -- (B8);
+\draw[red, very thick] (B8) -- (B10);
+\draw[red, very thick] (B10) -- (B14);
 
 \end{tikzpicture}
 
