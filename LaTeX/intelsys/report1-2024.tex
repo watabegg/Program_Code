@@ -36,6 +36,14 @@ lineskip=-0.5ex
 }
 \renewcommand{\lstlistingname}{ソースコード}
 
+\newcommand*{\inteltable}[5]{
+    \begin{tabular}{l|c}
+        #1 & #2 \\ \hline 
+        \multicolumn{2}{c}{#3} \\ 
+        \multicolumn{2}{c}{#4} \\ 
+        \multicolumn{2}{c}{#5} 
+    \end{tabular}
+}
 
 \begin{document}
 
@@ -69,27 +77,27 @@ $f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Buchares
 }
 
 % Define nodes
-\node[root] (A1) {\begin{tabular}{lc}1 & Arad \\ \hline & 0 \\ & 366 \\ & null \end{tabular}};
-\node[node, right=of A1] (B2) {Sibiu\\140\\393\\1};
-\node[leaf, above right=0.5cm and 1cm of A1] (A3) {Timișoara\\118\\447\\1};
-\node[leaf, below right=0.5cm and 1cm of A1] (A4) {Zerind\\75\\449\\1};
+\node[root] (A1) {\inteltable{1}{Arad}{0}{366}{null}};
+\node[node, right=of A1] (B2) {\inteltable{2}{Sibiu}{140}{393}{1}};
+\node[leaf, above right=0.5cm and 1cm of A1] (A3) {\inteltable{3}{Timisoara}{118}{447}{1}};
+\node[leaf, below right=0.5cm and 1cm of A1] (A4) {\inteltable{4}{Zerind}{75}{449}{1}};
 
-\node[leaf, above right=0.5cm and 1cm of B2] (B5) {Arad\\280\\546\\2};
-\node[leaf, right=of B2] (B6) {Făgăraș\\239\\415\\2};
-\node[leaf, below=0.5cm of B6] (B7) {Oradea\\291\\671\\2};
-\node[node, below=0.5cm of B7] (B8) {R.V.\\220\\413\\2};
+\node[leaf, above right=0.5cm and 1cm of B2] (B5) {\inteltable{5}{Arad}{280}{546}{2}};
+\node[leaf, right=of B2] (B6) {\inteltable{6}{Fagaras}{239}{415}{2}};
+\node[leaf, below=0.5cm of B6] (B7) {\inteltable{7}{Oradea}{291}{671}{2}};
+\node[node, below=0.5cm of B7] (B8) {\inteltable{8}{R.V.}{220}{413}{2}};
 
-\node[leaf, right=of B6] (B12) {Bucharest\\450\\450\\6};
-\node[leaf, below=0.5cm of B12] (B13) {Sibiu\\338\\591\\6};
+\node[leaf, right=of B6] (B12) {\inteltable{12}{Bucharest}{450}{450}{6}};
+\node[leaf, below=0.5cm of B12] (B13) {\inteltable{13}{Sibiu}{338}{591}{6}};
 
-\node[leaf, right=of B8] (B9) {Craiova\\366\\526\\8};
-\node[node, below=0.5cm of B9] (B10) {Pitești\\317\\417\\8};
+\node[leaf, right=of B8] (B9) {\inteltable{9}{Craiova}{366}{526}{8}};
+\node[node, below=0.5cm of B9] (B10) {\inteltable{10}{Pitesti}{317}{417}{8}};
 
-\node[node, right=of B10] (B14) {Bucharest\\418\\418\\10};
-\node[leaf, below=0.5cm of B14] (B15) {Craiova\\455\\615\\10};
-\node[leaf, below=0.5cm of B15] (B16) {R.V.\\414\\607\\10};
+\node[node, right=of B10] (B14) {\inteltable{14}{Bucharest}{418}{418}{10}};
+\node[leaf, above=0.5cm of B14] (B15) {\inteltable{15}{Craiova}{455}{615}{10}};
+\node[leaf, below=0.5cm of B14] (B16) {\inteltable{16}{R.V.}{414}{607}{10}};
 
-\node[leaf, below=0.5cm of B10] (B11) {Sibiu\\300\\553\\8};
+\node[leaf, below=0.5cm of B8] (B11) {\inteltable{11}{Sibiu}{300}{553}{8}};
 
 % Draw edges
 \draw[edge from parent] (A1) -- (B2);
@@ -110,7 +118,7 @@ $f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Buchares
 \draw[edge from parent] (B10) -- (B14);
 \draw[edge from parent] (B10) -- (B15);
 \draw[edge from parent] (B10) -- (B16);
-\draw[edge from parent] (B10) -- (B11);
+\draw[edge from parent] (B8) -- (B11);
 
 % Draw red edges
 \draw[red, very thick] (A1) -- (B2);
