@@ -54,16 +54,23 @@ lineskip=-0.5ex
 \section{A*探索アルゴリズムでの探索}
 \subsection{(a)AradからBucharestまで}
 \subsubsection{A1　$f_1(n)=g(n)+D(n)$を用いた探索}
-$f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Bucharestのノード情報は[12, Bucharest, 418, 418, 10]となった。
+$f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Bucharestのノード情報は[14, Bucharest, 418, 418, 10]となった。
 
 見つかった経路はArad→Sibin→Rimnicu Vilces→Pitesti→Bucharestとなった。
 
-ゴールが見つかった時点でのfrontierはF値の順に[12, Bucharest, 418, 418, 10],
+ゴールが見つかった時点でのfrontierはF値の順に \\ \noindent
+[3, Timisoara, 118, 447, 1], \\ \noindent
+[4, Zerind, 75, 449, 1], \\ \noindent
+[9, Craiova, 366, 526, 8], \\ \noindent
+[11, Sibiu, 300, 553, 8], \\ \noindent
+[13, Sibiu, 338, 591, 6], \\ \noindent
+[16, Rimnicu Vilces, 414, 607, 10], \\ \noindent
+[15, Craiova, 455, 615, 10], \\ \noindent
+[5, Arad, 280, 646, 2], \\ \noindent
+[7, Oradea, 291, 671, 2], \\ \noindent
+となった。
 
-\noindent
-[13, Craiova, 455, 615, 10],[14, Rimnicu Vilces, 514, 707, 10]となった。
-
-せっかくなので以下に実際に展開されたSearch Treeを示す。
+以下に実際に展開されたSearch Treeを示す。
 
 
 \begin{tikzpicture}[node distance=1cm, auto, >={Latex[width=1mm,length=1mm]}, align=center]
@@ -129,119 +136,103 @@ $f_1(n)=g(n)+D(n)$の評価関数を用いて探索を行った結果、Buchares
 \end{tikzpicture}
 
 \subsubsection{A2　$f_1(n)=g(n)+2 \cdot D(n)$を用いた探索}
-$f_1(n)=g(n)+2 \cdot D(n)$の評価関数を用いて探索を行った結果、Bucharestのノード情報は[9, Bucharest, 460, 460, 6]となった。
+$f_1(n)=g(n)+2 \cdot D(n)$の評価関数を用いて探索を行った結果、Bucharestのノード情報は[9, Bucharest, 450, 450, 6]となった。
 
 見つかった経路はArad→Sibin→Fagaras→Bucharestとなった。
 
-ゴールが見つかった時点でのfrontierはF値の順に[9, Bucharest, 460, 460, 6],
+ゴールが見つかった時点でのfrontierはF値の順に \\ \noindent
+[8, Rimnicu Vilces, 220, 606, 2], \\ \noindent
+[3, Timisoara, 118, 776, 1], \\ \noindent
+[4, Zerind, 75, 823, 1], \\ \noindent
+[10, Sibiu, 338, 844, 6], \\ \noindent
+[5, Arad, 280, 1012, 2], \\ \noindent
+[7, Oradea, 291, 1051, 2] \\ \noindent
+となった。
 
-\noindent
-[10, Sibiu, 338, 844, 6]となった。
+以下に実際に展開されたSearch Treeを示す。
+\\
 
-こちらもせっかくなので以下に実際に展開されたSearch Treeを示す。
-\newpage
-\begin{tikzpicture}[
-        level 1/.style={sibling distance=35mm, level distance=30mm},
-        level 2/.style={sibling distance=35mm, level distance=35mm},
-        level 3/.style={sibling distance=35mm, level distance=30mm},
-        every node/.style={text centered, text width=1.5cm, font=\small},
-        TreeNode/.style={circle, draw}
-    ]
-    \node[TreeNode, blue] {Arad}
-    child {
-            node[TreeNode, teal] {Sibiu}
-            child {node[TreeNode] {Arad}}
-            child {
-                    node[TreeNode, teal] {Fagaras}
-                    child {node[TreeNode, red] {Bucharest}}
-                    child {node[TreeNode] {Sibiu}}
-                }
-            child {node[TreeNode] {Oradea}}
-            child {node[TreeNode] {Rimnicu Vilces}}
-        }
-    child {node[TreeNode] {Timisoara}}
-    child {node[TreeNode] {Zerind}};
+\begin{tikzpicture}[node distance=1cm, auto, >={Latex[width=1mm,length=1mm]}, align=center]
 
+    \tikzset{
+        node/.style = {rectangle, draw, minimum width=1.5cm, minimum height=1ex, font=\small},
+        leaf/.style = {rectangle, draw, fill=cyan!20, minimum width=1.5cm, minimum height=1ex, font=\small},
+        root/.style = {rectangle, draw, fill=white, minimum width=1.5cm, minimum height=1ex, font=\small},
+        edge from parent/.style = {draw, thick, black},
+        edge from parent path={(\tikzparentnode.south) -- (\tikzchildnode.north)},
+    }
+    
+    % Define nodes
+    \node[root] (A1) {\inteltable{1}{Arad}{0}{732}{null}};
+    \node[node, right=of A1] (B2) {\inteltable{2}{Sibiu}{140}{646}{1}};
+    \node[leaf, above right=0.5cm and 1cm of A1] (A3) {\inteltable{3}{Timisoara}{118}{776}{1}};
+    \node[leaf, below right=0.5cm and 1cm of A1] (A4) {\inteltable{4}{Zerind}{75}{823}{1}};
+    
+    \node[leaf, above right=0.5cm and 1cm of B2] (B5) {\inteltable{5}{Arad}{280}{1012}{2}};
+    \node[node, right=of B2] (B6) {\inteltable{6}{Fagaras}{239}{501}{2}};
+    \node[leaf, below=0.5cm of B6] (B7) {\inteltable{7}{Oradea}{291}{1061}{2}};
+    \node[leaf, below=0.5cm of B7] (B8) {\inteltable{8}{R.V.}{220}{606}{2}};
+    
+    \node[node, right=of B6] (B12) {\inteltable{12}{Bucharest}{450}{450}{6}};
+    \node[leaf, below=0.5cm of B12] (B13) {\inteltable{13}{Sibiu}{338}{844}{6}};
+    
+    % Draw edges
+    \draw[edge from parent] (A1) -- (B2);
+    \draw[edge from parent] (A1) -- (A3);
+    \draw[edge from parent] (A1) -- (A4);
+    
+    \draw[edge from parent] (B2) -- (B5);
+    \draw[edge from parent] (B2) -- (B6);
+    \draw[edge from parent] (B2) -- (B7);
+    \draw[edge from parent] (B2) -- (B8);
+    
+    \draw[edge from parent] (B6) -- (B12);
+    \draw[edge from parent] (B6) -- (B13);
+    
+    % Draw red edges
+    \draw[red, very thick] (A1) -- (B2);
+    \draw[red, very thick] (B2) -- (B6);
+    \draw[red, very thick] (B6) -- (B12);
+    
 \end{tikzpicture}
 
 \subsection{(b)LugojからBucharestまで}
 \subsubsection{A1　$f_1(n)=g(n)+D(n)$を用いた探索}
-$f_1(n)=g(n)+D(n)$の評価関数を用いて、LugojからBucharestまでの探索を行った結果、この探索は失敗となった。
-評価関数の値により、Lugoj→Mehadin→Lugoj→$\cdots$と冗長な経路となり、抜け出せなくなった。
+$f_1(n)=g(n)+D(n)$の評価関数を用いて、LugojからBucharestまでの探索を行った結果、Bucharestのノード情報は[21, Bucharest, 504, 504, 11]となった。
+見つかった経路はLugoj→Mehadin→Droveta→Craiova→Pitesti→Bucharestとなった。
 
-以下が実際に展開されたSearch Treeとそのときの$\rm{F_1,G}$となる。
+ゴールが見つかった時点でのfrontierはF値の順に \\ \noindent
+[16, Lugoj, 280, 524, 6], \\ \noindent
+[15, Droveta, 285, 527, 5], \\ \noindent
+[19, Mahadia, 292, 533, 14], \\ \noindent
+[18, Lugoj, 290, 534, 9], \\ \noindent
+[17, Droveta, 295, 537, 9], \\ \noindent
+[10, Timisoara, 251, 580, 5], \\ \noindent
+[13, Arad, 229, 595, 3], \\ \noindent
+[12, Rimnicu Vilces, 411, 604, 8], \\ \noindent
+[10, Droveta, 385, 627, 8], \\ \noindent
+[20, Timisoara, 333, 662, 14], \\ \noindent
+[23, Rimnicu Vilces, 500, 693, 11], \\ \noindent
+[22, Craiova, 541, 701, 11], \\ \noindent
 
-\begin{center}
-\begin{tikzpicture}[
-        level 1/.style={sibling distance=40mm, level distance=30mm},
-        level 2/.style={sibling distance=40mm, level distance=30mm},
-        every node/.style={text centered, text width=1.5cm},
-        TreeNode/.style={circle, x radius = 3cm, y radius = 2cm, rotate=0, draw}
-    ]
-    \node[TreeNode, blue](a) {Lugoj}
-    child {
-        node[TreeNode, teal](b) {Mehadin}
-        child {node[TreeNode](d) {Drobeta}}
-        child {node[TreeNode, blue](e) {Lugoj}}
-    }
-    child {node[TreeNode](c) {Timisoara}};
+となった。
 
-    \node also [label=right:$f_1(n):$224\\$g(n):$0] (a);
-    \node also [label=above right:ID:1] (a);
-
-    \node also [label=above right:ID:2] (b);
-    \node also [label=right:$f_1(n):$311\\$g(n):$70] (b);
-
-    \node also [label=above right:ID:3] (c);
-    \node also [label=right:$f_1(n):$440\\$g(n):$111] (c);
-
-    \node also [label=above right:ID:4] (d);
-    \node also [label=right:$f_1(n):$387\\$g(n):$75] (d);
-
-    \node also [label=above right:ID:5] (e);
-    \node also [label=right:$f_1(n):$384\\$g(n):$70] (e);
-
-\end{tikzpicture}
-\end{center}
 
 \subsubsection{A2　$f_1(n)=g(n)+2 \cdot D(n)$を用いた探索}
-$f_1(n)=g(n)+2 \cdot D(n)$の評価関数を用いて、LugojからBucharestまでの探索を行った結果、A1と同じくこの探索は失敗となった。
-評価関数の値により、Lugoj→Mehadin→Lugoj→$\cdots$と冗長な経路となり、抜け出せなくなった。
+$f_1(n)=g(n)+2 \cdot D(n)$の評価関数を用いて、LugojからBucharestまでの探索を行った結果、Bucharestのノード情報は[13, Bucharest, 504, 504, 11]となった．
+見つかった経路はLugoj→Mahadia→Droveta→Craiova→Pitesti→Bucharestとなった。
 
-以下が実際に展開されたSearch Treeとそのときの$\rm{F_1,G}$となる。
+ゴールが見つかった時点でのfrontierはF値の順に \\ \noindent
+[6, Mahadia, 210, 692, 5], \\ \noindent
+[9, Mahadia, 220, 702, 4], \\ \noindent
+[3, Timisoara, 111, 769, 1], \\ \noindent
+[12, Rimnicu Vilces, 411, 797, 8], \\ \noindent
+[14, Craiova, 541, 861, 11], \\ \noindent
+[10, Droveta, 385, 869, 8], \\ \noindent
+[15, Rimnicu Vilces, 500, 886, 11], \\ \noindent
+[7, Timisoara, 251, 909, 5], \\ \noindent
 
-\begin{center}
-\begin{tikzpicture}[
-        level 1/.style={sibling distance=40mm, level distance=30mm},
-        level 2/.style={sibling distance=40mm, level distance=30mm},
-        every node/.style={text centered, text width=1.5cm},
-        TreeNode/.style={circle, x radius = 3cm, y radius = 2cm, rotate=0, draw}
-    ]
-    \node[TreeNode, blue](a) {Lugoj}
-    child {
-        node[TreeNode, teal](b) {Mehadin}
-        child {node[TreeNode](d) {Drobeta}}
-        child {node[TreeNode, blue](e) {Lugoj}}
-    }
-    child {node[TreeNode](c) {Timisoara}};
-
-    \node also [label=right:$f_1(n):$448\\$g(n):$0] (a);
-    \node also [label=above right:ID:1] (a);
-
-    \node also [label=above right:ID:2] (b);
-    \node also [label=right:$f_1(n):$552\\$g(n):$70] (b);
-
-    \node also [label=above right:ID:3] (c);
-    \node also [label=right:$f_1(n):$767\\$g(n):$111] (c);
-
-    \node also [label=above right:ID:4] (d);
-    \node also [label=right:$f_1(n):$629\\$g(n):$75] (d);
-
-    \node also [label=above right:ID:5] (e);
-    \node also [label=right:$f_1(n):$628\\$g(n):$70] (e);
-
-\end{tikzpicture}
-\end{center}
+となった。
 
 \section{ヒューリスティック関数の許容性について}
 この課題では以下の$h_a \sim h_f$が許容的であるかを調べる。
@@ -435,5 +426,29 @@ $\bar{h}(n)=2h(n)$のとき、$h(n)$が許容的であることから
     C \leq 2C^*
 \end{equation*}
 が得られる。
+
+\section{異なるヒューリスティック関数を用いた探索}
+\subsection{(a):ヒューリスティック関数の許容性}
+$h_1$:\textcircled{\scriptsize 2} admissibleだがconsistentではない \\
+$h_1$はどのヒューリスティック関数の値でも実際のGまでの最小コストよりも小さい値を返すためadmissibleであるが、
+$f_1(c) = 3$であるのに対し、$f_1(a) = 5$となり、$a$→$c$においてf血が減少しているためconsistentではない。\\
+
+$h_2$:\textcircled{\scriptsize 3} consistent \\
+
+$h_3$:\textcircled{\scriptsize 1} admissibleではない \\
+$h_3$はノード$a$において、$h_3(a) = 7$であるが、実際の最小コストは4であるためadmissibleではない。
+
+\subsection{(b):各ヒューリスティックによるcにおいてのg(c)とf(c)}
+\begin{itemize}
+    \item $h_1$の場合 \\
+    $g(c) = 3$であり、$f(c) = 3 + 1 = 4$となる。
+    \item $h_2$の場合 \\
+    $g(c) = 3$であり、$f(c) = 3 + 3 = 6$となる。
+    \item $h_3$の場合 \\
+    $g(c) = 3$であり、$f(c) = 3 + 2 = 5$となる。
+\end{itemize}
+
+\subsection{(c):各ヒューリスティックによる探索結果}
+A*探索により各ヒューリスティック関数を用いて探索を行った結果、どの関数を用いても見つかる経路はS→b→c→G, 展開されたノードは4となった。
 
 \end{document}
