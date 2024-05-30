@@ -39,22 +39,54 @@ lineskip=-0.5ex
 \maketitle
 
 \section*{演習資料2}
-\subsection*{問4 - lsコマンドのオプション}
-lsコマンドのオプションの中で、自身が使いたいと思うものを以下にまとめる。
-\begin{description}
-    \item[-l] \mbox{}\\
-    -lオプションはディレクトリのファイル一覧を長いフォーマットで出力するオプションで、そのファイルのサイズや更新日時を確認することができる。
-    -gや-o,-kなどのオプションが併用でき、これらを用いるとGUIのエクスプローラーのようにファイルの詳細情報を確認できる。
-    \item[-a,-A] \mbox{}\\
-    -aオプションは表示対象にドットファイルを追加できるコマンドで、Windowsでも設定ファイルとかでたまに見るドットファイルは表示する機会があるのではと思う。
-    -Aオプションは-aで表示されていた'.'と'..'を非表示にしつつドットファイルをみることができるオプションで、これも利用頻度が高そうに思われる。
-    \item[] \mbox{}\\
-    
-    \item[] \mbox{}\\
-    
-    \item[] \mbox{}\\
-    
-\end{description}
+\subsection*{問16 - *という名前のファイルの消去}
+通常shell上において*はワイルドカードとして扱われるため、rm * とすると全てのファイルが消去されてしまう。
+そのため、*という名前のファイルを消去するためには、以下のようにする。
+\begin{lstlisting}[caption=問16の解答]
+$ rm '*'
+\end{lstlisting}
+また、*という名前のファイルを作成する際には
+\begin{lstlisting}[caption=問16の解答]
+$ touch '*'
+\end{lstlisting}
+を実行すればよい。
+
+\subsection*{問17 - ディレクトリの削除}
+指定した名前のディレクトリを削除するとき子ディレクトリやファイルもすべて削除するには、以下のようにする。
+\begin{lstlisting}[caption=問17の解答]
+$ rm -r <ディレクトリ名>
+\end{lstlisting}
+
+\subsection*{問18 - mvコマンドのオプション}
+mvコマンドにおいて第2引数にディレクトリ名を指定すると、第1引数のファイルが第2引数のディレクトリに移動することになる。
+\begin{lstlisting}[caption=問18の解答]
+$ mv <ファイル名> <ディレクトリ名>
+\end{lstlisting}
+すなわち、例えばファイルa.txtをディレクトリbに移動する場合は以下のようにする。
+\begin{lstlisting}[caption=問18の解答]
+$ mv a.txt b
+\end{lstlisting}
+こうすることでディレクトリb以下にa.txtが移動される。
+
+またこの場合、第1引数にファイルを複数指定することができる。
+\begin{lstlisting}[caption=問18の解答]
+    $ mv a.txt b c.txt d
+\end{lstlisting}
+この場合、a.txtとc.txtがディレクトリbに、dがディレクトリcに移動される。
+
+\subsection*{問19 - lnコマンドについて}
+lnコマンドはリンクを作成するコマンドである。リンクとはファイルに別の名前をつけることである。
+lnコマンドには-sオプションがあり、これをつけることでシンボリックリンクを作成することができる。
+シンボリックリンクとは、リンク先のファイルのパスを保持しているファイルのことである。
+\begin{lstlisting}[caption=問19の解答]
+$ ln -s <リンク先のファイル> <リンク名>
+\end{lstlisting}
+例えば、ファイルa.txtにリンクb.txtを作成する場合は以下のようにする。
+\begin{lstlisting}[caption=問19の解答]
+$ ln -s a.txt b.txt
+\end{lstlisting}
+この場合、b.txtはa.txtへのシンボリックリンクとなる。
+
 
 
 
