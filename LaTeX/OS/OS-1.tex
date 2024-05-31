@@ -87,8 +87,167 @@ $ ln -s a.txt b.txt
 \end{lstlisting}
 この場合、b.txtはa.txtへのシンボリックリンクとなる。
 
+\subsection*{問20 - cpとlnの違い}
+問20ではa.txtをcp,ln,ln -sでコピーした場合の違いを可視化する課題となっている。
+cpとlnはどちらもファイルをコピーするコマンドである。
+\begin{lstlisting}[caption=問20の解答]
+    $ echo aaaa > a.txt
+    $ cp a.txt b.txt
+    $ ln a.txt c.txt
+    $ ln -s a.txt d.txt
+\end{lstlisting}
+以上のコードを実行すると、a.txt,b.txt,c.txt,d.txtの内容はすべてaaaaとなる。続いて、
+\begin{lstlisting}[caption=問20の解答]
+    $ echo bbbb > a.txt
+\end{lstlisting}
+を実行すると、a.txtの内容がbbbbに変更される。このとき、b.txtの内容はaaaaのままであるが、c.txt,d.txtの内容はbbbbに変更される。
+これは、cpはファイルの内容をコピーするのに対して、lnはファイルのリンクを作成するためである。
+また、ln -sはシンボリックリンクを作成するため、リンク先のファイルの内容が変更されるとリンク元のファイルの内容も変更される。
 
+また続いて
+\begin{lstlisting}[caption=問20の解答]
+    $ rm a.txt
+\end{lstlisting}
+を実行すると、a.txtが削除される。このとき、b.txtはaaaa、c.txtはbbbbのままであるが、
+d.txtはリンク先のファイルが削除されたため、cat: d.txt: No such file or directoryと表示される。
+またls d.txtを実行すると、d.txtが赤文字で表示されるようになる。
 
+\subsection*{問21 - ディレクトリのcp}
+ディレクトリを対象にcpを行うと、ディレクトリ以下のファイルやディレクトリをコピーすることができる。
+\begin{lstlisting}[caption=問21の解答]
+$ cp -r <コピー元ディレクトリ> <コピー先ディレクトリ>
+\end{lstlisting}
+
+\subsection*{問22 - grepコマンド}
+\begin{lstlisting}[caption=問22の解答]
+    $ cat *.txt | grep tanaka > tanaka.data
+\end{lstlisting}
+上記のコマンドは、全ての.txtファイルの内容を結合し、その中からtanakaという文字列を含む行を抽出し、tanaka.dataというファイルに出力するコマンドである。
+
+\subsection*{問23 - grepのパターン}
+grepコマンドでは、正規表現を用いてパターンを指定することができる。
+\begin{lstlisting}[caption=問23の解答]
+    $ grep '[0-9]' <ファイル名>
+\end{lstlisting}
+上記のコマンドは、ファイル名の中で数字が含まれる行を抽出するコマンドである。
+また、ほかにも
+\begin{lstlisting}[caption=問23の解答]
+    $ grep '[a-z]' <ファイル名>
+\end{lstlisting}
+のようにして小文字のアルファベットが含まれる行を抽出することもできる。
+また、数字や文字は繰り返しの指定も可能である。
+\begin{lstlisting}[caption=問23の解答]
+    $ grep '[0-9][0-9]' <ファイル名>
+\end{lstlisting}
+上記のコマンドは、ファイル名の中で2桁の数字が含まれる行を抽出するコマンドである。
+
+\subsection*{問24 - grepのオプション}
+\subsubsection*{1. メールアドレスの抽出}
+\begin{lstlisting}[caption=問24-1の解答]
+    $ grep -E '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' test > result1
+\end{lstlisting}
+メールアドレスは、ユーザ名@ドメイン名の形式であるため、ユーザ名とドメイン名を正規表現で指定することで抽出することができる。
+そのため、ユーザ名を[a-zA-Z0-9.\_\%+-]+、ドメイン名を[a-zA-Z0-9.-]+\textbackslash.[a-zA-Z]\{2,\}として抽出している。
+
+\subsubsection*{2. 電話番号の抽出}
+\begin{lstlisting}[caption=問24-2の解答]
+    $ grep -E '(\+81-)?0\d{1,4}-\d{1,4}-\d{4}' test > result2
+\end{lstlisting}
+電話番号は、0から始まる11桁の数字、もしくは+81-から始まる10桁の数字列であるため、このパターンで抽出することができる。
+
+\subsubsection*{3. grepのパターン}
+\paragraph*{(a). 電話番号のパターン}\quad\\
+\begin{lstlisting}[caption=問24-3(a)の解答]
+    (\+81-)?0\d{1,4}-\d{1,4}-\d{4}
+\end{lstlisting}
+電話番号のパターンは以上の正規表現で表される。
+
+\paragraph*{(b). 郵便番号のパターン}\quad\\
+\begin{lstlisting}[caption=問24-3(b)の解答]
+    \d{3}-\d{4}
+\end{lstlisting}
+郵便番号のパターンは以上の正規表現で表される。
+
+\subsection*{問25 - ファイルパーミッション}
+chmodコマンドで適当なファイルの権限を操作してみる。
+\begin{lstlisting}[caption=問25の解答]
+    $ touch test.txt
+    $ ls -l test.txt
+    -rw-r--r-- 1 user user 0 May 29 21:00 test.txt
+    $ chmod u-r test.txt
+    $ ls -l test.txt
+    --w-r--r-- 1 user user 0 May 29 21:00 test.txt
+    $ chmod g+w test.txt
+    $ ls -l test.txt
+    --w--rw-r-- 1 user user 0 May 29 21:00 test.txt
+    $ chmod 777 test.txt
+    $ ls -l test.txt
+    -rwxrwxrwx 1 user user 0 May 29 21:00 test.txt
+\end{lstlisting}
+またディレクトリに対しても行い、変化を見てみる。
+\begin{lstlisting}[caption=問25の解答]
+    $ mkdir test
+    $ ls -ld test
+    drwxr-xr-x 2 user user 4096 May 29 21:00 test
+    $ chmod u-r test
+    $ ls -ld test
+    d-wxr-xr-x 2 user user 4096 May 29 21:00 test
+    $ chmod g+w test
+    $ ls -ld test
+    d-wxrw-r-x 2 user user 4096 May 29 21:00 test
+    $ chmod 777 test
+    $ ls -ld test
+    drwxrwxrwx 2 user user 4096 May 29 21:00 test
+\end{lstlisting}
+chmodコマンドではこのようにファイルやディレクトリの権限を変更できる。
+試しに実行パーミッションをなくしたディレクトリに対してcdコマンドを実行してみる。
+\begin{lstlisting}[caption=問25の解答]
+    $ cd test
+    bash: cd: test: Permission denied
+\end{lstlisting}
+このように、実行パーミッションがないディレクトリに対してcdコマンドを実行するとPermission deniedと表示される。
+
+\subsection*{問26 - chgrpコマンド}
+chgrpコマンドはファイルやディレクトリのグループを変更するコマンドである。
+\begin{lstlisting}[caption=問26の解答]
+    $ chgrp <グループ名> <ファイル名>
+\end{lstlisting}
+このようにして、ファイル名のグループをグループ名に変更することができる。
+
+\subsection*{問27 - グループの追加}
+あるユーザfooをグループwheelに追加するには、以下のコマンドを実行する。
+\begin{lstlisting}[caption=問27の解答]
+    $ usermod -aG wheel foo
+\end{lstlisting}
+
+\subsection*{問28 - killコマンド}
+killコマンドがデフォルトで送るシグナルはTERMである。
+
+\section*{演習資料3}
+\subsection*{問4 - シェル変数}
+ユーザが一時的に価設定をしたシェル変数を無効化するには、以下のコマンドを実行する。
+\begin{lstlisting}[caption=問4の解答]
+    $ unset <変数名>
+\end{lstlisting}
+
+\subsection*{問5 - 文字列のスクリプト}
+以下のスクリプトは、実行すると「Hello, world!」と現在の日付が表示される。
+
+\begin{lstlisting}[caption=問4の解答]
+#!/bin/bash
+# Greeting Script
+greeting='Hello, world!'
+dateInf="today is $(date +%m/%d)"
+echo "${greeting}, ${dateInf}"
+\end{lstlisting}
+
+このスクリプトでは、まず変数「greeting」に「Hello, world!」という文字列を代入している。
+次に、変数「dateInf」に「today is」と現在の日付を取得するコマンド「date +\%m/\%d」を組み合わせた文字列を代入している。
+最後に、変数「greeting」と「dateInf」を結合して表示するために、echoコマンドを使用している。
+
+実行結果は、例えば「Hello, world!, today is 07/01」といった形式で表示される。
+
+\subsection*{問6 - シェルの関数}
 
 
 \end{document}
