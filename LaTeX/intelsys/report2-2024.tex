@@ -1,0 +1,71 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+
+\title{インテリジェントシステム レポート課題2}
+\author{21T2166D 渡辺大樹}
+\date{2023/06/14}
+\maketitle
+\section{ミニマックス戦略}
+ミニマックス戦略を用いた探索でのノードの値は
+\begin{center}
+\begin{description}
+    \item[A:] 4
+    \item[B:] 4
+    \item[C:] 3
+    \item[D:] 9
+    \item[E:] 15
+    \item[G:] 3
+    \item[H:] 12
+    \item[J:] 2
+    \item[M:] 2
+    \item[P:] 11 
+\end{description}
+\end{center}
+となる。
+
+\section{アルファ$\cdot$ベータ枝刈り}
+\subsection*{(a)省略される辺}
+アルファ$\cdot$ベータ枝刈りを用いたときに省略できるのは"C-J"の辺となる。
+
+\subsection*{(b)ノードの省略}
+
+\subsection*{(c)省略できる辺の最大}
+
+\end{document}
