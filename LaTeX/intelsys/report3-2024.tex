@@ -1,0 +1,279 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+\begin{document}
+
+\title{インテリジェントシステム レポート課題2}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+\section{}
+成立するものは(d),(e),(f)である。
+
+誤っているのは(a),(b),(c)となる。(a)は
+\begin{align*}
+    P(X)    &= \sum_{y}P(X,Y = y)\\
+            &= \sum_{y}P(X|Y=y)P(Y=y)
+\end{align*}
+となるため、成り立たない。
+
+(b)は
+$P(X|Y)=\frac{P(X,Y)}{\sum_{y}^{}P(X|Y=y)}$ではなく、$P(X|Y)=\frac{P(X,Y)}{P(Y)}$のため
+$P(X|Y)=\frac{P(X,Y)}{\sum_{x}^{}P(X=x|Y)}$が正しい。
+
+(c)は
+\begin{align*}
+    P(X|Y = y)  &= \frac{P(X,Y = y)}{P(Y = y)}\\
+                &\propto P(X,Y = y) \\
+                &= P(X|Y = y)P(X)
+\end{align*}
+となり、成り立たない。
+
+\section{}
+\subsection*{(a)}
+$P(D,I,G,S,L) = P(D)P(I)P(G|D,I)P(S|I)P(L|G)$
+
+\subsection*{(b)}
+$P(D,I,G) = P(D)P(I)P(G|D,I)$
+
+\subsection*{(c)}
+G=cであるとき、Iの条件付確率$P(I|G=c)$は
+\[P(I|G=c)=\frac{P(G=c|I) \cdot P(I)}{P(G=c)}\]
+で表せられる。
+
+ここで、
+\[P(G=c|I) = \sum_{D}^{}P(G=c|D,I)P(D)\]
+より、与えられた確率値を用いて計算すると
+\begin{align*}
+    P(G=c|I = low)    &= \sum_{D}^{}P(G=c|D,I = low)P(D)\\
+                &= P(G=c|D=e,I = low)P(D=e) + P(G=c|D=h,I = low)P(D=h)\\
+                &= 0.30 \times 0.60 + 0.70 \times 0.40\\
+                &\simeq 0.46
+\end{align*}
+
+\begin{align*}
+    P(G=c|I = high)    &= \sum_{D}^{}P(G=c|D,I = high)P(D)\\
+                &= P(G=c|D=e,I = high)P(D=e) + P(G=c|D=h,I = high)P(D=h)\\
+                &= 0.02 \times 0.60 + 0.20 \times 0.40\\
+                &\simeq 0.09
+\end{align*}
+となる。
+
+同様に、
+\[P(G=c) = \sum_{D,I}^{}P(G=c|D,I)\]
+より、
+\begin{align*}
+    P(G=c)  &= \sum_{D,I}^{}P(G=c|D,I)\\
+            &= P(G=c|D=e,I=l)P(D=e)P(I=l) + P(G=c|D=e,I=h)P(D=e)P(I=h)\\
+            &\quad + P(G=c|D=h,I=l)P(D=h)P(I=l) + P(G=c|D=h,I=h)P(D=h)P(I=h)\\
+            &= 0.30 \times 0.60 \times 0.70 + 0.02 \times 0.60 \times 0.30\\
+            &\quad + 0.70 \times 0.40 \times 0.70 + 0.20 \times 0.40 \times 0.30\\
+            &\simeq 0.35
+\end{align*}
+となる。
+
+よって、
+\begin{align*}
+    P(I = low|G=c)    &= \frac{P(G=c|I = low) \cdot P(I = low)}{P(G=c)}\\
+                &= \frac{0.46 \times 0.70}{0.35}\\
+                &\simeq 0.92
+\end{align*}
+
+\begin{align*}
+    P(I = high|G=c)    &= \frac{P(G=c|I = high) \cdot P(I = high)}{P(G=c)}\\
+                &= \frac{0.09 \times 0.30}{0.35}\\
+                &\simeq 0.08
+\end{align*}
+となる。
+
+\subsection*{(d)}
+G=c,S=goodであるとき、Iの条件付確率$P(I|G=c,S=good)$は
+\[P(I|G=c,S=good)=\frac{P(G=c,S=good|I) \cdot P(I)}{P(G=c,S=good)}\]
+で表せられる。
+
+ここで、
+\[P(G=c,S=good|I) = P(G=c|I) \cdot P(S=good|I)\]
+より、与えられた確率値を用いて計算すると
+\begin{align*}
+    P(G=c,S=good|I = low)    &= P(G=c|I = low) \cdot P(S=good|I = low)\\
+                                &= 1 \times 0.05\\
+                                &\simeq 0.05
+\end{align*}
+
+\begin{align*}
+    P(G=c,S=good|I = high)    &= P(G=c|I = high) \cdot P(S=good|I = high)\\
+                                &= 0.22 \times 0.80\\
+                                &\simeq 0.18
+\end{align*}
+となる。
+
+同様に、
+\[P(G=c,S=good) = \sum_{I}^{}P(G=c,S=good|I)\]
+より、
+\begin{align*}
+    P(G=c,S=good)  &= \sum_{I}^{}P(G=c,S=good|I)\\
+                    &= P(G=c,S=good|I = low)P(I = low) + P(G=c,S=good|I = high)P(I = high)\\
+                    &= 0.05 \times 0.70 + 0.18 \times 0.30\\
+                    &\simeq 0.10
+\end{align*}
+となる。
+
+よって、
+\begin{align*}
+    P(I = low|G=c,S=good)    &= \frac{P(G=c,S=good|I = low) \cdot P(I = low)}{P(G=c,S=good)}\\
+                                &= \frac{0.05 \times 0.70}{0.10}\\
+                                &\simeq 0.35
+\end{align*}
+
+\begin{align*}
+    P(I = high|G=c,S=good)    &= \frac{P(G=c,S=good|I = high) \cdot P(I = high)}{P(G=c,S=good)}\\
+                                &= \frac{0.18 \times 0.30}{0.10}\\
+                                &\simeq 0.54
+\end{align*}
+となる。
+
+\subsubsection*{(e)}
+S=goodであるときのDの条件付確率$P(D|S=good)$は
+\[P(D|S=good)=\frac{P(S=good|D) \cdot P(D)}{P(S=good)}\]
+で表せられる。
+
+ここで、
+\[P(S=good|D) = \sum_{I,G}^{}P(S=good|I)P(I)P(G|D,I)P(D)\]
+より、与えられた確率値を用いて計算すると
+\begin{align*}
+    P(S=good|D = e)    &= \sum_{I,G}^{}P(S=good|I)P(I)P(G|D=e,I)P(D=e)\\
+                        &= P(S=good|I = low)P(I = low)P(G|D=e,I = low)P(D=e)\\
+                        &\quad + P(S=good|I = low)P(I = low)P(G|D=e,I = high)P(D=e)\\
+                        &\quad + P(S=good|I = high)P(I = high)P(G|D=e,I = low)P(D=e)\\
+                        &\quad + P(S=good|I = high)P(I = high)P(G|D=e,I = high)P(D=e)\\
+                        &= 0.01 \times 0.60 \times 0.30 \times 0.60 + 0.01 \times 0.60 \times 0.70 \times 0.60\\
+                        &\quad + 0.90 \times 0.40 \times 0.30 \times 0.60 + 0.90 \times 0.40 \times 0.70 \times 0.60\\
+                        &\simeq 0.34
+\end{align*}
+
+\begin{align*}
+    P(S=good|D = h)    &= \sum_{I,G}^{}P(S=good|I)P(I)P(G|D=h,I)P(D=h)\\
+                        &= P(S=good|I = low)P(I = low)P(G|D=h,I = low)P(D=h)\\
+                        &\quad + P(S=good|I = low)P(I = low)P(G|D=h,I = high)P(D=h)\\
+                        &\quad + P(S=good|I = high)P(I = high)P(G|D=h,I = low)P(D=h)\\
+                        &\quad + P(S=good|I = high)P(I = high)P(G|D=h,I = high)P(D=h)\\
+                        &= 0.01 \times 0.60 \times 0.02 \times 0.40 + 0.01 \times 0.60 \times 0.20 \times 0.40\\
+                        &\quad + 0.90 \times 0.40 \times 0.02 \times 0.40 + 0.90 \times 0.40 \times 0.20 \times 0.40\\
+                        &\simeq 0.07
+\end{align*}
+となる。
+
+同様に、
+\[P(S=good) = \sum_{D}^{}P(S=good|D)\]
+より、
+
+\begin{align*}
+    P(S=good)  &= \sum_{D}^{}P(S=good|D)\\
+                &= P(S=good|D=e)P(D=e) + P(S=good|D=h)P(D=h)\\
+                &= 0.34 \times 0.60 + 0.07 \times 0.40\\
+                &\simeq 0.24
+\end{align*}
+となる。
+
+よって、
+\begin{align*}
+    P(D = e|S=good)    &= \frac{P(S=good|D = e) \cdot P(D = e)}{P(S=good)}\\
+                        &= \frac{0.34 \times 0.60}{0.24}\\
+                        &\simeq 0.85
+\end{align*}
+
+\begin{align*}
+    P(D = h|S=good)    &= \frac{P(S=good|D = h) \cdot P(D = h)}{P(S=good)}\\
+                        &= \frac{0.07 \times 0.40}{0.24}\\
+                        &\simeq 0.12
+\end{align*}
+となる。
+
+\subsection*{(f)}
+G=c,S=goodであるとき、Dの条件付確率$P(D|G=c,S=good)$は
+\[P(D|G=c,S=good)=\frac{P(G=c,S=good|D) \cdot P(D)}{P(G=c,S=good)}\]
+で表せられる。
+
+ここで、
+\[P(G=c,S=good|D) = \sum_{I}^{}P(G=c|D,I)P(S=good|I)P(I)P(D)\]
+より、与えられた確率値を用いて計算すると
+\begin{align*}
+    P(G=c,S=good|D = e)    &= \sum_{I}^{}P(G=c|D=e,I)P(S=good|I)P(I)P(D=e)\\
+                            &= P(G=c|D=e,I = low)P(S=good|I = low)P(I = low)P(D=e)\\
+                            &\quad + P(G=c|D=e,I = high)P(S=good|I = high)P(I = high)P(D=e)\\
+                            &= 0.30 \times 0.01 \times 0.60 \times 0.60 + 0.70 \times 0.90 \times 0.40 \times 0.60\\
+                            &\simeq 0.25
+\end{align*}
+
+\begin{align*}
+    P(G=c,S=good|D = h)    &= \sum_{I}^{}P(G=c|D=h,I)P(S=good|I)P(I)P(D=h)\\
+                            &= P(G=c|D=h,I = low)P(S=good|I = low)P(I = low)P(D=h)\\
+                            &\quad + P(G=c|D=h,I = high)P(S=good|I = high)P(I = high)P(D=h)\\
+                            &= 0.02 \times 0.01 \times 0.60 \times 0.40 + 0.20 \times 0.90 \times 0.40 \times 0.40\\
+                            &\simeq 0.08
+\end{align*}
+となる。
+
+同様に、
+\[P(G=c,S=good) = \sum_{D}^{}P(G=c,S=good|D)\]
+より、
+
+\begin{align*}
+    P(G=c,S=good)  &= \sum_{D}^{}P(G=c,S=good|D)\\
+                    &= P(G=c,S=good|D=e)P(D=e) + P(G=c,S=good|D=h)P(D=h)\\
+                    &= 0.25 \times 0.60 + 0.08 \times 0.40\\
+                    &\simeq 0.17
+\end{align*}
+となる。
+
+よって、
+\begin{align*}
+    P(D = e|G=c,S=good)    &= \frac{P(G=c,S=good|D = e) \cdot P(D = e)}{P(G=c,S=good)}\\
+                            &= \frac{0.25 \times 0.60}{0.17}\\
+                            &\simeq 0.88
+\end{align*}
+
+\begin{align*}
+    P(D = h|G=c,S=good)    &= \frac{P(G=c,S=good|D = h) \cdot P(D = h)}{P(G=c,S=good)}\\
+                            &= \frac{0.08 \times 0.40}{0.17}\\
+                            &\simeq 0.19
+\end{align*}
+となる。
+
+\end{document}
