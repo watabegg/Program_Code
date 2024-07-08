@@ -50,7 +50,6 @@ lineskip=-0.5ex
 
 状態s=0のときは
 \[U(0)=\max(0, \sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U(s')])\]
-
 となる。ここで
 \[\sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U(s')]\]
 を計算すると
@@ -65,7 +64,6 @@ lineskip=-0.5ex
 
 状態s=2のときは
 \[U(2)=\max(2, \sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U(s')])\]
-
 となる。ここで
 \[\sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U(s')]\]
 を計算すると
@@ -79,7 +77,6 @@ lineskip=-0.5ex
 
 状態s=3のときは
 \[U(3)=\max(3, \sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U(s')])\]
-
 となる。ここで
 \[\sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U(s')]\]
 を計算すると
@@ -92,14 +89,301 @@ lineskip=-0.5ex
 \[U(3)=\max(3,0)=3\]
 
 状態s=4のときは
+\[U(4)=\max(4, \sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。よって
+\[U(4)=\max(4,0)=4\]
+
+状態s=5のときは
+\[U(5)=\max(5, \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。よって
+\[U(5)=\max(5,0)=5\]
 
 (b)
+\(U_2(s)\)を考える。
+\(U_2(s)\)は次のように表される。
+\[U_2(s)=\max(R(s,stop), \sum_{s'}P(s'|s,spin)[R(s,spin,s')+\gamma U_1(s')])\]
+
+状態s=0のときは
+\[U_2(0)=\max(0, \sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U_1(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U_1(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U_1(s')] &= \frac{1}{3}(U_1(2)+U_1(3)+U_1(4)) \\
+                                                     &= \frac{1}{3}(2+3+4) \\
+                                                     &= 3
+\end{align*}
+となる。よって
+\[U_2(0)=\max(0,3)=3\]
+
+状態s=2のときは
+\[U_2(2)=\max(2, \sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U_1(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U_1(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U_1(s')] &= \frac{1}{3}(U_1(4)+U_1(5)+0) \\
+                                                     &= \frac{1}{3}(4+5+0) \\
+                                                     &= 3
+\end{align*}
+となる。よって
+\[U_2(2)=\max(2,3)=3\]
+
+状態s=3のときは
+\[U_2(3)=\max(3, \sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U_1(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U_1(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U_1(s')] &= \frac{1}{3}(U_1(5)+0+0) \\
+                                                     &= \frac{1}{3}(5+0+0) \\
+                                                     &= \frac{5}{3}
+\end{align*}
+となる。よって
+\[U_2(3)=\max(3,\frac{5}{3})=3\]
+
+状態s=4のときは
+\[U_2(4)=\max(4, \sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U_1(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U_1(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U_1(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。よって
+\[U_2(4)=\max(4,0)=4\]
+
+状態s=5のときは
+\[U_2(5)=\max(5, \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U_1(s')])\]
+となる。ここで
+\[\sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U_1(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U_1(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。よって
+\[U_2(5)=\max(5,0)=5\]
+
+Bellman updateを繰り返し、同様に\(U_3(s),U_4(s)\)を求めると、
+\begin{align*}
+    U_3(0) &= 3 \\
+    U_3(2) &= 3 \\
+    U_3(3) &= 3 \\
+    U_3(4) &= 4 \\
+    U_3(5) &= 5 \\
+    U_4(0) &= 3 \\
+    U_4(2) &= 3 \\
+    U_4(3) &= 3 \\
+    U_4(4) &= 4 \\
+    U_4(5) &= 5 \\
+\end{align*}
+となり、\(U(s)\)は
+\begin{align*}
+    U(0) &= 3 \\
+    U(2) &= 3 \\
+    U(3) &= 3 \\
+    U(4) &= 4 \\
+    U(5) &= 5
+\end{align*}
+に収束する。
 
 (c)
+\(U_4(s)\)を用いた最適な行動\(\pi(s) \in \{spin, stop\} \)を求める。
+
+状態s=0のときは
+\[\pi(0)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|0,\textbf{a})[R(0,\textbf{a},s')+\gamma U_4(s')]\]
+となる。ここで
+\[\sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U_4(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U_4(s')] &= \frac{1}{3}(U_4(2)+U_4(3)+U_4(4)) \\
+                                                     &= \frac{1}{3}(3+3+4) \\
+                                                     &= \frac{10}{3}
+\end{align*}
+となる。
+stopを選択したときは報酬が0なので
+\[R(0,stop)=0\]
+となる。よって
+\[\pi(0)=\arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{10}{3}, 0)\]
+となり、\(\pi(0)=spin\)となる。
+
+状態s=2のときは
+\[\pi(2)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|2,\textbf{a})[R(2,\textbf{a},s')+\gamma U_4(s')]\]
+となる。ここで
+\[\sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U_4(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|2,spin)[R(2,spin,s')+\gamma U_4(s')] &= \frac{1}{3}(U_4(4)+U_4(5)+0) \\
+                                                     &= \frac{1}{3}(4+5+0) \\
+                                                     &= 3
+\end{align*}
+となる。
+stopを選択したときは
+\[R(2,stop)=2\]
+となる。よって
+\[\pi(2)=\arg\max_{\textbf{a}\in\{spin,stop\}}(3, 2)\]
+となり、\(\pi(2)=spin\)となる。
+
+状態s=3のときは
+\[\pi(3)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|3,\textbf{a})[R(3,\textbf{a},s')+\gamma U_4(s')]\]
+となる。ここで
+\[\sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U_4(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U_4(s')] &= \frac{1}{3}(U_4(5)+0+0) \\
+                                                     &= \frac{1}{3}(5+0+0) \\
+                                                     &= \frac{5}{3}
+\end{align*}
+となる。
+stopを選択したときは
+\[R(3,stop)=3\]
+となる。よって
+\[\pi(3)=\arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{5}{3}, 3)\]
+となり、\(\pi(3)=stop\)となる。
+
+状態s=4のときは
+\[\pi(4)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|4,\textbf{a})[R(4,\textbf{a},s')+\gamma U_4(s')]\]
+となる。ここで
+\[\sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U_4(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|4,spin)[R(4,spin,s')+\gamma U_4(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。
+stopを選択したときは
+\[R(4,stop)=4\]
+となる。よって
+\[\pi(4)=\arg\max_{\textbf{a}\in\{spin,stop\}}(0, 4)\]
+となり、\(\pi(4)=stop\)となる。
+
+状態s=5のときは
+\[\pi(5)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|5,\textbf{a})[R(5,\textbf{a},s')+\gamma U_4(s')]\]
+となる。ここで
+\[\sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U_4(s')]\]
+を計算すると
+\begin{align*}
+    \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U_4(s')] &= \frac{1}{3}(0+0+0) \\
+                                                     &= \frac{1}{3}(0+0+0) \\
+                                                     &= 0
+\end{align*}
+となる。
+stopを選択したときは
+\[R(5,stop)=5\]
+となる。よって
+\[\pi(5)=\arg\max_{\textbf{a}\in\{spin,stop\}}(0, 5)\]
+となり、\(\pi(5)=stop\)となる。
+
+以上より、最適な行動は
+\begin{align*}
+    \pi(0) &= spin \\
+    \pi(2) &= spin \\
+    \pi(3) &= stop \\
+    \pi(4) &= stop \\
+    \pi(5) &= stop
+\end{align*}
+となる。
 
 (d)
+初期方策を以下の図で定めたときの価値関数\(U^{\pi_0}(s)\)を考える。
+\begin{center}
+    \begin{tabular}[h]{c|c|c|c|c|c}
+        & s = 0 & s = 2 & s = 3 & s = 4 & s = 5 \\
+        \hline
+        $\pi_0$ & spin & stop & spin  & stop & spin
+    \end{tabular}
+\end{center}
+
+この方策のもとで価値関数\(U^{\pi_0}(s)\)は次の線形方程式を解くことで求めることができる。
+\begin{align*}
+    U^{\pi_0}(0) &= \sum_{s'}P(s'|0,spin)[R(0,spin,s')+\gamma U^{\pi_0}(s')] \\
+                 &= \frac{1}{3}(U^{\pi_0}(2)+U^{\pi_0}(3)+U^{\pi_0}(4)) \\
+    U^{\pi_0}(2) &= 2 \\
+    U^{\pi_0}(3) &= \sum_{s'}P(s'|3,spin)[R(3,spin,s')+\gamma U^{\pi_0}(s')] \\
+                 &= \frac{1}{3}(U^{\pi_0}(5)+0+0) \\
+    U^{\pi_0}(4) &= 4 \\
+    U^{\pi_0}(5) &= \sum_{s'}P(s'|5,spin)[R(5,spin,s')+\gamma U^{\pi_0}(s')] \\
+                 &= \frac{1}{3}(0+0+0) \\
+                 &= 0
+\end{align*}
+となる。これを解くと
+\begin{align*}
+    U^{\pi_0}(0) &= \frac{1}{3}(2+0+4) = 2 \\
+    U^{\pi_0}(2) &= 2 \\
+    U^{\pi_0}(3) &= \frac{1}{3}(0+0+0) = 0 \\
+    U^{\pi_0}(4) &= 4 \\
+    U^{\pi_0}(5) &= 0
+\end{align*}
+となる。
 
 (e)
+続いて、\(U^{\pi_0}(s)\)を用いて方策改善を行う。
+\[\pi_1(s)=\arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|s,\textbf{a})[R(s,\textbf{a},s')+\gamma U^{\pi_0}(s')]\]
+となる。これを計算すると
+\begin{align*}
+    \pi_1(0) &= \arg\max_{\textbf{a}\in\{spin,stop\}}\sum_{s'}P(s'|0,\textbf{a})[R(0,\textbf{a},s')+\gamma U^{\pi_0}(s')] \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(U^{\pi_0}(2)+U^{\pi_0}(3)+U^{\pi_0}(4)), 0) \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(2+0+4), 0) \\
+                &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{6}{3}, 0) \\
+                &= \arg\max_{\textbf{a}\in\{spin,stop\}}(2, 0) \\
+                &= spin
+\end{align*}
+となる。同様に計算すると
+\begin{align*}
+    \pi_1(2) &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(U^{\pi_0}(4)+U^{\pi_0}(5)+0), 2) \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(4+0+0), 2) \\
+                &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{4}{3}, 2) \\
+                &= \arg\max_{\textbf{a}\in\{spin,stop\}}(1.\dot{3}, 2) \\
+                &= stop
+\end{align*}
+\begin{align*}
+    \pi_1(3) &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(U^{\pi_0}(5)+0+0), 3) \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(0+0+0), 3) \\
+                &= \arg\max_{\textbf{a}\in\{spin,stop\}}(0, 3) \\
+                &= stop
+\end{align*}
+\begin{align*}
+    \pi_1(4) &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(0+0+0), 4) \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(0, 4) \\
+                &= stop
+\end{align*}
+\begin{align*}
+    \pi_1(5) &= \arg\max_{\textbf{a}\in\{spin,stop\}}(\frac{1}{3}(0+0+0), 5) \\
+             &= \arg\max_{\textbf{a}\in\{spin,stop\}}(0, 5) \\
+                &= stop
+\end{align*}
+となる。
+
+以上より、方策改善によって得られた方策は
+\begin{center}
+    \begin{tabular}[h]{c|c|c|c|c|c}
+        & s = 0 & s = 2 & s = 3 & s = 4 & s = 5 \\
+        \hline
+        $\pi_1$ & spin & stop & stop  & stop & stop
+    \end{tabular}
+\end{center}
+となる。
 
 \section{}
 (a)
