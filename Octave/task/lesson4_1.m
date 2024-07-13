@@ -1,6 +1,6 @@
 % Octave 6.2.0 と MATLAB 2021a で動作確認済み
 
-I = imread( '../images/Mandrill.png' );
+I = imread( '../img/Mandrill.png' );
 I = im2double( I );
 
 len = 10;

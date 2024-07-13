@@ -94,7 +94,7 @@ X
 
 
 
-X = imread( '../images/face8.jpg' );
+X = imread( '../img/face8.jpg' );
 X = im2double( X );
 X = rgb2gray( X );
 figure(1), imshow( X );

@@ -1,6 +1,6 @@
 % Octave 6.2.0 と MATLAB 2021a で動作確認済み
 
-load( '../images/faces.mat' );
+load( '../img/faces.mat' );
 
 K = 32;
 I_list = I_list(:,:,1:K);
