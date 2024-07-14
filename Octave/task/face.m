@@ -39,8 +39,8 @@ U = X_ * V * sqrt( D_inv ); # 特異値行列
 U_im = reshape( U, [sy,sx,K] ); # 画像に戻す
 
 % figure(2);
-% for k = 1:K-1
-%   subplot(4,4,k); imagesc( U_im(:,:,k) );
+% for k = 1:4
+%   subplot(2,2,k); imagesc( U_im(:,:,k) );
 %   axis image;
 % end
 
@@ -59,35 +59,35 @@ J_j = reshape( y_j, [sy,sx] ); # 画像に戻す
 % figure(3); imshow( uint8(J_j) );
 
 
-j = 3; # 1番目の固有顔
-l = 10; # 6番目の固有顔
+j = 3; # 3番目の固有顔
+l = 10; # 10番目の固有顔
 
 y_jl = U(:,1:l) * W(1:l,j) + mu; # 顔画像に戻す
 
 J_jl = reshape( y_jl, [sy,sx] ); # 画像に戻す
 
-figure(4); imshow( uint8(J_jl) );
+% figure(4); imshow( uint8(J_jl) );
 
 
 
 p = 3;
 q = 10;
-S = (4:-1:0)/4;
+S = [0, 0.2, 0.5, 0.8, 1];
 
 w_p = W(:,p);
 w_q = W(:,q);
 
 
 cnt = 0;
-figure(5);
-for s = S
+% figure(5);
+% for s = S
 
-  w = (1-s) * w_p + s * w_q;
-  y_pq = U * w + mu;
-  J_pq = reshape( y_pq, [sy,sx] );
+%   w = (1-s) * w_p + s * w_q;
+%   y_pq = U * w + mu;
+%   J_pq = reshape( y_pq, [sy,sx] );
 
-  cnt = cnt + 1;
-  subplot(1,length(S),cnt);
-  imshow( uint8(J_pq) );
+%   cnt = cnt + 1;
+%   subplot(1,length(S),cnt);
+%   imshow( uint8(J_pq) );
 
-end
+% end

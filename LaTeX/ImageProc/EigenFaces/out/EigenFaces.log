@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  6 AUG 2023 22:22
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  14 JUL 2024 12:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -433,16 +433,69 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 (Font)              scaled to size 7.68799pt on input line 46.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 (Font)              scaled to size 5.76599pt on input line 46.
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 48.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 48.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 48.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 13.83836pt on input line 48.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 11.53198pt on input line 63.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 69.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 69.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 69.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 9.60999pt on input line 69.
+
+LaTeX Warning: Reference `mat' on page 1 undefined on input line 69.
+
 [1
 
-] (out/EigenFaces.aux) ) 
-Here is how much of TeX's memory you used:
- 14691 strings out of 476685
- 295880 string characters out of 5808308
- 1844481 words of memory out of 5000000
- 34908 multiletter control sequences out of 15000+600000
- 525363 words of font info for 89 fonts, out of 8000000 for 9000
- 934 hyphenation exceptions out of 8191
- 84i,6n,89p,467b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
+]
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 75.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 4.805pt on input line 75.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 75.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 4.805pt on input line 75.
+[2]
+File: ./img/figure.png Graphic file (type bmp)
+<./img/figure.png>
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 127.
+LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 127.
+[3]
+File: ./img/figure2.png Graphic file (type bmp)
+<./img/figure2.png>
+[4]
+File: ./img/figure5.png Graphic file (type bmp)
+<./img/figure5.png>
+LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
+(Font)              scaled to size 6.72699pt on input line 193.
+LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 193.
+LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
+(Font)              scaled to size 8.64899pt on input line 193.
+[5] [6] [7] [8] (out/EigenFaces.aux)
 
-Output written on out/EigenFaces.dvi (1 page, 816 bytes).
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 15026 strings out of 476685
+ 298949 string characters out of 5808308
+ 2050481 words of memory out of 5000000
+ 35221 multiletter control sequences out of 15000+600000
+ 533349 words of font info for 127 fonts, out of 8000000 for 9000
+ 934 hyphenation exceptions out of 8191
+ 84i,10n,89p,467b,1751s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on out/EigenFaces.dvi (8 pages, 23620 bytes).
