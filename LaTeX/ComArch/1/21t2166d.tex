@@ -1,0 +1,87 @@
+\documentclass[a4paper,11pt,titlepage,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+\definecolor{shadecolor}{gray}{0.70}
+
+\begin{document}
+\begin{titlepage}
+\noindent
+\vspace{6cm}
+\begin{center}
+\begin{LARGE}
+コンピュータアーキテクチャ \\
+第1回課題 
+\end{LARGE}
+\end{center}
+\vspace{6cm}
+\begin{flushright}
+信州大学工学部 \
+電子情報システム工学科 \
+\begin{description}
+\setlength{\leftskip}{8.9cm}
+\item 2024/10/04
+\item 21T2166D 渡辺　大樹
+\end{description}
+\end{flushright}
+\end{titlepage}
+
+
+\section*{課題1}
+\subsection*{1.プログラムはハードウェア上でどのように実行されるのか}
+「プログラムはハードウェア上でどのように実行されるのか」についてAI(Chat GPT)を用い、「プログラムはハードウェア上でどのように実行されるのかを500字程度で説明してください」というプロンプトを実行し調べた結果を以下に示す。\\
+\begin{shaded}
+    プログラムは、ハードウェア上で次のように実行されます。\\
+    まず、プログラムのコードは人間が読める高水準言語で書かれますが、そのままではハードウェアは理解できないため、コンパイラやインタプリタを使ってマシン語（0と1のバイナリ）に変換されます。\\
+    このバイナリ形式のプログラムは、メモリ（RAM）にロードされます。\\
+    その後、CPU（中央処理装置）がメモリから命令を読み取り、プログラムカウンタによって次に実行する命令を順次処理します。\\
+    CPUの内部にはレジスタがあり、計算結果やメモリのアドレスが一時的に格納されます。\\
+    また、算術演算ユニット（ALU）が加減乗除などの演算を行い、制御ユニットが命令の順序を管理します。\\
+    入力や出力が必要な場合、プログラムはハードディスク、キーボード、ディスプレイなどの外部デバイスと通信し、デバイスドライバを介してハードウェアにアクセスします。\\
+    すべての命令が実行されるまで、このプロセスが繰り返され、最終的にプログラムが完了します。\\
+\end{shaded}
+
+\subsection*{2.この結果においてわからないことをまとめる}
+上記の結果においてわからないことを以下にまとめる。
+\begin{itemize}
+    \item プログラムカウンタとは何か
+    \item ALUとは何か
+    \item 制御ユニットとは何か、どういった制御を行うのか
+    \item デバイスドライバとは何か
+\end{itemize}
+
+
+\end{document}
