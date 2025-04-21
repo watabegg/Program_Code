@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  23 APR 2024 06:51
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  22 APR 2025 01:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -306,6 +306,6 @@ Here is how much of TeX's memory you used:
  24998 multiletter control sequences out of 15000+600000
  533349 words of font info for 127 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 55i,9n,62p,309b,1762s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 55i,9n,62p,311b,1762s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on out/NumMeth_class2.dvi (6 pages, 19356 bytes).
+Output written on out/NumMeth_class2.dvi (6 pages, 19352 bytes).
