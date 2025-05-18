@@ -1,9 +1,9 @@
-This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  5 JUL 2023 06:20
+This is e-pTeX, Version 3.141592653-p4.1.0-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.4.18)  18 MAY 2025 22:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Program_code/LaTeX/NumMeth/4/NumMeth_class4.tex
+**c:/Program_Code/LaTeX/NumMeth/4/NumMeth_class4.tex
 (c:/Program_Code/LaTeX/NumMeth/4/NumMeth_class4.tex
 pLaTeX2e <2023-02-14>+1 (based on LaTeX2e <2022-11-01> patch level 1)
 L3 programming layer <2023-03-30> (c:/texlive/2023/texmf-dist/tex/platex/jsclasses/jsarticle.cls
@@ -284,8 +284,8 @@ LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
 (Font)              scaled to size 11.53198pt on input line 226.
 [7] [8] [9] (out/NumMeth_class4.aux) ) 
 Here is how much of TeX's memory you used:
- 3955 strings out of 476685
- 57492 string characters out of 5808308
+ 3954 strings out of 476685
+ 57495 string characters out of 5808308
  2079481 words of memory out of 5000000
  24370 multiletter control sequences out of 15000+600000
  533916 words of font info for 130 fonts, out of 8000000 for 9000
