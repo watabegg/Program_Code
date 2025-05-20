@@ -39,53 +39,12 @@ lineskip=-0.5ex
 \maketitle
 
 \section*{演習資料2}
-\subsection*{問16 - *という名前のファイルの消去}
-通常shell上において*はワイルドカードとして扱われるため、rm * とすると全てのファイルが消去されてしまう。
-そのため、*という名前のファイルを消去するためには、以下のようにする。
-\begin{lstlisting}[caption=問16の解答]
-$ rm '*'
-\end{lstlisting}
-また、*という名前のファイルを作成する際には
-\begin{lstlisting}[caption=問16の解答]
-$ touch '*'
-\end{lstlisting}
-を実行すればよい。
 
 \subsection*{問17 - ディレクトリの削除}
 指定した名前のディレクトリを削除するとき子ディレクトリやファイルもすべて削除するには、以下のようにする。
 \begin{lstlisting}[caption=問17の解答]
-$ rm -r <ディレクトリ名>
+    $ rm -r <ディレクトリ名>
 \end{lstlisting}
-
-\subsection*{問18 - mvコマンドのオプション}
-mvコマンドにおいて第2引数にディレクトリ名を指定すると、第1引数のファイルが第2引数のディレクトリに移動することになる。
-\begin{lstlisting}[caption=問18の解答]
-$ mv <ファイル名> <ディレクトリ名>
-\end{lstlisting}
-すなわち、例えばファイルa.txtをディレクトリbに移動する場合は以下のようにする。
-\begin{lstlisting}[caption=問18の解答]
-$ mv a.txt b
-\end{lstlisting}
-こうすることでディレクトリb以下にa.txtが移動される。
-
-またこの場合、第1引数にファイルを複数指定することができる。
-\begin{lstlisting}[caption=問18の解答]
-    $ mv a.txt b c.txt d
-\end{lstlisting}
-この場合、a.txtとc.txtがディレクトリbに、dがディレクトリcに移動される。
-
-\subsection*{問19 - lnコマンドについて}
-lnコマンドはリンクを作成するコマンドである。リンクとはファイルに別の名前をつけることである。
-lnコマンドには-sオプションがあり、これをつけることでシンボリックリンクを作成することができる。
-シンボリックリンクとは、リンク先のファイルのパスを保持しているファイルのことである。
-\begin{lstlisting}[caption=問19の解答]
-$ ln -s <リンク先のファイル> <リンク名>
-\end{lstlisting}
-例えば、ファイルa.txtにリンクb.txtを作成する場合は以下のようにする。
-\begin{lstlisting}[caption=問19の解答]
-$ ln -s a.txt b.txt
-\end{lstlisting}
-この場合、b.txtはa.txtへのシンボリックリンクとなる。
 
 \subsection*{問20 - cpとlnの違い}
 問20ではa.txtをcp,ln,ln -sでコピーした場合の違いを可視化する課題となっている。
@@ -112,34 +71,11 @@ cpとlnはどちらもファイルをコピーするコマンドである。
 d.txtはリンク先のファイルが削除されたため、cat: d.txt: No such file or directoryと表示される。
 またls d.txtを実行すると、d.txtが赤文字で表示されるようになる。
 
-\subsection*{問21 - ディレクトリのcp}
-ディレクトリを対象にcpを行うと、ディレクトリ以下のファイルやディレクトリをコピーすることができる。
-\begin{lstlisting}[caption=問21の解答]
-$ cp -r <コピー元ディレクトリ> <コピー先ディレクトリ>
-\end{lstlisting}
-
 \subsection*{問22 - grepコマンド}
 \begin{lstlisting}[caption=問22の解答]
     $ cat *.txt | grep tanaka > tanaka.data
 \end{lstlisting}
 上記のコマンドは、全ての.txtファイルの内容を結合し、その中からtanakaという文字列を含む行を抽出し、tanaka.dataというファイルに出力するコマンドである。
-
-\subsection*{問23 - grepのパターン}
-grepコマンドでは、正規表現を用いてパターンを指定することができる。
-\begin{lstlisting}[caption=問23の解答]
-    $ grep '[0-9]' <ファイル名>
-\end{lstlisting}
-上記のコマンドは、ファイル名の中で数字が含まれる行を抽出するコマンドである。
-また、ほかにも
-\begin{lstlisting}[caption=問23の解答]
-    $ grep '[a-z]' <ファイル名>
-\end{lstlisting}
-のようにして小文字のアルファベットが含まれる行を抽出することもできる。
-また、数字や文字は繰り返しの指定も可能である。
-\begin{lstlisting}[caption=問23の解答]
-    $ grep '[0-9][0-9]' <ファイル名>
-\end{lstlisting}
-上記のコマンドは、ファイル名の中で2桁の数字が含まれる行を抽出するコマンドである。
 
 \subsection*{問24 - grepのオプション}
 \subsubsection*{1. メールアドレスの抽出}
@@ -234,11 +170,11 @@ killコマンドがデフォルトで送るシグナルはTERMである。
 以下のスクリプトは、実行すると「Hello, world!」と現在の日付が表示される。
 
 \begin{lstlisting}[caption=問4の解答]
-#!/bin/bash
-# Greeting Script
-greeting='Hello, world!'
-dateInf="today is $(date +%m/%d)"
-echo "${greeting}, ${dateInf}"
+    #!/bin/bash
+    # Greeting Script
+    greeting='Hello, world!'
+    dateInf="today is $(date +%m/%d)"
+    echo "${greeting}, ${dateInf}"
 \end{lstlisting}
 
 このスクリプトでは、まず変数「greeting」に「Hello, world!」という文字列を代入している。
@@ -248,6 +184,20 @@ echo "${greeting}, ${dateInf}"
 実行結果は、例えば「Hello, world!, today is 07/01」といった形式で表示される。
 
 \subsection*{問6 - シェルの関数}
+以下のスクリプトについて動作を説明していく。
+\begin{lstlisting}[caption=問6の解答]
+    #!/bin/bash
+    mawaru(){
+        local i = 1
+        while [ $i -le 10 ]
+        do
+            echo $i
+            i = 'expr $i + 1'
+        done
+    }
+    mawaru
+\end{lstlisting}
+
 
 
 \end{document}
