@@ -1,0 +1,72 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.misc}
+
+% URL
+\usepackage{url}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\small\itshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+\begin{document}
+\definecolor{shadecolor}{gray}{0.70}
+
+\title{機械システム概論 第一回 レポート課題}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+\section*{フィードバック制御の活用事例 - ドローン}
+ドローン（無人航空機）は、その多様な活用分野において安定した飛行が求められます。この安定性を確保する上で、外部からの風などの外乱に対応し機体の姿勢を維持するために、フィードバック制御が中心的な役割を担っています。本レポートでは、ドローンの姿勢制御におけるフィードバック制御の活用事例とその概要について述べます。
+
+\section*{ドローンにおけるフィードバック制御の概要}
+ドローンの安定飛行の鍵は、機体の傾きや回転（ロール、ピッチ、ヨー）を精密に制御することにあります。この姿勢制御は、フィードバック制御システムによって実現されます。
+
+まず、IMU（慣性計測装置）に代表されるセンサー群が、ドローンの現在の姿勢情報をリアルタイムで検出します\cite{epson}。この実測値と、予め設定された目標姿勢とを比較し、その間のズレ（偏差）を算出します。
+
+次に、この偏差を解消するために、PID制御（比例・積分・微分制御）などのアルゴリズムが用いられます。PID制御は、算出された偏差に基づいて、ドローンの各モーターが出力すべき推力を計算し、適切な制御信号を生成します\cite{tajima}。
+
+この制御信号に従って各モーターの回転数が調整されることで、機体は目標姿勢へと誘導されます。この「センサーによる現状把握 → 偏差計算 → 制御則による指令値生成 → モーターによる姿勢修正」という一連のプロセスが連続的なフィードバックループを形成し、ドローンは風などの外乱の影響を効果的に抑制し、安定した姿勢を保つことができます。
+
+\section*{まとめ}
+このように、ドローンの姿勢制御におけるフィードバック制御の活用は、その安定した飛行性能を保証するための根幹技術です。センサーからの情報を基に目標とのズレを補正し続けるこの仕組みにより、ドローンは様々な環境下でその能力を発揮することができます。
+
+\begin{thebibliography}{9}
+\bibitem{epson}
+エプソン, ``姿勢推定と姿勢制御とは？ドローンやロボットの姿勢安定の仕組み'', \url{https://www.epson.jp/prod/sensing_system/column/attitude-estimation-and-control/}
+
+\bibitem{tajima}
+Tajima Robotics, ``ドローンをフィードバック制御するための基本知識を学ぼう！'', \url{https://tajimarobotics.com/drone-feedback-control/}
+\end{thebibliography}
+
+\end{document}
