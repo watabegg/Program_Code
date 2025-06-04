@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+\definecolor{shadecolor}{gray}{0.70}
+
+\title{機械システム概論 第二回 レポート課題}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+\section*{課題}
+鉄道車両に用いられる重要な部品を列挙し、鉄鋼材料、非鉄金属材料に分類せよ。
+
+\section*{調査結果}
+インターネット及び資料より、鉄道車両の部品とそれに用いられる材料について調査した結果を以下に示す。
+
+\subsection*{鉄鋼材料}
+\begin{itemize}
+    \item 車体（在来線）：ステンレス鋼
+    \item 屋根・側構体（在来線）：Al/Fe(ステンレス)クラッド材の一部 (Fe部分)
+    \item 床材（在来線）：Al合金/Feクラッド材の一部 (Fe部分)
+    \item 内装品の一部：Fe-Al合金の一部 (Fe部分)
+\end{itemize}
+
+\subsection*{非鉄金属材料}
+\begin{itemize}
+    \item 車体（新幹線）：Al合金 (A6N01)
+    \item 屋根・側構体（新幹線）：Mg合金
+    \item 屋根・側構体（在来線）：Al/Fe(ステンレス)クラッド材の一部 (Al部分)
+    \item 床材（新幹線）：ハニカムパネル (Mg合金/Al合金コア, Ti合金/Mgコア)
+    \item 床材（在来線）：Al合金/Feクラッド材の一部 (Al部分)
+    \item 内装品（新幹線）：Mg合金
+    \item 椅子（新幹線）：Mg合金
+    \item 荷棚等のサービス品（新幹線）：Mg合金
+    \item 内装品の一部：Fe-Al合金の一部 (Al部分), 樹脂材料, 一部難燃性Mg合金(荷棚)
+\end{itemize}
+
+\section*{考察}
+鉄道車両には、その用途や求められる性能に応じて、鉄鋼材料と非鉄金属材料が使い分けられていることがわかる。
+特に新幹線では、軽量化と高強度化のためにアルミニウム合金やマグネシウム合金などの非鉄金属材料が多く使用されている。
+在来線では、コストや耐久性の観点からステンレス鋼などの鉄鋼材料が依然として重要な役割を担っている。
+また、クラッド材のように複数の金属を組み合わせることで、それぞれの材料の長所を活かす工夫も見られる。
+
+\end{document}
