@@ -1,0 +1,393 @@
+/* ===================================================
+   Modern Marp Theme - watabegg
+   Primary Color: oklch(52% 0.154 150.069)
+   =================================================== */
+
+/* @theme watabegg */
+
+@import 'default';
+
+:root {
+  /* カラーパレット */
+  --primary: oklch(52% 0.154 150.069);
+  --primary-light: oklch(65% 0.12 150.069);
+  --primary-dark: oklch(40% 0.18 150.069);
+  --primary-subtle: oklch(95% 0.03 150.069);
+  
+  /* セカンダリカラー */
+  --secondary: oklch(45% 0.15 280);
+  --accent: oklch(70% 0.2 35);
+  
+  /* グレースケール */
+  --gray-900: oklch(15% 0.01 150);
+  --gray-800: oklch(25% 0.01 150);
+  --gray-700: oklch(35% 0.01 150);
+  --gray-600: oklch(45% 0.01 150);
+  --gray-500: oklch(55% 0.01 150);
+  --gray-400: oklch(65% 0.01 150);
+  --gray-300: oklch(75% 0.01 150);
+  --gray-200: oklch(85% 0.01 150);
+  --gray-100: oklch(95% 0.01 150);
+  --gray-50: oklch(98% 0.005 150);
+  
+  /* 背景グラデーション */
+  --bg-gradient: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-subtle) 100%);
+  --hero-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  
+  /* シャドウ */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* ===================================================
+   基本スタイル
+   =================================================== */
+
+section {
+  background: var(--bg-gradient);
+  color: var(--gray-800);
+  font-family: 'Segoe UI', 'Yu Gothic UI', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--hero-gradient);
+  z-index: 1;
+}
+
+/* ===================================================
+   タイポグラフィ
+   =================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--gray-900);
+  font-weight: 700;
+  margin: 0 0 0.6em 0;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.8em;
+  background: var(--hero-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  margin-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 2em;
+  color: var(--primary);
+  position: relative;
+  padding-left: 0.3em;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 3px;
+  height: 1.2em;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.5em;
+  color: var(--primary-dark);
+}
+
+h4 {
+  font-size: 1.2em;
+  color: var(--gray-700);
+}
+
+/* ===================================================
+   リード・ヒーロースライド
+   =================================================== */
+
+section.lead {
+  background: var(--hero-gradient);
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+section.lead::before {
+  display: none;
+}
+
+section.lead::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)" /></svg>');
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+section.lead h1 {
+  font-size: 4em;
+  color: white;
+  background: none;
+  -webkit-text-fill-color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.2em;
+  z-index: 1;
+  position: relative;
+}
+
+section.lead h2 {
+  font-size: 1.5em;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  margin-top: 0;
+  z-index: 1;
+  position: relative;
+}
+
+section.lead h2::before {
+  display: none;
+}
+
+/* ===================================================
+   インバートスタイル
+   =================================================== */
+
+section.invert {
+  background: var(--gray-900);
+  color: white;
+}
+
+section.invert h1,
+section.invert h2,
+section.invert h3 {
+  color: white;
+}
+
+section.invert h2::before {
+  background: var(--primary-light);
+}
+
+/* ===================================================
+   リスト
+   =================================================== */
+
+ul, ol {
+  margin: 1em 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0.6em 0;
+  padding-left: 1.5em;
+  position: relative;
+  list-style: none;
+}
+
+ul li::before {
+  content: '';
+  position: absolute;
+  left: 0.4em;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+ul ul li::before {
+  background: var(--primary-light);
+  width: 3px;
+  height: 3px;
+  left: 0.5em;
+}
+
+ol {
+  counter-reset: ol-counter;
+}
+
+ol li {
+  counter-increment: ol-counter;
+}
+
+ol li::before {
+  content: counter(ol-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.3em;
+  height: 1.3em;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+/* ===================================================
+   強調とコード
+   =================================================== */
+
+strong {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+em {
+  color: var(--secondary);
+  font-style: normal;
+  font-weight: 600;
+}
+
+code {
+  background: var(--gray-100);
+  color: var(--gray-800);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85em;
+}
+
+pre {
+  background: var(--gray-900);
+  color: var(--gray-100);
+  padding: 1.5em;
+  border-radius: 12px;
+  margin: 1.5em 0;
+  box-shadow: var(--shadow-lg);
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+/* ===================================================
+   リンク
+   =================================================== */
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary);
+}
+
+/* ===================================================
+   画像
+   =================================================== */
+
+img {
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===================================================
+   引用
+   =================================================== */
+
+blockquote {
+  border-left: 4px solid var(--primary);
+  background: var(--primary-subtle);
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+/* ===================================================
+   テーブル
+   =================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  padding: 1em;
+  font-weight: 600;
+  text-align: left;
+}
+
+td {
+  padding: 1em;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) {
+  background: var(--gray-50);
+}
+
+/* ===================================================
+   フッター・ページネーション
+   =================================================== */
+
+section::after {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  color: var(--gray-500);
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+section.lead::after {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+section.invert::after {
+  color: var(--gray-400);
+}
