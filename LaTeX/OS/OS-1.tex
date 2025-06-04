@@ -198,6 +198,873 @@ killコマンドがデフォルトで送るシグナルはTERMである。
     mawaru
 \end{lstlisting}
 
+このスクリプトは、`mawaru` という名前のシェル関数を定義し、それを呼び出しています。
+関数 `mawaru` は、内部でローカル変数 `i` を1で初期化し、`while` ループを使用して `i` が10以下である間、`i` の値を表示し、`i` を1ずつインクリメントすることを意図しています。
+正しく動作すれば、1から10までの数字が1行ずつ表示されます。
+
+\subsection*{問7 - exportコマンド}
+シェルスクリプトやコマンドラインで設定したシェル変数は、そのシェル内でのみ有効である。
+`export`コマンドは、シェル変数を環境変数としてエクスポートし、そのシェルから起動されるサブシェル（子プロセス）でもその変数が利用できるようにする。
+例えば、`export FOO` とすると、変数 `FOO` が環境変数として設定され、このシェルから実行される他のコマンドやスクリプトからも参照可能になる。
+よく使われる例として、`~/.profile` や `~/.bashrc` で `PATH` 環境変数を設定する際に `export PATH` と記述される。
+
+\subsection*{問8 - シェル変数への代入}
+`FOO=abcde` は、シェル変数 `FOO` に文字列 `abcde` を代入するコマンドである。
+このとき、`=` の前後にスペースを入れてはならない。スペースを入れると、シェルは `FOO` をコマンド名として解釈しようとするためエラーとなる。
+代入された変数は、同じシェルセッション内であれば `\${FOO}` や `\$FOO` のようにしてその値を参照できる。
+
+\subsection*{問9 - 変数展開}
+シェルスクリプトにおいて、変数名の前に `\$` を付けることで変数の値を参照できる。これを変数展開と呼ぶ。
+\begin{itemize}
+    \item `\$`単独: 通常、特別な意味を持たないか、文脈によって意味が変わる（例: 正規表現の行末）。シェルプロンプトとして表示されることが多い。
+    \item `\$FOO`: シェル変数 `FOO` の値を展開する。
+    \item `\${FOO}`: シェル変数 `FOO` の値を展開する。波括弧 `{}` で囲むことで、変数名の区切りを明確にすることができる。例えば、`\${FOO}bar` と書けば `FOO` の値と文字列 `bar` が連結されるが、`\$FOObar` と書くとシェルは `FOObar` という名前の変数を探そうとしてしまう。
+\end{itemize}
+
+\subsection*{問10 - クォーテーションの違い}
+シェルスクリプトでは、シングルクォート (`'`)、ダブルクォート (`"`)、バッククォート (`` ` ``) はそれぞれ異なる意味を持つ。
+\begin{itemize}
+    \item シングルクォート (`'`): 囲まれた文字列を完全にリテラルとして扱う。変数展開やコマンド置換は行われない。例えば `'Hello, \$USER'` はそのまま `Hello, \$USER` という文字列になる。
+    \item ダブルクォート (`"`): 囲まれた文字列内で変数展開 (`\$VAR`)、コマンド置換 (`` `command` `` または `\$(command)`)、特定のバックスラッシュシーケンス (`\textbackslash n`, `	\textbackslash t` など) が解釈される。例えば `"Hello, \$USER"` は `Hello, (現在のユーザー名)` のように展開される。
+    \item バッククォート (`` ` ``): 囲まれた文字列をコマンドとして実行し、その標準出力を文字列として展開する（コマンド置換）。例えば `` `date` `` は現在の日時を表す文字列に置き換えられる。現代のbashでは、可読性やネストの容易さから `\$(command)` の形式が推奨されることが多い。
+\end{itemize}
+
+\subsection*{問11 - スクリプトの引数}
+シェルスクリプト実行時に渡される引数は、スクリプト内で特殊な変数を使って参照できる。
+\begin{itemize}
+    \item `\$\#`: スクリプトに渡された引数の総数を表す。
+    \item `\$n`: n番目の引数を表す。例えば `\$1` は最初の引数、`\$2` は2番目の引数。nが9を超える場合は `\${10}` のように波括弧で囲む必要がある。
+    \item `\$0`: 実行されているスクリプト自体の名前を表す。
+    \item `\$*`: 全ての引数を一つの文字列として展開する。IFS環境変数の最初の文字で区切られる。
+    \item `\$@`: 全ての引数を個別の文字列として展開する。ダブルクォートで囲んだ場合 (`"\$@"`)、各引数が個別の単語として扱われるため、引数にスペースが含まれる場合に有用。
+    \item `shift`: 引数リストを左にシフトする。例えば `shift` を実行すると、元の `\$2` が新しい `\$1` になり、元の `\$1` は失われる。`\$\#` の値も1減少する。
+\end{itemize}
+これらの変数を利用することで、スクリプトは与えられた引数に応じて動作を変えることができる。
+
+\subsection*{問12 - readコマンド}
+`read`コマンドは、標準入力から1行読み込み、その内容を変数に格納するシェル組み込みコマンドである。
+提示されたスクリプトの動作は以下の通り。
+\begin{lstlisting}[caption=問12のスクリプト例]
+#!/bin/bash
+echo -n "Please input something:"
+read a
+echo "Your input is ${a}"
+\end{lstlisting}
+\begin{enumerate}
+    \item `echo -n "Please input something:"`: `-n` オプションにより、末尾の改行なしで "Please input something:" というプロンプトを表示する。
+    \item `read a`: ユーザーからの入力を待ち、入力された行を変数 `a` に格納する。
+    \item `echo "Your input is \${a}"`: 変数 `a` の内容を含めて "Your input is (入力された内容)" という文字列を表示する。
+\end{enumerate}
+このスクリプトは、ユーザーに何らかの入力を促し、入力された文字列をそのまま表示する簡単な対話処理を行う。
+
+\subsection*{問13 - ヒアドキュメント}
+`cat <<END ... END` の形式はヒアドキュメントと呼ばれる。
+これは、スクリプト内に複数行のテキストを直接記述し、それを標準入力としてコマンドに渡すための機能である。
+提示された例の動作は以下の通り。
+\begin{lstlisting}[caption=問13のスクリプト例]
+cat <<END
+This sentence will be
+input through
+standard input stream
+END
+\end{lstlisting}
+`cat` コマンドに対して、`END` という区切り文字が現れるまでの間の全ての行 (`This sentence will be`, `input through`, `standard input stream`) が標準入力として渡される。
+その結果、`cat` コマンドはこれらの行をそのまま標準出力に出力する。
+区切り文字 (`END` の部分) は任意の文字列を指定でき、開始の区切り文字の行に他の文字があってはならず、終了の区切り文字は行頭になければならない（インデントされている場合は `<<-END` を使うことで先頭のタブを除去できる）。
+
+\subsection*{問14 - 算術演算 (expr, bc)}
+シェルスクリプトで算術演算を行うには、`expr` コマンドや `bc` コマンドなどが利用される。
+\subsubsection*{expr を使った例}
+\begin{lstlisting}[caption=問14 exprのスクリプト例]
+#!/bin/bash
+a=5
+b=`expr ${a} + 10` ; echo ${b}
+c=`expr ${b} \* 2` ; echo ${c}
+\end{lstlisting}
+\begin{itemize}
+    \item `a=5`: 変数 `a` に `5` を代入。
+    \item ``b=`expr \${a} + 10` ``: `expr` コマンドを使って `\$a` (5) と `10` を加算し、結果 (15) をコマンド置換で変数 `b` に代入。
+    \item `echo \${b}`: 変数 `b` の値 (15) を表示。
+    \item ``c=`expr \${b} \* 2` ``: `expr` コマンドを使って `\$b` (15) を `2` 倍し、結果 (30) を変数 `c` に代入。乗算記号 `*` はシェルによってワイルドカードとして解釈されるのを防ぐため、`\*` とエスケープする必要がある。
+    \item `echo \${c}`: 変数 `c` の値 (30) を表示。
+\end{itemize}
+`expr` は整数演算のみをサポートし、演算子や数値はスペースで区切る必要がある。
+
+\subsubsection*{bc を使った例}
+\begin{lstlisting}[caption=問14 bcのスクリプト例]
+#!/bin/bash
+a=`echo "4*a(1.0)" | bc -l` ; echo ${a}
+b=`echo "c($a)" | bc -l` ; echo ${b}
+\end{lstlisting}
+`bc` は高精度計算が可能な計算言語であり、浮動小数点演算や数学関数（`-l` オプションで数学ライブラリを読み込む）も扱える。
+\begin{itemize}
+    \item ``a=`echo "4*a(1.0)" | bc -l` ``: `echo` で文字列 `"4*a(1.0)"` を `bc` コマンドの標準入力に渡し、計算を実行。`a(1.0)` は逆正接関数 $\arctan(1.0)$ を意味し、その値は $\pi/4$ である。したがって、$4 \times (\pi/4) = \pi$ が計算され、その結果 (例: 3.14159...) が変数 `a` に代入される。
+    \item `echo \${a}`: 変数 `a` の値 (円周率 $\pi$) を表示。
+    \item ``b=`echo "c(\$a)" | bc -l` ``: `echo` で文字列 `"c(\$a)"` を `bc` コマンドの標準入力に渡し、計算を実行。`c(\$a)` は余弦関数 $\cos(a)$ を意味し、$a$ には前のステップで計算された $\pi$ が入るので $\cos(\pi) = -1$ が計算され、変数 `b` に代入される。
+    \item `echo \${b}`: 変数 `b` の値 (-1) を表示。
+\end{itemize}
+考察: `expr` は簡単な整数演算に、`bc` は浮動小数点数を含む複雑な計算や数学関数を利用する場合に適している。`bc` を利用する際は `-l` オプションで数学ライブラリを読み込むと便利である。
+
+\subsection*{問15 - シェル関数定義}
+シェルスクリプト内で一連の処理をまとめて名前を付け、再利用可能にする仕組みがシェル関数である。
+定義の基本的な形式は以下の通り。
+\begin{lstlisting}[caption=問15 シェル関数定義の形式]
+functionName () {
+    commands
+}
+\end{lstlisting}
+または
+\begin{lstlisting}
+function functionName {
+    commands
+}
+\end{lstlisting}
+\begin{itemize}
+    \item `functionName`: 関数の名前。
+    \item `()`: 引数を取ることを示す括弧（省略可能な場合もあるが、POSIX準拠のためには付けることが推奨される）。
+    \item `{}`: コマンド群を囲む波括弧。波括弧とコマンドの間にはスペースや改行が必要。
+    \item `commands`: 関数内で実行される一連のコマンド。
+\end{itemize}
+関数内で引数を扱う場合は、スクリプト全体への引数と同様に `$1`, `$2`, ... を使用する。
+関数内で `local` キーワードを使って変数を宣言すると、その変数は関数内でのみ有効なローカル変数となる。
+定義された関数は、スクリプト内でその名前を記述することで呼び出すことができる。
+
+提示されたスクリプトは `mawaru` という関数を定義し、それを呼び出している。
+\begin{lstlisting}[caption=問15のスクリプト例]
+#!/bin/bash
+mawaru () {
+    local i=1
+    while [ $i -le 10 ]
+    do
+        echo $i
+        i=`expr $i + 1`
+    done
+}
+mawaru
+\end{lstlisting}
+このスクリプトは、関数 `mawaru` を定義し、それを呼び出している。
+関数 `mawaru` は、ローカル変数 `i` を1から10までインクリメントしながらその値を表示する。
+実行結果は1から10までの数字が1行ずつ表示される。
+考察: 想定通りの結果であった。`expr` の代わりに `i=\$((i + 1))` を使うとより簡潔に書ける。
+
+\subsection*{問16 - if条件分岐}
+`if` 文は、条件に応じて処理を分岐させるための制御構造である。
+基本的な構文は以下の通り。
+\begin{lstlisting}[caption=問16 if文の構文]
+if cond1
+then
+    com1
+elif cond2
+then
+    com2
+else
+    comN
+fi
+\end{lstlisting}
+\begin{itemize}
+    \item `if cond1`: `cond1` (コマンド) を実行し、その終了ステータスが0（成功）であれば `then` 以下の `com1` を実行する。
+    \item `elif cond2`: `cond1` が偽の場合に `cond2` (コマンド) を実行し、その終了ステータスが0であれば `then` 以下の `com2` を実行する。`elif` は複数記述可能。
+    \item `else`: いずれの `if` または `elif` の条件も満たされなかった場合に `comN` を実行する。`else` は省略可能。
+    \item `fi`: `if` 文の終わりを示す。
+\end{itemize}
+条件式 `cond` には `test` コマンド（または `[` コマンド）がよく用いられる。`test` コマンドはファイルの種類、パーミッション、文字列比較、数値比較など様々な条件を評価できる。
+提示されたスクリプトの動作は以下の通り。
+\begin{lstlisting}[caption=問16のスクリプト例]
+#!/bin/bash
+fn=~/.bashrc
+if [ -e ${fn} ]
+then
+    cat ${fn}
+else
+    echo "You has no ${fn}."
+fi
+\end{lstlisting}
+\begin{enumerate}
+    \item `fn=~/.bashrc`: 変数 `fn` に `~/.bashrc` (ホームディレクトリの `.bashrc` ファイル) のパスを代入。
+    \item `if [ -e \${fn} ]`: `test -e \${fn}` (または `[ -e \${fn} ]`) で、ファイル `\${fn}` が存在するかどうかをチェックする。
+    \item `then cat \${fn}`: ファイルが存在する場合（条件が真の場合）、`cat \${fn}` コマンドを実行し、ファイルの内容を表示する。
+    \item `else echo "You has no \${fn}."`: ファイルが存在しない場合（条件が偽の場合）、"You has no (ファイルパス)." というメッセージを表示する。
+    \item `fi`: `if` 文の終了。
+\end{enumerate}
+このスクリプトは、`~/.bashrc` ファイルが存在すればその内容を表示し、存在しなければその旨を伝えるメッセージを表示する。
+考察: 想定通りの結果であった。`test` コマンドの `-e` はファイルが存在するかどうかを調べるオプションとしてよく使われる。
+
+\subsection*{演習4 - 算術演算スクリプト}
+問14で扱った `expr` や `bc` を用いた算術演算のスクリプトを作成・実行する演習。
+\subsubsection*{expr を用いたスクリプト}
+\begin{lstlisting}[caption=演習4 exprのスクリプト例]
+#!/bin/bash
+# Exercise 4: expr
+val1=20
+val2=5
+sum_val=$(expr $val1 + $val2)
+diff_val=$(expr $val1 - $val2)
+prod_val=$(expr $val1 \* $val2)
+quot_val=$(expr $val1 / $val2)
+
+echo "Using expr:"
+echo "$val1 + $val2 = $sum_val"
+echo "$val1 - $val2 = $diff_val"
+echo "$val1 * $val2 = $prod_val"
+echo "$val1 / $val2 = $quot_val"
+\end{lstlisting}
+実行結果の例:
+\begin{verbatim}
+Using expr:
+20 + 5 = 25
+20 - 5 = 15
+20 * 5 = 100
+20 / 5 = 4
+\end{verbatim}
+考察: `expr` を用いた基本的な四則演算が正しく実行された。乗算記号 `*` のエスケープが必要な点に注意する。
+
+\subsubsection*{bc を用いたスクリプト (浮動小数点とべき乗)}
+\begin{lstlisting}[caption=演習4 bcのスクリプト例]
+#!/bin/bash
+# Exercise 4: bc
+val_float1=3.14
+val_float2=2.5
+power_base=2
+power_exp=10
+
+sum_float=$(echo "$val_float1 + $val_float2" | bc)
+prod_float=$(echo "$val_float1 * $val_float2" | bc)
+power_val=$(echo "$power_base^$power_exp" | bc)
+sqrt_val=$(echo "sqrt(16)" | bc -l) # -l for math library
+
+echo "Using bc:"
+echo "$val_float1 + $val_float2 = $sum_float"
+echo "$val_float1 * $val_float2 = $prod_float"
+echo "$power_base^$power_exp = $power_val"
+echo "sqrt(16) = $sqrt_val"
+\end{lstlisting}
+実行結果の例:
+\begin{verbatim}
+Using bc:
+3.14 + 2.5 = 5.64
+3.14 * 2.5 = 7.850
+2^10 = 1024
+sqrt(16) = 4.00000000000000000000
+\end{verbatim}
+考察: `bc` を用いることで浮動小数点演算やべき乗、平方根の計算が容易に行えることを確認した。数学関数を利用する際は `-l` オプションが必要である。
+
+\subsection*{演習5 - シェル関数スクリプト}
+問15で扱ったシェル関数を作成し、引数を渡して実行する演習。
+\begin{lstlisting}[caption=演習5 シェル関数のスクリプト例]
+#!/bin/bash
+# Exercise 5: Shell Function with Arguments
+
+greet_user() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: $0 <name>"
+        return 1
+    fi
+    local name=$1
+    echo "Hello, ${name}! Welcome."
+}
+
+greet_user "Alice"
+greet_user "Bob"
+greet_user
+\end{lstlisting}
+実行結果の例:
+\begin{verbatim}
+Hello, Alice! Welcome.
+Hello, Bob! Welcome.
+Usage: ./script_name <name>
+\end{verbatim}
+考察: シェル関数に引数を渡し、関数内で `\$1` を使って引数を参照できることを確認した。また、引数の数を `\$\#` でチェックし、使用法を表示する簡単なエラーハンドリングも実装できた。
+
+\subsection*{演習6 - if文スクリプト}
+問16で扱った `if` 文を用いて、数値比較を行うスクリプトを作成する演習。
+\begin{lstlisting}[caption=演習6 if文のスクリプト例]
+#!/bin/bash
+# Exercise 6: if statement for number comparison
+
+read -p "Enter a number: " num
+
+if [ -z "$num" ]; then
+    echo "No input provided."
+elif ! [[ "$num" =~ ^[0-9]+$ ]]; then
+    echo "Invalid input: Not a number."
+elif [ "$num" -lt 10 ]; then
+    echo "${num} is less than 10."
+elif [ "$num" -gt 10 ]; then
+    echo "${num} is greater than 10."
+else
+    echo "${num} is equal to 10."
+fi
+\end{lstlisting}
+実行例1 (入力: 5):
+\begin{verbatim}
+Enter a number: 5
+5 is less than 10.
+\end{verbatim}
+実行例2 (入力: 15):
+\begin{verbatim}
+Enter a number: 15
+15 is greater than 10.
+\end{verbatim}
+実行例3 (入力: abc):
+\begin{verbatim}
+Enter a number: abc
+Invalid input: Not a number.
+\end{verbatim}
+考察: `if-elif-else` 構造と数値比較演算子 (`-lt`, `-gt`) を用いて、入力された数値に応じた処理の分岐ができた。入力値の検証 (空でないか、数値であるか) も追加した。
+
+\subsection*{演習7 - case文スクリプト}
+ファイル拡張子に応じてメッセージを表示する `case` 文のスクリプト。
+\begin{lstlisting}[caption=演習7 case文のスクリプト例 (PDF記載例)]
+#!/bin/bash
+echo -n "Please input filename:"
+read fn
+case ${fn} in
+    *.txt)
+        echo "${fn} is text file." ;;
+    *.c)
+        echo "${fn} is C program file." ;;
+    *)
+        echo "Hey, what is ${fn}? Do you know it?" ;;
+esac
+\end{lstlisting}
+実行例1 (入力: report.txt):
+\begin{verbatim}
+Please input filename:report.txt
+report.txt is text file.
+\end{verbatim}
+実行例2 (入力: main.c):
+\begin{verbatim}
+Please input filename:main.c
+main.c is C program file.
+\end{verbatim}
+実行例3 (入力: image.jpg):
+\begin{verbatim}
+Please input filename:image.jpg
+Hey, what is image.jpg? Do you know it?
+\end{verbatim}
+考察: `case` 文を用いることで、入力されたファイル名が特定のパターンに一致する場合に応じた処理を実行できた。`*` はワイルドカードとして機能し、任意の文字列にマッチする。
+
+\subsection*{演習8 - forループスクリプト}
+0から10までの数値に対して処理を行う `for` ループのスクリプト。
+\begin{lstlisting}[caption=演習8 forループのスクリプト例 (PDF記載例)]
+#!/bin/bash
+for x in 0 1 2 3 4 5 6 7 8 9 10
+do
+    v=`echo "${x} * 0.31416" | bc -l`
+    w=`echo "s(${v})" | bc -l`
+    echo "sin(${v}) = ${w}."
+done
+\end{lstlisting}
+実行結果の例 (一部):
+\begin{verbatim}
+sin(0.00000) = .00000000000000000000.
+sin(0.31416) = .30902182152311109099.
+...
+sin(3.14160) = -.00000732421875000000.
+\end{verbatim}
+考察: `for` ループで指定したリストの各要素を変数 `x` に順次代入し、ループ内の処理を実行できた。`bc -l` を用いて三角関数計算を行っている。
+
+\subsection*{演習9 - whileループスクリプト}
+条件が満たされる間、処理を繰り返す `while` ループのスクリプト。
+\begin{lstlisting}[caption=演習9 whileループのスクリプト例 (PDF記載例)]
+#!/bin/bash
+x=0
+while [ ${x} -le 10 ]
+do
+    v=`echo "${x} * 0.31416" | bc -l`
+    echo "sin(${v}) = " `echo "s(${v})" | bc -l`.
+    x=`expr ${x} + 1`
+done
+\end{lstlisting}
+実行結果の例 (一部、演習8と同様):
+\begin{verbatim}
+sin(0.00000) = .00000000000000000000.
+sin(0.31416) = .30902182152311109099.
+...
+sin(3.14160) = -.00000732421875000000.
+\end{verbatim}
+考察: `while` ループで変数 `x` が10以下である間、ループ内の処理を繰り返し実行できた。カウンタ変数 `x` のインクリメントには `expr` を使用している。`x=\$((x + 1))` の方が現代的である。
+
+\subsection*{演習10 - break文}
+ループ処理を途中で抜ける `break` 文の動作を確認する。
+\begin{lstlisting}[caption=演習10 break文のスクリプト例]
+#!/bin/bash
+# Exercise 10: break statement
+echo "Counting from 1 to 10, but will break at 5."
+count=1
+while [ $count -le 10 ]; do
+    echo "Count is: $count"
+    if [ $count -eq 5 ]; then
+        echo "Breaking loop at count = 5."
+        break
+    fi
+    count=$((count + 1))
+done
+echo "Loop finished."
+\end{lstlisting}
+実行結果:
+\begin{verbatim}
+Counting from 1 to 10, but will break at 5.
+Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Breaking loop at count = 5.
+Loop finished.
+\end{verbatim}
+考察: `while` ループ内で `count` が5になった時点で `if` 条件が真となり `break` 文が実行され、ループが途中で終了することを確認した。
+
+\subsection*{演習11 - trapコマンド (SIGINT, SIGTERM)}
+シグナルを捕捉して特定の処理を行う `trap` コマンドの基本的な使い方。
+PDF記載のスクリプト(e13)は以下の通り。
+\begin{lstlisting}[caption=演習11 trapコマンドのスクリプト例 (e13)]
+#!/bin/bash
+trap 'echo =======I am trapped.======= ' SIGINT
+x=1
+while true # infinite loop!
+do
+    echo "${x}-th loop!!"
+    x=`expr ${x} + 1`
+done
+\end{lstlisting}
+このスクリプトを実行し、Ctrl+C を押すと `SIGINT` が送られ、`trap` で設定したメッセージが表示される。
+ターミナルを2つ開き、片方でスクリプトを実行し、もう片方から `kill <PID>` (SIGTERM) や `kill -INT <PID>` (SIGINT) を送ることで動作を確認できる。
+考察: `trap` コマンドにより、`SIGINT` シグナルを補足し、指定したコマンド (`echo ...`) が実行されることを確認した。`SIGTERM` はデフォルトでは捕捉されないため、別途 `trap` で指定する必要がある。無限ループは `Ctrl+C` (SIGINT) では終了せず、`kill -9 <PID>` (SIGKILL) などで強制終了する必要がある場合がある。
+
+\subsection*{演習12 - exprと算術展開}
+`expr` コマンドの代わりにbashの算術展開 `\$(())` を使用する。
+\begin{lstlisting}[caption=演習12 算術展開のスクリプト例]
+#!/bin/bash
+# Exercise 12: Arithmetic Expansion
+a=10
+b=20
+
+# Using expr
+sum_expr=$(expr $a + $b)
+echo "Sum using expr: $sum_expr"
+
+# Using arithmetic expansion
+sum_arith=$((a + b))
+echo "Sum using arithmetic expansion: $sum_arith"
+
+product_arith=$((a * b))
+echo "Product using arithmetic expansion: $a * $b = $product_arith"
+
+# No need to escape * in arithmetic expansion
+# Spaces around operators are optional but good for readability
+diff_arith=$((b - a))
+echo "Difference: $b - $a = $diff_arith"
+\end{lstlisting}
+実行結果:
+\begin{verbatim}
+Sum using expr: 30
+Sum using arithmetic expansion: 30
+Product using arithmetic expansion: 10 * 20 = 200
+Difference: 20 - 10 = 10
+\end{verbatim}
+考察: bashの算術展開 `\$(())` は `expr` よりも簡潔に記述でき、`*` のエスケープも不要であるため、可読性が向上する。整数演算に推奨される方法である。
+
+\subsection*{演習13 - trapのリセット}
+一度設定した `trap` をリセット（デフォルトの動作に戻す）する。
+PDF記載のスクリプトは以下の通り。
+\begin{lstlisting}[caption=演習13 trapリセットのスクリプト例]
+#!/bin/bash
+trap 'echo =======I am trapped.=======; trap SIGINT' SIGINT
+x=1
+while true # infinite loop!
+do
+    echo "${x}-th loop!!"
+    x=`expr ${x} + 1`
+done
+\end{lstlisting}
+このスクリプトでは、最初の `SIGINT` でメッセージが表示され、その後 `trap SIGINT` (引数なし) が実行される。これにより `SIGINT` に対するトラップがリセットされ、2回目の `Ctrl+C` (SIGINT) ではスクリプトがデフォルト通り終了する。
+考察: `trap <シグナル名>` のようにコマンドを指定せずに `trap` を実行すると、そのシグナルに対するトラップがリセットされることを確認した。
+
+\subsection*{演習14 - 複数シグナルのtrap}
+複数のシグナルを一度に `trap` する。
+PDF記載のスクリプトは以下の通り。
+\begin{lstlisting}[caption=演習14 複数シグナルtrapのスクリプト例]
+#!/bin/bash
+trap '/bin/rm tmp.$$; exit 1' SIGINT SIGTERM
+x=1
+while true # infinite loop!
+do
+    echo "${x}-th loop!!"
+    echo "${x}-th loop!!" > tmp.$$
+    x=`expr ${x} + 1`
+done
+\end{lstlisting}
+このスクリプトは `SIGINT` または `SIGTERM` を受信すると、`tmp.(プロセスID)` というファイルを削除し、終了コード1で終了する。`\$\$` は現在のシェルのプロセスIDに展開される。
+考察: `trap 'コマンド' シグナル1 シグナル2 ...` のように記述することで、複数のシグナルに対して同じ処理を割り当てることができる。終了前に一時ファイルをクリーンアップするなどの処理に利用できる。
+
+\subsection*{演習15 - SIGKILLのtrap不可}
+`SIGKILL` (シグナル番号9) は `trap` できないことを確認する。
+\begin{lstlisting}[caption=演習15 SIGKILL trap試行スクリプト例]
+#!/bin/bash
+trap 'echo "SIGKILL trapped?"' SIGKILL
+trap 'echo "SIGTERM trapped, exiting gracefully."; exit 0' SIGTERM
+echo "Script running with PID: $$"
+echo "Try killing with SIGTERM (kill $$) and SIGKILL (kill -9 $$)"
+count=0
+while true; do
+    echo "Looping... $count"
+    count=$((count + 1))
+    sleep 1
+done
+\end{lstlisting}
+このスクリプトを実行し、別のターミナルから `kill <PID>` (SIGTERM) を送ると "SIGTERM trapped..." が表示されて終了する。しかし `kill -9 <PID>` (SIGKILL) を送ると、"SIGKILL trapped?" は表示されず、スクリプトは即座に強制終了する。
+考察: `SIGKILL` と `SIGSTOP` は捕捉(trap)したり無視したりすることができない特別なシグナルである。これらはプロセスを確実に終了させる（または停止させる）ためにOSによって予約されている。
+
+\subsection*{演習16 - while true ループの終了}
+`while true` で作成した無限ループをどのように終了させるかの考察。
+PDFのスクリプト例:
+\begin{lstlisting}[caption=演習16 while true スクリプト例]
+#!/bin/bash
+trap 'echo ====I am trapped====' SIGINT SIGTERM
+x=1
+while true # infinite loop!
+do
+    echo "${x}-th loop!!"
+    x=`expr ${x} + 1`
+done
+\end{lstlisting}
+このループは、`SIGINT` (Ctrl+C) や `SIGTERM` (kill) を送っても、トラップメッセージが表示されるだけで終了しない。
+終了させる方法:
+\begin{enumerate}
+    \item トラップ内で `exit` コマンドを実行するようにスクリプトを修正する。
+    \begin{lstlisting}
+trap 'echo ====I am trapped, exiting...====; exit 0' SIGINT SIGTERM
+    \end{lstlisting}
+    \item スクリプトを修正せず外部から終了させる場合は、`kill -9 <PID>` (SIGKILL) を使用する。SIGKILLはトラップできないため、プロセスを強制終了できる。
+    \item ループ内に終了条件を設ける（例: 特定の回数実行したら `break` する、特定のファイルが作成されたら終了するなど）。
+\end{enumerate}
+考察: `while true` のような無限ループは、意図的に終了処理を組み込むか、外部から強制終了シグナルを送らない限り終了しない。`trap` でシグナルを捕捉している場合は、そのトラップ処理内で `exit` を呼ばない限り、捕捉したシグナルでは終了しない点に注意が必要。
+
+\subsection*{演習17 - 画像管理スクリプト}
+指定された画像フォルダ内の画像ファイルに対して、一覧表示、タグ付け、タグによる検索を行うシェルスクリプトを作成する。
+タグ情報は、画像ファイル名に追従する形で、例えば `画像ファイル名.tag` という別ファイルに保存する形式を想定する。
+
+\subsubsection*{スクリプト (imgtool.sh)}
+\begin{lstlisting}[caption=演習17 画像管理スクリプト `imgtool.sh`]
+#!/bin/bash
+
+IMAGE_DIR="${HOME}/images" # 画像が保存されているディレクトリ
+TAG_EXT=".tag"          # タグファイルの拡張子
+
+# --- 関数定義 ---
+
+# 画像一覧表示
+list_images() {
+    echo "--- Images in ${IMAGE_DIR} ---"
+    ls -1 "${IMAGE_DIR}" | grep -E '\.(jpg|jpeg|png|gif)$'
+    echo "-------------------------"
+}
+
+# タグ付け (既存タグは上書き)
+add_tag() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: $0 tag <image_file> <tag_string>"
+        return 1
+    fi
+    local image_file="$1"
+    local tag_string="$2"
+    local image_path="${IMAGE_DIR}/${image_file}"
+    local tag_file_path="${image_path}${TAG_EXT}"
+
+    if [ ! -f "${image_path}" ]; then
+        echo "Error: Image file '${image_file}' not found in ${IMAGE_DIR}."
+        return 1
+    fi
+
+    echo "${tag_string}" > "${tag_file_path}"
+    echo "Tagged '${image_file}' with '${tag_string}'."
+}
+
+# タグ表示
+show_tag() {
+    if [ -z "$1" ]; then
+        echo "Usage: $0 showtag <image_file>"
+        return 1
+    fi
+    local image_file="$1"
+    local image_path="${IMAGE_DIR}/${image_file}"
+    local tag_file_path="${image_path}${TAG_EXT}"
+
+    if [ ! -f "${image_path}" ]; then
+        echo "Error: Image file '${image_file}' not found in ${IMAGE_DIR}."
+        return 1
+    fi
+
+    if [ -f "${tag_file_path}" ]; then
+        local tag_content=$(cat "${tag_file_path}")
+        echo "Tags for '${image_file}': ${tag_content}"
+    else
+        echo "No tags found for '${image_file}'."
+    fi
+}
+
+# タグで検索
+search_by_tag() {
+    if [ -z "$1" ]; then
+        echo "Usage: $0 search <search_tag>"
+        return 1
+    fi
+    local search_tag="$1"
+    echo "--- Images tagged with '${search_tag}' ---"
+    local found_count=0
+    for tag_file in "${IMAGE_DIR}"/*"${TAG_EXT}"; do
+        if [ -f "${tag_file}" ]; then
+            if grep -q -i "${search_tag}" "${tag_file}"; then
+                local image_file=$(basename "${tag_file}" "${TAG_EXT}")
+                echo "${image_file}"
+                found_count=$((found_count + 1))
+            fi
+        fi
+    done
+    if [ "${found_count}" -eq 0 ]; then
+        echo "No images found with tag '${search_tag}'."
+    fi
+    echo "------------------------------------"
+}
+
+# ヘルプ表示
+show_help() {
+    echo "Image Management Tool"
+    echo "Usage: $0 <command> [options]"
+    echo ""
+    echo "Commands:"
+    echo "  list                      List all image files."
+    echo "  tag <image_file> <tags>   Add/update tags for an image file."
+    echo "                            (e.g., $0 tag photo.jpg \"holiday sunset beach\")"
+    echo "  showtag <image_file>      Show tags for an image file."
+    echo "  search <tag_keyword>      Search images by a tag keyword."
+    echo "  help                      Show this help message."
+    echo ""
+    echo "Note: Image directory is set to ${IMAGE_DIR}"
+}
+
+# --- メイン処理 ---
+if [ -z "$1" ]; then
+    show_help
+    exit 1
+fi
+
+# IMAGE_DIRが存在しなければ作成
+mkdir -p "${IMAGE_DIR}"
+
+COMMAND="$1"
+shift # コマンド名を除去して残りを引数とする
+
+case "${COMMAND}" in
+    list)
+        list_images
+        ;;
+    tag)
+        add_tag "$1" "$2"
+        ;;
+    showtag)
+        show_tag "$1"
+        ;;
+    search)
+        search_by_tag "$1"
+        ;;
+    help)
+        show_help
+        ;;
+    *)
+        echo "Error: Unknown command '${COMMAND}'."
+        show_help
+        exit 1
+        ;;
+esac
+
+exit 0
+\end{lstlisting}
+
+\subsubsection*{スクリプトの解説}
+このスクリプト `imgtool.sh` は、指定された画像ディレクトリ (デフォルトは `~/images`) 内の画像ファイルに対して、以下の操作を行うツールである。
+\begin{itemize}
+    \item \textbf{環境変数・定数}:
+    \begin{itemize}
+        \item `IMAGE\_DIR`: 画像が保存されているディレクトリを指定。デフォルトはユーザのホームディレクトリ下の `images`。スクリプト実行時にこのディレクトリがなければ作成される。
+        \item `TAG\_EXT`: タグ情報を保存するファイルの拡張子。デフォルトは `.tag`。
+    \end{itemize}
+    \item \textbf{関数}:
+    \begin{itemize}
+        \item `list\_images`: `IMAGE\_DIR` 内の画像ファイル (jpg, jpeg, png, gif) を一覧表示する。
+        \item `add\_tag <image\_file> <tag\_string>`: 指定された画像ファイルにタグを付ける。タグはスペース区切りで複数指定可能（ダブルクォートで囲む）。タグ情報は `画像ファイル名.tag` というファイルに保存される。既存のタグは上書きされる。
+        \item `show\_tag <image\_file>`: 指定された画像ファイルのタグ情報を表示する。
+        \item `search\_by\_tag <search\_tag>`: 指定されたタグ（キーワード）を含む画像ファイルを検索し、一覧表示する。検索はタグファイルの内容に対して行われ、大文字・小文字を区別しない。
+        \item `show\_help`: スクリプトの使用方法を表示する。
+    \end{itemize}
+    \item \textbf{メイン処理}:
+    \begin{itemize}
+        \item スクリプト実行時の最初の引数をコマンドとして解釈する。
+        \item `case` 文を用いて、指定されたコマンドに応じた関数を呼び出す。
+        \item コマンドが指定されない場合や未知のコマンドの場合はヘルプメッセージを表示して終了する。
+    \end{itemize}
+\end{itemize}
+スクリプトは実行権限 (`chmod +x imgtool.sh`) を与えた後、 `./imgtool.sh <command> [options]` のようにして使用する。
+
+\subsubsection*{実行結果の例}
+まず、画像ディレクトリとサンプルファイルを作成する。
+\begin{verbatim}
+$ mkdir ~/images
+$ touch ~/images/photo1.jpg
+$ touch ~/images/photo2.png
+$ touch ~/images/document.txt # 画像ではないファイル
+\end{verbatim}
+
+スクリプトを実行する。
+\begin{verbatim}
+$ ./imgtool.sh list
+--- Images in /home/user/images ---
+photo1.jpg
+photo2.png
+-------------------------
+
+$ ./imgtool.sh tag photo1.jpg "cat cute animal"
+Tagged 'photo1.jpg' with 'cat cute animal'.
+
+$ ./imgtool.sh tag photo2.png "dog park sunny"
+Tagged 'photo2.png' with 'dog park sunny'.
+
+$ ./imgtool.sh showtag photo1.jpg
+Tags for 'photo1.jpg': cat cute animal
+
+$ ./imgtool.sh showtag photo2.png
+Tags for 'photo2.png': dog park sunny
+
+$ ./imgtool.sh search cat
+--- Images tagged with 'cat' ---
+photo1.jpg
+------------------------------------
+
+$ ./imgtool.sh search sunny
+--- Images tagged with 'sunny' ---
+photo2.png
+------------------------------------
+
+$ ./imgtool.sh search holiday
+--- Images tagged with 'holiday' ---
+No images found with tag 'holiday'.
+------------------------------------
+
+$ ./imgtool.sh tag photo1.jpg "cat fluffy indoor" # タグの上書き
+Tagged 'photo1.jpg' with 'cat fluffy indoor'.
+
+$ ./imgtool.sh showtag photo1.jpg
+Tags for 'photo1.jpg': cat fluffy indoor
+
+$ ./imgtool.sh help
+Image Management Tool
+Usage: ./imgtool.sh <command> [options]
+... (ヘルプメッセージが表示される) ...
+\end{verbatim}
+
+\subsubsection*{考察}
+このスクリプトは、基本的なファイル操作、文字列操作、条件分岐、ループ、関数といったシェルスクリプトの要素を組み合わせて作成されている。
+タグ情報を画像ファイルとは別の `.tag` ファイルに保存する方式はシンプルで実装が容易である。
+改善点としては、以下のようなものが考えられる。
+\begin{itemize}
+    \item タグの追加・削除を個別に行えるようにする（現在は上書きのみ）。
+    \item 複数のタグでAND/OR検索できるようにする。
+    \item タグ情報をSQLiteなどの軽量データベースに保存することで、より高度な検索や管理を可能にする。
+    \item 画像ファイルの存在確認をより厳密に行う（`grep` での拡張子フィルタリングだけでなく、`file` コマンドでMIMEタイプを確認するなど）。
+\end{itemize}
+演習の範囲内では、指定された機能をシェルスクリプトで実現できた。
+
+\subsection*{演習18 - SIGTERMによる終了処理 (ボーナス)}
+`trap` を使用して `SIGTERM` シグナルを捕捉し、終了前に特定の処理（例えば一時ファイルの削除）を実行するスクリプトを作成する。
+PDFの最後のスクリプト例 (`trap '/bin/rm tmp.\$\$; exit 1' SIGINT SIGTERM`) がこれに該当するが、ここでは `SIGTERM` に特化し、より明確なクリーンアップ処理とメッセージを加えてみる。
+
+\subsubsection*{スクリプト例}
+\begin{lstlisting}[caption=演習18 SIGTERMによる終了処理スクリプト]
+#!/bin/bash
+
+TEMP_FILE="/tmp/myscript_temp_$$"
+
+# SIGTERMシグナルを捕捉し、クリーンアップ関数を呼び出す
+trap 'cleanup_and_exit' SIGTERM
+# SIGINT (Ctrl+C) も同様に処理する
+trap 'cleanup_and_exit' SIGINT
+
+cleanup_and_exit() {
+    echo "" # 改行
+    echo "Signal received. Cleaning up temporary file: ${TEMP_FILE}"
+    if [ -f "${TEMP_FILE}" ]; then
+        rm -f "${TEMP_FILE}"
+        echo "Temporary file removed."
+    else
+        echo "No temporary file to remove."
+    fi
+    echo "Exiting gracefully."
+    exit 0 # 正常終了
+}
+
+echo "Script started. PID: $$"
+echo "Creating temporary file: ${TEMP_FILE}"
+date > "${TEMP_FILE}"
+echo "Temporary file created. Content: $(cat ${TEMP_FILE})"
+echo "Script is running. Send SIGTERM (kill $$) or press Ctrl+C to test cleanup."
+
+E スクリプトが何らかの処理を続けることを模倣
+count=0
+while true; do
+    echo "Working... ($((count+=1))) - Temp file exists: $(if [ -f "$TEMP_FILE" ]; then echo "Yes"; else echo "No"; fi)"
+    sleep 2
+done
+\end{lstlisting}
+
+\subsubsection*{スクリプトの解説}
+\begin{itemize}
+    \item `TEMP\_FILE`: スクリプトが使用する一時ファイルのパスを定義。`\$\$` は現在のシェルのプロセスIDに展開され、ユニークなファイル名を生成するのに役立つ。
+    \item `trap 'cleanup\_and\_exit' SIGTERM SIGINT`: `SIGTERM` または `SIGINT` シグナルを受信した際に `cleanup\_and\_exit` 関数を呼び出すように設定する。
+    \item `cleanup\_and\_exit()`:
+        \begin{itemize}
+            \item 終了シグナル受信のメッセージを表示する。
+            \item `TEMP\_FILE` が存在すれば削除し、その旨を通知する。
+            \item 正常終了のメッセージを表示し、`exit 0` でスクリプトを終了する。
+        \end{itemize}
+    \item スクリプトのメイン部分:
+        \begin{itemize}
+            \item スクリプトの開始とPIDを表示する。
+            \item 一時ファイルを作成し、その内容を表示する。
+            \item ユーザーにテスト方法を案内する。
+            \item `while true` ループで、スクリプトが何らかの作業を継続していることを模倣する。ループ内では一時ファイルの存在状況も表示する。
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{実行結果の例}
+1.  スクリプトを実行する (`./script\_name.sh`)。
+    \begin{verbatim}
+    $ ./sigterm_cleanup.sh
+    Script started. PID: 12345
+    Creating temporary file: /tmp/myscript_temp_12345
+    Temporary file created. Content: (現在の日時)
+    Script is running. Send SIGTERM (kill 12345) or press Ctrl+C to test cleanup.
+    Working... (1) - Temp file exists: Yes
+    Working... (2) - Temp file exists: Yes
+    ...
+    \end{verbatim}
+2.  別のターミナルから `kill 12345` (PIDは実際の値に置き換える) を実行するか、スクリプト実行中のターミナルで `Ctrl+C` を押す。
+    スクリプト実行中のターミナルに以下のような出力が表示される。
+    \begin{verbatim}
+    Working... (N) - Temp file exists: Yes
+    
+    Signal received. Cleaning up temporary file: /tmp/myscript_temp_12345
+    Temporary file removed.
+    Exiting gracefully.
+    $ # プロンプトに戻る
+    \end{verbatim}
+    この後、`/tmp/myscript\_temp\_12345` ファイルが削除されていることを確認できる。
+
+\subsubsection*{考察}
+`trap` を用いることで、`SIGTERM` や `SIGINT` といった終了シグナルを捕捉し、スクリプトが中断される前に指定したクリーンアップ処理（一時ファイルの削除など）を実行できることを確認した。
+これにより、予期せぬ中断が発生した場合でも、システムに不要なファイルを残さず、より安全にスクリプトを終了させることができる。
+`exit` コマンドをトラップ処理の最後に含めることで、クリーンアップ後にスクリプトを確実に終了させることが重要である。
+この演習は、堅牢なシェルスクリプトを作成する上で非常に有用なテクニックを示している。
 
 
 \end{document}
