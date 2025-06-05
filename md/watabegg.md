@@ -41,9 +41,9 @@ paginate: true
 *   **2021年04月 - 現在**
     *   信州大学 工学部 電子情報システム工学科 (在学中)
 *   **2024年03月 - 2024年11月**
-    *   株式会社ウェブウェア (アルバイト)
+    *   株式会社ウェブウェア (アルバイト) 8カ月
 *   **2024年11月 - 現在**
-    *   ASUNA Frontier株式会社 (業務委託契約)
+    *   ASUNA Frontier株式会社 (業務委託契約) 7カ月
 * 　**2027年03月**
     *   信州大学 工学部 電子情報システム工学科 (卒業予定)
 
@@ -51,14 +51,15 @@ paginate: true
 
 # Skills - プログラミングスキル
 
-*   **言語**:
-    *   TypeScript, JavaScript, Python, PHP
-*   **フレームワーク & ライブラリ**:
-    *   Next.js, React, Astro, Tailwind CSS, GSAP, WordPress
-*   **ツール**:
-    *   Git, GitHub, Docker, Figma
-*   **OS**:
-    *   Linux (Ubuntu), Windows
+*   **TypeScript**: <span class="star">:star::star::star:</span>
+    *   Next.js, React, Node.js
+    *   フルスタック開発の中心技術
+*   **JavaScript**: <span class="star">:star::star:☆</span>
+    *   kintoneのプラグイン開発などでVanilla JSも経験
+*   **Python**: <span class="star">:star::star:☆</span>
+    *   大学の授業やちょっとしたデータ分析、自動化できるタスクのために使用
+*   **PHP**: <span class="star">:star:☆☆</span>
+    *   昔Web開発をする際にVanilla PHPを使っていた
 
 ---
 

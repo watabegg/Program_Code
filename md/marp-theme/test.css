@@ -252,6 +252,14 @@ ol li::before {
   font-weight: 600;
 }
 
+section span {
+  text-align: right;
+  position: absolute;
+  right: 40px;
+  top: 0;
+  font-size: 30px
+}
+
 /* ===================================================
    強調とコード
    =================================================== */
