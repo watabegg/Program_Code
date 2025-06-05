@@ -142,5 +142,3 @@ paginate: true
 
 <!-- _class: lead invert -->
 # ご清聴ありがとうございました
-
-**@watabegg**
