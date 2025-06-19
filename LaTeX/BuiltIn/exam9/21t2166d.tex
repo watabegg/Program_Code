@@ -195,45 +195,58 @@ SPI通信のチップセレクト機能を利用して、2つのSPIデバイス(
     \begin{circuitikz}[american, scale=0.9, every node/.style={scale=0.8}]
         % Raspberry Pi
         \draw[thick] (0,0) rectangle (3,6);
-        \node[font=\bfseries] at (1.5,6.3) {Raspberry Pi 4B};
-        \node[anchor=east] at (0,5.5) {+3.3V};
-        \node[anchor=east] at (0,4.5) {MOSI};
-        \node[anchor=east] at (0,4) {MISO};
-        \node[anchor=east] at (0,3.5) {SCLK};
-        \node[anchor=east] at (0,3) {CE0};
-        \node[anchor=east] at (0,2.5) {CE1};
-        \node[anchor=east] at (0,0.5) {GND};
+        \node[font=\bfseries] at (1.5,6.3) {\textbf{Raspberry Pi 4B}};
+        \node[anchor=west] at (0,5.5) {+3.3V}; \node[anchor=east] at (0.1, 5.5) {Pin 1};
+        \node[anchor=west] at (0,4.5) {MOSI}; \node[anchor=east] at (0.1, 4.5) {Pin 19};
+        \node[anchor=west] at (0,4) {MISO}; \node[anchor=east] at (0.1, 4) {Pin 21};
+        \node[anchor=west] at (0,3.5) {SCLK}; \node[anchor=east] at (0.1, 3.5) {Pin 23};
+        \node[anchor=west] at (0,3) {CE0}; \node[anchor=east] at (0.1, 3) {Pin 24};
+        \node[anchor=west] at (0,2.5) {CE1}; \node[anchor=east] at (0.1, 2.5) {Pin 26};
+        \node[anchor=west] at (0,0.5) {GND}; \node[anchor=east] at (0.1, 0.5) {Pin 6};
         
         % Power lines
-        \draw[red, thick] (3,5.5) -- (12,5.5) node[above] {+3.3V};
-        \draw[black, thick] (3,0.5) -- (12,0.5) node[below] {GND};
+        \draw[red, thick] (3,5.5) -- (12,5.5) node[above,pos=0.5] {+3.3V};
+        \draw[black, thick] (3,0.5) -- (12,0.5) node[below,pos=0.5] {GND};
 
         % MCP3002 (SPI CE0)
-        \draw (6,2) node[draw, rectangle, minimum width=1.5cm, minimum height=1cm] (mcp3002) {};
-        \node at (6.75,2.7) {MCP3002};
-        \draw (3,3) -- (mcp3002.west |- 0,3); % CE0
-        \draw (3,4) -- (mcp3002.west |- 0,4); % MISO
-        \draw (3,4.5) -- (mcp3002.west |- 0,4.5); % MOSI
-        \draw (3,3.5) -- (mcp3002.west |- 0,3.5); % SCLK
-        \draw (mcp3002.north) -- (mcp3002.north |- 0,5.5);
-        \draw (mcp3002.south) -- (mcp3002.south |- 0,0.5);
+        \node (mcp3002) [dipchip, num pins=8, external pins width=0.3] at (6,2.5) {MCP3002};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 1) {CS/SHDN};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 2) {CH0};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 3) {CH1};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 4) {$V_{SS}$/GND};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 5) {$D_{IN}$/SDI};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 6) {$D_{OUT}$/SDO};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 7) {CLK};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 8) {$V_{DD}$/$V_{REF}$};
+        \draw (3,3) -- (4.5, 3) |- (mcp3002.pin 1); % CS
+        \draw (3,4.5) -- (mcp3002.pin 5); % MOSI
+        \draw (3,4) -- (mcp3002.pin 6); % MISO
+        \draw (3,3.5) -- (mcp3002.pin 7); % SCLK
+        \draw (mcp3002.pin 8) |- (11,5.5); % VDD
+        \draw (mcp3002.pin 4) |- (6,0.5); % GND
 
         % LM35DZ
-        \draw (8,1.5) node[op amp, noinv input up] (lm35dz) {};
-        \node at (8,2.5) {LM35DZ};
-        \draw (lm35dz.out) -- (mcp3002.east);
-        \draw (lm35dz.up) -- (8,5.5);
-        \draw (lm35dz.down) -- (8,0.5);
+        \node (lm35dz) [op amp, noinv input up] at (9,2.5) {};
+        \node at (8,3.5) {LM35DZ};
+        \draw (lm35dz.out) -- (mcp3002.pin 2);
+        \draw (lm35dz.+) |- (11,5.5);
+        \draw (lm35dz.-) |- (9,0.5);
 
         % LIS3DH (SPI CE1)
-        \draw (10,4) node[draw, rectangle, minimum width=1.5cm, minimum height=1cm] (lis3dh) {};
-        \node at (10.75,4.7) {LIS3DH};
-        \draw (3,2.5) -- (lis3dh.west |- 0,2.5); % CE1
-        \draw (3,4) -- (lis3dh.west |- 0,4); % MISO
-        \draw (3,4.5) -- (lis3dh.west |- 0,4.5); % MOSI
-        \draw (3,3.5) -- (lis3dh.west |- 0,3.5); % SCLK
-        \draw (lis3dh.north) -- (lis3dh.north |- 0,5.5);
-        \draw (lis3dh.south) -- (lis3dh.south |- 0,0.5);
+        \node (lis3dh) [dipchip, num pins=8, external pins width=0.3] at (9,4.5) {LIS3DH};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 1) {CS};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 2) {SDO};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 3) {SDI};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 4) {SCL};
+        \node[anchor=west, scale=0.7] at (lis3dh.pin 5) {GND};
+        \node[anchor=west, scale=0.7] at (lis3dh.pin 6) {Vdd};
+        
+        \draw (3,2.5) -- (7.5, 2.5) |- (lis3dh.pin 1); % CS
+        \draw (lis3dh.pin 2) -| (3,4); % MISO
+        \draw (3,4.5) -| (lis3dh.pin 3); % MOSI
+        \draw (3,3.5) -| (lis3dh.pin 4); % SCLK
+        \draw (lis3dh.pin 6) |- (11,5.5); % VDD
+        \draw (lis3dh.pin 5) |- (9,0.5); % GND
     \end{circuitikz}
     \caption{演習(2)の回路図}
     \label{fig:circuit2}
@@ -288,50 +301,63 @@ SPIバスを共有しながら、CE0とCE1を切り替えることで2つの異�
     \centering
     \begin{circuitikz}[american, scale=0.9, every node/.style={scale=0.8}]
         % Raspberry Pi
-        \draw[thick] (0,0) rectangle (3,6.5);
-        \node[font=\bfseries] at (1.5,6.8) {Raspberry Pi 4B};
-        \node[anchor=east] at (0,6) {+3.3V};
-        \node[anchor=east] at (0,5) {MOSI};
-        \node[anchor=east] at (0,4.5) {MISO};
-        \node[anchor=east] at (0,4) {SCLK};
-        \node[anchor=east] at (0,3.5) {CE0};
-        \node[anchor=east] at (0,3) {CE1};
-        \node[anchor=east] at (0,2) {GPIO21};
-        \node[anchor=east] at (0,0.5) {GND};
+        \draw[thick] (0,0) rectangle (3,7);
+        \node[font=\bfseries] at (1.5,7.3) {\textbf{Raspberry Pi 4B}};
+        \node[anchor=west] at (0,6.5) {+3.3V}; \node[anchor=east] at (0.1, 6.5) {Pin 1};
+        \node[anchor=west] at (0,5.5) {MOSI}; \node[anchor=east] at (0.1, 5.5) {Pin 19};
+        \node[anchor=west] at (0,5) {MISO}; \node[anchor=east] at (0.1, 5) {Pin 21};
+        \node[anchor=west] at (0,4.5) {SCLK}; \node[anchor=east] at (0.1, 4.5) {Pin 23};
+        \node[anchor=west] at (0,4) {CE0}; \node[anchor=east] at (0.1, 4) {Pin 24};
+        \node[anchor=west] at (0,3.5) {CE1}; \node[anchor=east] at (0.1, 3.5) {Pin 26};
+        \node[anchor=west] at (0,3) {GPIO21}; \node[anchor=east] at (0.1, 3) {Pin 40};
+        \node[anchor=west] at (0,0.5) {GND}; \node[anchor=east] at (0.1, 0.5) {Pin 6};
         
         % Power lines
-        \draw[red, thick] (3,6) -- (12,6) node[above] {+3.3V};
-        \draw[black, thick] (3,0.5) -- (12,0.5) node[below] {GND};
+        \draw[red, thick] (3,6.5) -- (12,6.5) node[above,pos=0.5] {+3.3V};
+        \draw[black, thick] (3,0.5) -- (12,0.5) node[below,pos=0.5] {GND};
 
         % LED
-        \draw (3,2) to[short] (4,2) to[R, l=330$\Omega$] (4,1) to[led, l=LED] (4,0.5);
+        \draw (3,3) -- (4,3) to[R, l=330$\Omega$] (4,1.5) to[led, l=LED] (4,0.5);
 
         % MCP3002 (SPI CE0)
-        \draw (6,2.5) node[draw, rectangle, minimum width=1.5cm, minimum height=1cm] (mcp3002) {};
-        \node at (6.75,3.2) {MCP3002};
-        \draw (3,3.5) -- (mcp3002.west |- 0,3.5); % CE0
-        \draw (3,4.5) -- (mcp3002.west |- 0,4.5); % MISO
-        \draw (3,5) -- (mcp3002.west |- 0,5); % MOSI
-        \draw (3,4) -- (mcp3002.west |- 0,4); % SCLK
-        \draw (mcp3002.north) -- (mcp3002.north |- 0,6);
-        \draw (mcp3002.south) -- (mcp3002.south |- 0,0.5);
+        \node (mcp3002) [dipchip, num pins=8, external pins width=0.3] at (7,2.5) {MCP3002};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 1) {CS/SHDN};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 2) {CH0};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 3) {CH1};
+        \node[anchor=east, scale=0.7] at (mcp3002.pin 4) {$V_{SS}$/GND};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 5) {$D_{IN}$/SDI};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 6) {$D_{OUT}$/SDO};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 7) {CLK};
+        \node[anchor=west, scale=0.7] at (mcp3002.pin 8) {$V_{DD}$/$V_{REF}$};
+        \draw (3,4) -- (5.5, 4) |- (mcp3002.pin 1); % CS
+        \draw (3,5.5) -- (mcp3002.pin 5); % MOSI
+        \draw (3,5) -- (mcp3002.pin 6); % MISO
+        \draw (3,4.5) -- (mcp3002.pin 7); % SCLK
+        \draw (mcp3002.pin 8) |- (11,6.5); % VDD
+        \draw (mcp3002.pin 4) |- (7,0.5); % GND
 
         % LM35DZ
-        \draw (8,2) node[op amp, noinv input up] (lm35dz) {};
-        \node at (8,3) {LM35DZ};
-        \draw (lm35dz.out) -- (mcp3002.east);
-        \draw (lm35dz.up) -- (8,6);
-        \draw (lm35dz.down) -- (8,0.5);
+        \node (lm35dz) [op amp, noinv input up] at (10,2.5) {};
+        \node at (9,3.5) {LM35DZ};
+        \draw (lm35dz.out) -- (mcp3002.pin 2);
+        \draw (lm35dz.+) |- (11,6.5);
+        \draw (lm35dz.-) |- (10,0.5);
 
         % LIS3DH (SPI CE1)
-        \draw (10,4.5) node[draw, rectangle, minimum width=1.5cm, minimum height=1cm] (lis3dh) {};
-        \node at (10.75,5.2) {LIS3DH};
-        \draw (3,3) -- (lis3dh.west |- 0,3); % CE1
-        \draw (3,4.5) -- (lis3dh.west |- 0,4.5); % MISO
-        \draw (3,5) -- (lis3dh.west |- 0,5); % MOSI
-        \draw (3,4) -- (lis3dh.west |- 0,4); % SCLK
-        \draw (lis3dh.north) -- (lis3dh.north |- 0,6);
-        \draw (lis3dh.south) -- (lis3dh.south |- 0,0.5);
+        \node (lis3dh) [dipchip, num pins=8, external pins width=0.3] at (10,5) {LIS3DH};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 1) {CS};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 2) {SDO};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 3) {SDI};
+        \node[anchor=east, scale=0.7] at (lis3dh.pin 4) {SCL};
+        \node[anchor=west, scale=0.7] at (lis3dh.pin 5) {GND};
+        \node[anchor=west, scale=0.7] at (lis3dh.pin 6) {Vdd};
+        
+        \draw (3,3.5) -- (8.5, 3.5) |- (lis3dh.pin 1); % CS
+        \draw (lis3dh.pin 2) -| (3,5); % MISO
+        \draw (3,5.5) -| (lis3dh.pin 3); % MOSI
+        \draw (3,4.5) -| (lis3dh.pin 4); % SCLK
+        \draw (lis3dh.pin 6) |- (11,6.5); % VDD
+        \draw (lis3dh.pin 5) |- (10,0.5); % GND
     \end{circuitikz}
     \caption{演習(3)の回路図}
     \label{fig:circuit3}
@@ -415,3 +441,60 @@ D_{ADT} = \frac{-10 \text{°C}}{0.0625 \text{°C/LSB}} = -160
 \lstinputlisting[label=Python3, caption=exam9-3.py]{C:/Program_Code/Python/BuiltIn/9/exam9-3.py}
 
 \end{document}
+
+</file_content>
+
+Now that you have the latest state of the file, try the operation again with fewer, more precise SEARCH blocks. For large files especially, it may be prudent to try to limit yourself to <5 SEARCH/REPLACE blocks at a time, then wait for the user to respond with the result of the operation before following up with another replace_in_file call to make additional edits.
+(If you run into this error 3 times in a row, you may use the write_to_file tool as a fallback.)
+</error><environment_details>
+# VSCode Visible Files
+LaTeX/BuiltIn/exam9/21t2166d.tex
+
+# VSCode Open Tabs
+Python/BuiltIn/7/exam7-1.py
+Python/BuiltIn/7/exam7-3.py
+LaTeX/BuiltIn/exam6/21t2166d.tex
+LaTeX/BuiltIn/exam5/21t2166d.tex
+LaTeX/BuiltIn/exam5/out/21t2166d.pdf
+LaTeX/BuiltIn/exam9/img/9-3.png
+LaTeX/BuiltIn/exam9/img/9-2.png
+LaTeX/BuiltIn/exam9/img/9-1.png
+LaTeX/BuiltIn/exam5/image.png
+LaTeX/BuiltIn/exam5/PXL_20250522_073718088.jpg
+LaTeX/BuiltIn/exam6/out/21t2166d.pdf
+LaTeX/NumMeth/3/NumMeth_class3.tex
+LaTeX/NumMeth/4/NumMeth_class4.tex
+LaTeX/BuiltIn/exam9/out/21t2166d.log
+Python/BuiltIn/9/exam9-3.py
+Python/BuiltIn/9/exam9-2.py
+LaTeX/BuiltIn/exam9/21t2166d.tex
+Python/BuiltIn/9/exam9-1.py
+LaTeX/BuiltIn/exam8/out/21t2166d.log
+Python/BuiltIn/8/exam8-2.py
+LaTeX/BuiltIn/exam8/image.png
+LaTeX/BuiltIn/exam7/out/21t2166d.log
+LaTeX/BuiltIn/exam7/slide_summary.md
+LaTeX/BuiltIn/exam7/slide.pdf
+LaTeX/BuiltIn/exam5/out/21t2166d.pdf
+LaTeX/BuiltIn/exam9/out/21t2166d.pdf
+LaTeX/BuiltIn/exam5/21t2166d.tex
+LaTeX/BuiltIn/exam8/21t2166d.tex
+LaTeX/BuiltIn/exam8/out/21t2166d.pdf
+
+# Actively Running Terminals
+## Original command: `cd "LaTeX/BuiltIn/exam9"; c:/texlive/2023/bin/windows/platex.exe 21t2166d.tex; c:/texlive/2023/bin/windows/dvipdfmx.exe 21t2166d.dvi`
+
+# Recently Modified Files
+These files have been modified since you last accessed them (file was just edited so you may need to re-read it before editing):
+LaTeX/BuiltIn/exam9/out/21t2166d.log
+LaTeX/BuiltIn/exam9/21t2166d.tex
+
+# Current Time
+2025/6/19 午後11:16:18 (Asia/Tokyo, UTC+9:00)
+
+# Context Window Usage
+386,268 / 1,048.576K tokens used (37%)
+
+# Current Mode
+ACT MODE
+</environment_details>
