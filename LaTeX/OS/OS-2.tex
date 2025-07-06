@@ -1,0 +1,371 @@
+\documentclass[a4paper,11pt,dvipdfmx]{jsarticle}
+
+
+% 数式
+\usepackage{amsmath,amsfonts}
+\usepackage{bm}
+
+% 画像
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{framed}
+
+% 図形
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary {shapes.misc}
+
+% ソースコード
+\usepackage{listings,jlisting,color}
+\lstset{
+language=C,
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+
+\begin{document}
+\definecolor{shadecolor}{gray}{0.70}
+
+\title{OS課題レポート 2}
+\author{21T2166D 渡辺大樹}
+\date{\today}
+\maketitle
+
+\section{演習資料 5}
+
+\subsection{演習1: catコマンドの実装(標準I/O)}
+資料に示された標準Cライブラリ関数を用いたcatコマンドのソースコードをコンパイルし、実行した。
+
+\begin{lstlisting}[caption={catstd.c}, label=lst:catstd]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    int i;
+    for (i = 1; i < argc; i++) {
+        FILE *f;
+        int c;
+        f = fopen(argv[i], "r");
+        if (f == 0) {
+            perror(argv[i]);
+            exit(1);
+        }
+        while ((c = fgetc(f)) != EOF) {
+            if (putchar(c) < 0)
+                exit(1);
+        }
+        fclose(f);
+    }
+    exit(0);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={コンパイルと実行}]
+$ cc -o catstd catstd.c
+$ ./catstd catstd.c
+\end{lstlisting}
+実行結果として、`catstd.c`自身のソースコードが表示された。これはcatコマンドの挙動として正しく、想定通りの結果となった。
+
+\subsection{演習2: catコマンドの実装(低レベルI/O)}
+次に、システムコールを用いたcatコマンドのソースコードをコンパイルし、実行した。
+
+\begin{lstlisting}[caption={catsys.c}, label=lst:catsys]
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#define BUFFER_SIZE 2048
+#define TRUE 1
+
+void docat(const char *path);
+
+int main(int argc, char *argv[]) {
+    int i;
+    for (i = 1; i < argc; i++) {
+        docat(argv[i]);
+    }
+    exit(0);
+}
+
+void docat(const char *path) {
+    int fd;
+    unsigned char buf[BUFFER_SIZE];
+    int n;
+
+    fd = open(path, O_RDONLY);
+    if (fd < 0) {
+        perror(path);
+        exit(1);
+    }
+    printf("current fd=%d\n", fd);
+    while (TRUE) {
+        n = read(fd, buf, sizeof buf);
+        if (n < 0) {
+            perror(path);
+            exit(1);
+        }
+        if (n == 0) {
+            break;
+        }
+        if (write(STDOUT_FILENO, buf, n) < 0) {
+            perror(path);
+            exit(1);
+        }
+    }
+    if (close(fd) < 0) {
+        perror(path);
+        exit(1);
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={コンパイルと実行}]
+$ cc -o catsys catsys.c
+$ ./catsys catsys.c
+\end{lstlisting}
+実行結果として、ファイルディスクリプタの値（`current fd=3`）とソースコードが表示された。標準入出力(0, 1, 2)以外のディスクリプタが割り当てられており、想定通りの結果となった。
+
+\subsection{演習3: Makefileの利用}
+ソースコードを`catmain.c`と`catsub.c`に分割し、`Makefile`を用いてビルドを行った。
+
+\begin{lstlisting}[caption={Makefile}, label=lst:makefile1]
+cat: catmain.o catsub.o
+	cc -o cat catmain.o catsub.o
+catmain.o: catmain.c
+	cc -c catmain.c
+catsub.o: catsub.c
+	cc -c catsub.c
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={makeの実行}]
+$ make
+cc -c catmain.c
+cc -c catsub.c
+cc -o cat catmain.o catsub.o
+\end{lstlisting}
+`make`コマンドにより、依存関係に従ってコンパイルとリンクが自動的に行われた。
+
+次に`touch`コマンドで`catsub.c`のタイムスタンプを更新し、再度`make`を実行した。
+\begin{lstlisting}[language=bash, caption={touchとmakeの再実行}]
+$ touch catsub.c
+$ make
+cc -c catsub.c
+cc -o cat catmain.o catsub.o
+\end{lstlisting}
+\subsubsection{考察}
+`catsub.c`のみが更新されたため、`make`は`catsub.c`のコンパイルと、最終的な実行ファイル`cat`のリンクのみを行った。`catmain.c`は変更されていないため、再コンパイルは行われなかった。これにより、`make`がファイルのタイムスタンプを元に、必要な処理のみを実行する効率的なビルドツールであることが確認できた。
+
+\subsection{演習4: gdbによるデバッグ}
+`-g`オプションを付けてデバッグ情報を付与してコンパイルし、`gdb`でデバッグを行った。
+
+\begin{lstlisting}[caption={Makefile (デバッグ用)}, label=lst:makefile2]
+cat: catmain.o catsub.o
+	cc -o cat catmain.o catsub.o
+catmain.o: catmain.c
+	cc -c -g catmain.c
+catsub.o: catsub.c
+	cc -c -g catsub.c
+clean:
+	/bin/rm cat catmain.o catsub.o
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={gdbの実行}]
+$ make clean
+$ make
+$ gdb ./cat
+(gdb) b docat
+Breakpoint 1 at 0x11c9: file catsub.c, line 18.
+(gdb) run catsub.c
+Starting program: /path/to/cat catsub.c
+current fd=3
+
+Breakpoint 1, docat (path=0x7fffffffe4b9 "catsub.c") at catsub.c:18
+18	    fd = open(path, O_RDONLY);
+(gdb) s
+23	    printf("current fd=%d\n", fd);
+(gdb) p path
+$1 = 0x7fffffffe4b9 "catsub.c"
+(gdb) quit
+\end{lstlisting}
+\subsubsection{考察}
+`gdb`を用いて、指定した関数(`docat`)でプログラムを停止させたり、ステップ実行(`s`)で1行ずつ処理を進めたり、変数(`path`)の内容を確認したりすることができた。これにより、プログラムの動作を詳細に追跡し、問題を発見・修正するデバッグ作業が可能になることがわかった。
+
+\section{演習資料 6}
+
+\subsection{演習1: forkによるプロセス生成とゾンビプロセス}
+`fork`で子プロセスを生成し、親プロセスが`waitpid`を呼ばずに終了するプログラムを実行した。
+\begin{lstlisting}[caption={fork\_zombie.c}, label=lst:fork_zombie]
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(int argc, char *argv[]) {
+    int pid;
+    if ((pid = fork()) < 0) {
+        perror("fork was failed");
+        exit(1);
+    }
+    if (pid == 0) { 
+        printf("I am a child\n");
+        printf("My process id is %d.\n", getpid());
+        exit(0);
+    } else { 
+        printf("I am the parent.\n");
+        sleep(10); 
+        exit(0);
+    }
+}
+\end{lstlisting}
+実行中に`ps`コマンドでプロセスの状態を確認した。
+\begin{lstlisting}[language=bash, caption={実行とpsコマンド}]
+$ cc -o fork_zombie fork_zombie.c
+$ ./fork_zombie &
+[1] 12345
+I am the parent.
+I am a child
+My process id is 12346.
+$ ps aj
+  PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
+...
+ 12345 12346 12345 12345 pts/0    12345 Z+       0   0:00 [fork_zombie] <defunct>
+...
+\end{lstlisting}
+\subsubsection{考察}
+子プロセスは先に終了したが、親プロセスが`waitpid`で終了ステータスを回収しなかったため、子プロセスは終了処理を完了できず「ゾンビプロセス」(`Z+`, `<defunct>`)となった。これは、OSが子プロセスの終了情報を親プロセスが受け取るまで保持し続けるために発生する。親プロセスが終了すると、ゾンビプロセスはinitプロセスに引き取られて消滅する。
+
+\subsection{演習2: forkとexecによる別プログラムの実行}
+`fork`で生成した子プロセスで`exec`システムコールを呼び出し、`ls -la`コマンドを実行した。
+\begin{lstlisting}[caption={fork\_exec.c}, label=lst:fork_exec]
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(int argc, char *argv[]) {
+    int pid;
+    if ((pid = fork()) < 0) {
+        perror("fork was failed");
+        exit(1);
+    }
+    if (pid == 0) { 
+        printf("(c) I am a child.\n");
+        printf("(c) I will be ls command!\n");
+        execl("/bin/ls", "ls", "-la", NULL);
+        perror("exec was failed"); 
+        exit(1);
+    } else { 
+        printf("(p) I am the parent.\n");
+        int status;
+        waitpid(pid, &status, 0);
+        printf("(p) I will terminate myself.\n");
+        exit(0);
+    }
+}
+\end{lstlisting}
+\subsubsection{考察}
+実行すると、子プロセスが`execl`を呼び出した時点で、自身のプロセスイメージが`/bin/ls`に置き換えられ、`ls -la`の実行結果が表示された。`execl`が成功すると、それ以降の子プロセスのコード(e.g., `perror`)は実行されない。これにより、`fork`と`exec`を組み合わせることで、現在のプロセスから新しいプログラムを起動するという、シェルの基本的な機能が実現できることがわかった。
+
+\subsection{演習3: pipeによる単方向通信}
+`pipe`を用いて`ls -lR . | grep "file"`と同様の処理を行うプログラムを実行した。
+\begin{lstlisting}[caption={pipe\_oneway.c}, label=lst:pipe_oneway]
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+void die(const char s[]) {
+    perror(s);
+    exit(1);
+}
+
+int main(int argc, char *argv[]) {
+    int pid;
+    int fds[2];
+
+    if (argc < 2) {
+        fprintf(stderr, "usage: %s file\n", argv[0]);
+        exit(1);
+    }
+    if (pipe(fds) < 0) {
+        die("I cannot make a pipe");
+    }
+    if ((pid = fork()) < 0) {
+        die("fork was failed");
+    }
+    if (pid == 0) {
+        close(0);
+        dup2(fds[0], 0);
+        close(fds[0]);
+        close(fds[1]);
+        execl("/bin/grep", "grep", argv[1], NULL);
+        die("exec was failed");
+    } else {
+        close(1);
+        dup2(fds[1], 1);
+        close(fds[0]);
+        close(fds[1]);
+        execl("/bin/ls", "ls", "-lR", ".", NULL);
+        die("exec was failed");
+    }
+}
+\end{lstlisting}
+\subsubsection{考察}
+親プロセス(`ls`)の標準出力(fd=1)をパイプの書き込み口(`fds[1]`)に、子プロセス(`grep`)の標準入力(fd=0)をパイプの読み込み口(`fds[0]`)に`dup2`で接続することで、プロセス間のデータ連携が実現できた。不要なディスクリプタを`close`することが、意図しない動作を防ぐために重要である。シェルのパイプライン機能が、これらのシステムコールによって実現されていることが深く理解できた。
+
+\subsection{演習4: pipeによる双方向通信}
+2組のパイプを用いて、親プロセスと子プロセス(`bc`)が双方向通信を行うプログラムを実行した。
+\begin{lstlisting}[caption={pipe\_twoway.c}, label=lst:pipe_twoway]
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void) {
+    int pid;
+    int c2p[2], p2c[2]; 
+
+    pipe(c2p);
+    pipe(p2c);
+
+    if ((pid = fork()) == 0) { 
+        close(0); dup2(p2c[0], 0);
+        close(1); dup2(c2p[1], 1);
+        close(p2c[0]); close(p2c[1]);
+        close(c2p[0]); close(c2p[1]);
+        execl("/usr/bin/bc", "bc", "-lq", NULL);
+        exit(1);
+    }
+    close(p2c[0]); close(c2p[1]);
+    FILE *out = fdopen(p2c[1], "w"); 
+    FILE *in = fdopen(c2p[0], "r"); 
+
+    fprintf(out, "s(1.0)\n");
+    fflush(out);
+    char buf[256];
+    fgets(buf, sizeof(buf), in);
+    printf("sin(1.0) = %s", buf);
+
+    wait(NULL);
+    exit(0);
+}
+\end{lstlisting}
+\subsubsection{考察}
+2組のパイプを用意し、一方は親から子へ、もう一方は子から親への通信路として使用することで、双方向の対話的な処理が実現できた。親プロセスは`bc`に計算式を送り、`bc`から計算結果を受け取ることができた。`fdopen`を用いてファイルディスクリプタを`FILE*`ストリームとして扱うことで、`fprintf`や`fgets`といった高水準なI/O関数が利用でき、実装が容易になる点も確認できた。
+
+\end{document}
